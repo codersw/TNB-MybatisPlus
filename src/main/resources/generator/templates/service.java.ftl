@@ -2,8 +2,8 @@ package ${package.Service};
 
 import ${package.Entity}.${entity};
 import ${superServiceClassPackage};
-import com.mango.require.model.common.PageRequest;
-import com.mango.require.model.common.PageResponse;
+import ${package.Entity}.common.PageRequest;
+import ${package.Entity}.common.PageResponse;
 
 /**
  * <p>

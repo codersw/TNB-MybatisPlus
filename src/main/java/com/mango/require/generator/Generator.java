@@ -115,6 +115,8 @@ public class Generator {
         strategy.setRestControllerStyle(true);
         //驼峰转连字符
         strategy.setControllerMappingHyphenStyle(true);
+        //逻辑删除字段
+        strategy.setLogicDeleteFieldName("is_del");
         //表名前缀
         List<String> tables = Arrays.asList(strategy.getInclude());
         strategy.setTablePrefix(tables.stream().map(table -> table.split("_")[0]).toArray(String[]::new));

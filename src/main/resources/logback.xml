@@ -44,7 +44,7 @@
         <appender-ref ref="STDOUT" />
         <!--<appender-ref ref="FILE" />-->
     </root>
-    <logger name="com.baomidou.mybatisplus.generator" level="DEBUG">
+    <logger name="com.baomidou.mybatisplus.generator" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
 </configuration>

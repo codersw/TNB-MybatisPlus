@@ -7,8 +7,7 @@ import io.swagger.annotations.ApiOperation;
 <#if entityLombokModel>
 import lombok.extern.slf4j.Slf4j;
 </#if>
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 <#if restControllerStyle>
 import org.springframework.web.bind.annotation.RestController;
 <#else>
@@ -18,10 +17,10 @@ import org.springframework.stereotype.Controller;
 import ${superControllerClassPackage};
 </#if>
 import ${package.Service}.${table.serviceName};
-import com.mango.require.model.${entity};
-import com.mango.require.model.common.PageRequest;
-import com.mango.require.model.common.Result;
-import com.mango.require.model.common.ResultGenerator;
+import ${package.Entity}.${entity};
+import ${package.Entity}.common.PageRequest;
+import ${package.Entity}.common.Result;
+import ${package.Entity}.common.ResultGenerator;
 import javax.annotation.Resource;
 
 /**
@@ -57,15 +56,59 @@ public class ${table.controllerName} {
      private ${table.serviceName} ${table.serviceName?replace("I","")?uncap_first};
 
      /**
-     * ${table.comment!}列表
-     * @param ${entity?uncap_first} ${table.comment!}
-     * @param pageRequest 分页参数
-     * @return Result
-     */
+      * ${table.comment!}列表
+      * @param ${entity?uncap_first} ${table.comment!}
+      * @param pageRequest 分页参数
+      * @return Result
+      */
      @ApiOperation(value = "${table.comment!}列表", notes = "${table.comment!}列表")
      @GetMapping("/list")
      public Result list(${entity} ${entity?uncap_first}, PageRequest pageRequest) {
         return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.${entity?uncap_first}List(${entity?uncap_first}, pageRequest));
+     }
+
+     /**
+      * ${table.comment!}新增
+      * @param ${entity?uncap_first} ${table.comment!}
+      * @return Result
+      */
+     @ApiOperation(value = "${table.comment!}新增", notes = "${table.comment!}新增")
+     @PostMapping("/add")
+     public Result add(${entity} ${entity?uncap_first}) {
+        return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.save(${entity?uncap_first}));
+     }
+
+     /**
+      * ${table.comment!}删除
+      * @param id ${entity?uncap_first}主键
+      * @return Result
+      */
+     @ApiOperation(value = "${table.comment!}删除", notes = "${table.comment!}删除")
+     @DeleteMapping("/{id}")
+     public Result delete(@PathVariable Integer id) {
+        return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.removeById(id));
+     }
+
+     /**
+      * ${table.comment!}修改
+      * @param ${entity?uncap_first} ${table.comment!}
+      * @return Result
+      */
+     @ApiOperation(value = "${table.comment!}修改", notes = "${table.comment!}修改")
+     @PostMapping("/update")
+     public Result update(${entity} ${entity?uncap_first}) {
+        return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.updateById(${entity?uncap_first}));
+     }
+
+     /**
+      * ${table.comment!}详情
+      * @param id ${entity?uncap_first}主键
+      * @return Result
+      */
+     @ApiOperation(value = "${table.comment!}详情", notes = "${table.comment!}详情")
+     @GetMapping("/{id}")
+     public Result detail(@PathVariable Integer id) {
+        return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.getById(id));
      }
 }
 </#if>
