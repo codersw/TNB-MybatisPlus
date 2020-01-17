@@ -84,7 +84,7 @@ public class ${table.controllerName} {
 
      /**
       * ${table.comment!}删除
-      * @param id ${entity?uncap_first}主键
+      * @param id ${table.comment!}主键
       * @return Result
       */
      @ApiOperation(value = "${table.comment!}删除", notes = "${table.comment!}删除")
@@ -106,7 +106,7 @@ public class ${table.controllerName} {
 
      /**
       * ${table.comment!}详情
-      * @param id ${entity?uncap_first}主键
+      * @param id ${table.comment!}主键
       * @return Result
       */
      @ApiOperation(value = "${table.comment!}详情", notes = "${table.comment!}详情")
