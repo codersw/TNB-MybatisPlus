@@ -58,7 +58,7 @@ public class UserController {
 
      /**
       * 用户信息删除
-      * @param id user主键
+      * @param id 用户信息主键
       * @return Result
       */
      @ApiOperation(value = "用户信息删除", notes = "用户信息删除")
@@ -80,7 +80,7 @@ public class UserController {
 
      /**
       * 用户信息详情
-      * @param id user主键
+      * @param id 用户信息主键
       * @return Result
       */
      @ApiOperation(value = "用户信息详情", notes = "用户信息详情")
