@@ -1,0 +1,20 @@
+
+   mmmmmmm    mmmmmmm     aaaaaaaaaaaaa  nnnn  nnnnnnnn       ggggggggg   ggggg   ooooooooooo
+ mm:::::::m  m:::::::mm   a::::::::::::a n:::nn::::::::nn    g:::::::::ggg::::g oo:::::::::::oo
+m::::::::::mm::::::::::m  aaaaaaaaa:::::an::::::::::::::nn  g:::::::::::::::::go:::::::::::::::o
+m::::::::::::::::::::::m           a::::ann:::::::::::::::ng::::::ggggg::::::ggo:::::ooooo:::::o
+m:::::mmm::::::mmm:::::m    aaaaaaa:::::a  n:::::nnnn:::::ng:::::g     g:::::g o::::o     o::::o
+m::::m   m::::m   m::::m  aa::::::::::::a  n::::n    n::::ng:::::g     g:::::g o::::o     o::::o
+m::::m   m::::m   m::::m a::::aaaa::::::a  n::::n    n::::ng:::::g     g:::::g o::::o     o::::o
+m::::m   m::::m   m::::ma::::a    a:::::a  n::::n    n::::ng::::::g    g:::::g o::::o     o::::o
+m::::m   m::::m   m::::ma::::a    a:::::a  n::::n    n::::ng:::::::ggggg:::::g o:::::ooooo:::::o
+m::::m   m::::m   m::::ma:::::aaaa::::::a  n::::n    n::::n g::::::::::::::::g o:::::::::::::::o
+m::::m   m::::m   m::::m a::::::::::aa:::a n::::n    n::::n  gg::::::::::::::g  oo:::::::::::oo
+mmmmmm   mmmmmm   mmmmmm  aaaaaaaaaa  aaaa nnnnnn    nnnnnn    gggggggg::::::g    ooooooooooo
+                                                                       g:::::g
+                                                           gggggg      g:::::g
+                                                           g:::::gg   gg:::::g
+                                                            g::::::ggg:::::::g
+                                                             gg:::::::::::::g
+                                                               ggg::::::ggg
+                                                                  gggggg
