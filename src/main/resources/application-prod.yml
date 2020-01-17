@@ -1,1 +1,42 @@
-
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.zaxxer.hikari.HikariDataSource
+    name: require
+    username: root
+    password: 123456
+    url: jdbc:mysql://localhost:3306/require?useUnicode=true&characterEncoding=UTF-8&autoReconnect=true&failOverReadOnly=false&maxReconnects=15000&allowMultiQueries=true&useSSL=false
+    hikari:
+      minimum-idle: 10
+      maximum-pool-size: 25
+      auto-commit: true
+      idle-timeout: 30000
+      pool-name: ExpendHikariCP
+      max-lifetime: 1800000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+  main:
+    allow-bean-definition-overriding: true #当遇到同样名字的bean的时候，是否允许覆盖注册到容器
+  thymeleaf:
+    cache: false
+  aop:
+    proxy-target-class: true
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+  resources:
+    static-locations: file:${web.upload-path}
+#文件存放路径
+web:
+  upload-path: D:/upload/
+#此配置开启mybatis sql打印
+logging:
+  level:
+    com:
+      mango:
+        require:
+          mapper: debug

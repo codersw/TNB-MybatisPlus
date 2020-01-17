@@ -28,6 +28,11 @@ spring:
   jackson:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
+  resources:
+    static-locations: file:${web.upload-path}
+#文件存放路径
+web:
+  upload-path: D:/upload/
 #此配置开启mybatis sql打印
 logging:
   level:
