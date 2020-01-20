@@ -1,10 +1,8 @@
 package com.mango.require.model;
 
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
+
 import java.util.Date;
-import com.baomidou.mybatisplus.annotation.TableId;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -32,7 +30,7 @@ public class UploadFile implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "文件id")
-    @TableId("file_id")
+    @TableId(value = "file_id", type = IdType.AUTO)
     private Integer fileId;
 
     @ApiModelProperty(value = "文件类型")

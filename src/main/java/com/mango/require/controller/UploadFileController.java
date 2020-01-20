@@ -2,18 +2,13 @@ package com.mango.require.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import com.mango.require.service.IUploadFileService;
 import com.mango.require.model.UploadFile;
@@ -21,6 +16,8 @@ import com.mango.require.model.common.PageRequest;
 import com.mango.require.model.common.Result;
 import com.mango.require.model.common.ResultGenerator;
 import com.mango.require.model.common.PageResponse;
+import org.springframework.web.multipart.MultipartFile;
+
 import javax.annotation.Resource;
 
 /**
@@ -34,7 +31,7 @@ import javax.annotation.Resource;
 @Api(value = "文件信息接口", tags = {"文件信息接口"})
 @Slf4j
 @RestController
-@RequestMapping("/upload-file")
+@RequestMapping("/upload")
 public class UploadFileController {
 
      @Resource
@@ -47,7 +44,7 @@ public class UploadFileController {
       * @return Result
       */
      @ApiOperation(value = "文件信息列表", notes = "文件信息列表")
-     @PreAuthorize("hasAuthority('uploadFile:view')")
+     @PreAuthorize("hasAuthority('upload:view')")
      @GetMapping
      public Result list(UploadFile uploadFile, PageRequest pageRequest) {
           QueryWrapper<UploadFile> queryWrapper = new QueryWrapper<>();
@@ -64,14 +61,14 @@ public class UploadFileController {
 
      /**
       * 文件信息新增
-      * @param uploadFile 文件信息
+      * @param file 文件
       * @return Result
       */
      @ApiOperation(value = "文件信息新增", notes = "文件信息新增")
-     @PreAuthorize("hasAuthority('uploadFile:add')")
-     @PostMapping
-     public Result add(UploadFile uploadFile) {
-          return ResultGenerator.genSuccessResult(uploadFileService.save(uploadFile));
+     @PreAuthorize("hasAuthority('upload:add')")
+     @PostMapping(headers = "content-type=multipart/form-data")
+     public Result add(@ApiParam(value = "文件", required = true) @RequestParam MultipartFile file) throws Exception {
+          return ResultGenerator.genSuccessResult(uploadFileService.save(file));
      }
 
      /**
@@ -80,7 +77,7 @@ public class UploadFileController {
       * @return Result
       */
      @ApiOperation(value = "文件信息删除", notes = "文件信息删除")
-     @PreAuthorize("hasAuthority('uploadFile:delete')")
+     @PreAuthorize("hasAuthority('upload:delete')")
      @DeleteMapping("/{id: \\d+}")
      public Result delete(@PathVariable Integer id) {
           return ResultGenerator.genSuccessResult(uploadFileService.removeById(id));
@@ -92,7 +89,7 @@ public class UploadFileController {
       * @return Result
       */
      @ApiOperation(value = "文件信息修改", notes = "文件信息修改")
-     @PreAuthorize("hasAuthority('uploadFile:update')")
+     @PreAuthorize("hasAuthority('upload:update')")
      @PutMapping
      public Result update(UploadFile uploadFile) {
           return ResultGenerator.genSuccessResult(uploadFileService.updateById(uploadFile));
@@ -104,7 +101,7 @@ public class UploadFileController {
       * @return Result
       */
      @ApiOperation(value = "文件信息详情", notes = "文件信息详情")
-     @PreAuthorize("hasAuthority('uploadFile:view')")
+     @PreAuthorize("hasAuthority('upload:view')")
      @GetMapping("/{id: \\d+}")
      public Result detail(@PathVariable Integer id) {
           return ResultGenerator.genSuccessResult(uploadFileService.getById(id));
