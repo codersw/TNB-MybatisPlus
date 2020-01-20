@@ -42,9 +42,6 @@ logging:
       mango:
         require:
           mapper: debug
-#mybatis-plus枚举扫秒
-mybatis-plus:
-  typeEnumsPackage: com.mango.require.enums
 keycloak:
   auth-server-url: https://keycloaksso.517api.cn/auth/
   realm: test
