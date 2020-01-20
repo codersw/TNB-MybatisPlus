@@ -1,10 +1,13 @@
 package com.mango.require.enums;
 
+import lombok.Getter;
+
 /**
  * 响应值枚举
  * @author swen
  */
-public enum ResultCodeEnum implements BaseEnum {
+@Getter
+public enum ResultCodeEnum {
 
     SUCCESS(200,"成功"),
     FAIL(400,"失败"),
@@ -22,15 +25,4 @@ public enum ResultCodeEnum implements BaseEnum {
         this.value = value;
         this.name = name;
     }
-
-    @Override
-    public Integer getValue() {
-        return value;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
 }

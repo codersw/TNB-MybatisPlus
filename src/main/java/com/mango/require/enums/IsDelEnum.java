@@ -1,10 +1,14 @@
 package com.mango.require.enums;
 
+import com.baomidou.mybatisplus.annotation.EnumValue;
+import lombok.Getter;
+
 /**
  * 是否删除枚举
  * @author swen
  */
-public enum IsDelEnum implements BaseEnum {
+@Getter
+public enum IsDelEnum {
 
     FALSE(0,"未删除"),
     TRUE(1,"已删除");
@@ -15,16 +19,6 @@ public enum IsDelEnum implements BaseEnum {
     IsDelEnum(Integer value, String name){
         this.value = value;
         this.name = name;
-    }
-
-    @Override
-    public Integer getValue() {
-        return value;
-    }
-
-    @Override
-    public String getName() {
-        return name;
     }
 
 }
