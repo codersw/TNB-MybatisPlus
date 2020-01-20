@@ -1,10 +1,7 @@
 package com.mango.require.enums;
 
-import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.baomidou.mybatisplus.core.enums.IEnum;
-import com.fasterxml.jackson.annotation.JsonValue;
-import lombok.Getter;
 
+import lombok.Getter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,16 +12,13 @@ import java.util.Map;
  * @author swen
  */
 @Getter
-public enum StatusEnum implements IEnum<Integer> {
+public enum StatusEnum {
 
     INPLANNING(0,"规划中"),
     REALIZED(1,"已实现"),
     REJECTED(2,"已拒绝");
 
-    @EnumValue
     private Integer value;
-
-    @JsonValue
     private String name;
 
     StatusEnum(Integer value, String name) {

@@ -1,10 +1,6 @@
 package com.mango.require.enums;
 
-import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.baomidou.mybatisplus.core.enums.IEnum;
-import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,15 +11,12 @@ import java.util.Map;
  * @author swen
  */
 @Getter
-public enum UrgentEnum implements IEnum<Integer> {
+public enum UrgentEnum {
 
     EMERGENT(1,"紧急"),
     NOEMERGENT(0,"不紧急");
 
-    @EnumValue
     private Integer value;
-
-    @JsonValue
     private String name;
 
     UrgentEnum(Integer value, String name) {

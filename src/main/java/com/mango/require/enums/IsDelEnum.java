@@ -1,10 +1,6 @@
 package com.mango.require.enums;
 
-import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.baomidou.mybatisplus.core.enums.IEnum;
-import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,15 +11,12 @@ import java.util.Map;
  * @author swen
  */
 @Getter
-public enum IsDelEnum implements IEnum<Integer> {
+public enum IsDelEnum {
 
     FALSE(0,"未删除"),
     TRUE(1,"已删除");
 
-    @EnumValue
     private Integer value;
-
-    @JsonValue
     private String name;
 
     IsDelEnum(Integer value, String name){

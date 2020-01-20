@@ -1,7 +1,6 @@
 package com.mango.require.enums;
 
 import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,7 +11,7 @@ import java.util.Map;
  * @author swen
  */
 @Getter
-public enum PageEnum{
+public enum PageEnum {
 
     PAGE_INDEX(1,"page_index"),
     PAGE_SIZE(10,"page_size");

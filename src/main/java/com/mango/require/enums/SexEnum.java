@@ -1,9 +1,6 @@
 package com.mango.require.enums;
 
-import com.baomidou.mybatisplus.annotation.EnumValue;
-import com.baomidou.mybatisplus.core.enums.IEnum;
 import lombok.Getter;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -14,14 +11,12 @@ import java.util.Map;
  * @author swen
  */
 @Getter
-public enum SexEnum implements IEnum<Integer> {
+public enum SexEnum {
 
     MALE(1,"男"),
     FEMALE(0,"女");
 
-    @EnumValue
     private Integer value;
-
     private String name;
 
     SexEnum(Integer value, String name) {

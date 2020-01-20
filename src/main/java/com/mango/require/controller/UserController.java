@@ -52,7 +52,7 @@ public class UserController {
      public Result list(User user, PageRequest pageRequest) {
           QueryWrapper<User> queryWrapper = new QueryWrapper<>();
           //TODO 设置查询条件
-
+          queryWrapper.lambda().eq(User::getIsDel, user.getIsDel());
           //排序
           if(StringUtils.isNotBlank(pageRequest.getSortColumn())) {
                queryWrapper.orderBy(true, pageRequest.getSortAscend(), pageRequest.getSortColumn());
