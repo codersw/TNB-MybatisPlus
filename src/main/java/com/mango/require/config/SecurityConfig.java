@@ -49,7 +49,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
             .csrf()
             .disable()
             .authorizeRequests()
-            .antMatchers( "/", "/static/**").permitAll()
+            .antMatchers( "/").permitAll()
             .anyRequest().authenticated();
     }
 
