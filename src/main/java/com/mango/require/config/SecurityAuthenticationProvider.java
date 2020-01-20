@@ -1,6 +1,9 @@
 package com.mango.require.config;
 
 import com.alibaba.fastjson.JSONObject;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.mango.require.enums.IsDelEnum;
+import com.mango.require.model.User;
 import com.mango.require.service.IRoleService;
 import com.mango.require.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
@@ -48,6 +51,16 @@ public class SecurityAuthenticationProvider implements AuthenticationProvider {
         log.info(principal.getName());
         KeycloakSecurityContext context= account.getKeycloakSecurityContext();
         AccessToken accessToken = context.getToken();
+        String userName = accessToken.getPreferredUsername();
+        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(User::getUsername, userName).eq(User::getIsDel, IsDelEnum.FALSE);
+        User user = userService.getOne(queryWrapper);
+        if(user == null) {
+            user = User.builder()
+                    .username(userName)
+                    .build();
+            userService.save(user);
+        }
         List<GrantedAuthority> grantedAuthorities = null;
         return new KeycloakAuthenticationToken(account, accessToken.isActive(), mapAuthorities(grantedAuthorities));
     }
