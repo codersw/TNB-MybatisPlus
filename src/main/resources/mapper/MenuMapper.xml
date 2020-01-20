@@ -23,4 +23,15 @@
         menu_id, parent_id, menu_name, path, component, perms, icon, type, order_num, create_time, modify_time, is_del
     </sql>
 
+    <select id="getMenus" resultMap="BaseResultMap">
+        SELECT
+            t.*
+        FROM
+            t_menu t
+            INNER JOIN t_role_menu trm ON trm.menu_id = t.menu_id
+            AND t.is_del = 0
+            INNER JOIN t_user_role tur ON tur.role_id = trm.role_id
+            AND tur.user_id=#{userId}
+    </select>
+
 </mapper>

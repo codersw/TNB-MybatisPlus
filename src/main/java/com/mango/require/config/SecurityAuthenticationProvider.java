@@ -1,12 +1,15 @@
 package com.mango.require.config;
 
+import com.mango.require.mapper.MenuMapper;
 import com.mango.require.mapper.RoleMapper;
 import com.mango.require.mapper.UserMapper;
 import com.mango.require.mapper.UserRoleMapper;
+import com.mango.require.model.Menu;
 import com.mango.require.model.Role;
 import com.mango.require.model.User;
 import com.mango.require.model.UserRole;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.CollectionUtils;
 import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.adapters.springsecurity.account.SimpleKeycloakAccount;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
@@ -21,9 +24,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import java.util.*;
 
 @Slf4j
 @Component
@@ -34,6 +35,9 @@ public class SecurityAuthenticationProvider implements AuthenticationProvider {
 
     @Resource
     private RoleMapper roleMapper;
+
+    @Resource
+    private MenuMapper menuMapper;
 
     @Resource
     private UserRoleMapper userRoleMapper;
@@ -63,15 +67,17 @@ public class SecurityAuthenticationProvider implements AuthenticationProvider {
                     .build();
             userMapper.insert(user);
             UserRole userRole = UserRole.builder()
-                    .roleId(1)
+                    .roleId(2)
                     .userId(user.getUserId())
                     .build();
             userRoleMapper.insert(userRole);
         }
-        List<Role> roles = roleMapper.getRoles(user.getUserId());
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-        for (Role role : roles) {
-            grantedAuthorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+        List<Menu> menus = menuMapper.getMenus(user.getUserId());
+        Set<SimpleGrantedAuthority> grantedAuthorities = new HashSet<>();
+        if (CollectionUtils.isNotEmpty(menus)){
+            menus.forEach(p->{
+                grantedAuthorities.add(new SimpleGrantedAuthority(p.getPerms()));
+            });
         }
         return new KeycloakAuthenticationToken(account, accessToken.isActive(), mapAuthorities(grantedAuthorities));
     }

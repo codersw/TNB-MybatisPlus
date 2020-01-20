@@ -1,5 +1,6 @@
 package com.mango.require.config;
 
+import com.mango.require.service.impl.SecurityUserService;
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.keycloak.adapters.springsecurity.config.KeycloakWebSecurityConfigurerAdapter;
@@ -14,15 +15,20 @@ import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.RegistrationBean;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.authentication.session.RegisterSessionAuthenticationStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 
 import javax.annotation.Resource;
 
 @KeycloakConfiguration
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
     @Value("${web.anon-url}")
@@ -31,9 +37,17 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     @Resource
     private SecurityAuthenticationProvider authenticationProvider;
 
-    @Autowired
-    public void configureGlobal(AuthenticationManagerBuilder auth) {
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(userDetailsService());
         auth.authenticationProvider(authenticationProvider);
+    }
+
+
+    @Bean
+    @Override
+    public UserDetailsService userDetailsService() {
+        return new SecurityUserService();
     }
 
     @Bean
