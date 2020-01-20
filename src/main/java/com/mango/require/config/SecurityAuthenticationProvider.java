@@ -1,10 +1,11 @@
 package com.mango.require.config;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.mango.require.enums.IsDelEnum;
+import com.mango.require.mapper.RoleMapper;
+import com.mango.require.mapper.UserMapper;
+import com.mango.require.mapper.UserRoleMapper;
+import com.mango.require.model.Role;
 import com.mango.require.model.User;
-import com.mango.require.service.IRoleService;
-import com.mango.require.service.IUserService;
+import com.mango.require.model.UserRole;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.adapters.springsecurity.account.SimpleKeycloakAccount;
@@ -14,11 +15,13 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -27,10 +30,13 @@ import java.util.List;
 public class SecurityAuthenticationProvider implements AuthenticationProvider {
 
     @Resource
-    private IUserService userService;
+    private UserMapper userMapper;
 
     @Resource
-    private IRoleService roleService;
+    private RoleMapper roleMapper;
+
+    @Resource
+    private UserRoleMapper userRoleMapper;
 
     private GrantedAuthoritiesMapper grantedAuthoritiesMapper;
 
@@ -50,16 +56,23 @@ public class SecurityAuthenticationProvider implements AuthenticationProvider {
         KeycloakSecurityContext context= account.getKeycloakSecurityContext();
         AccessToken accessToken = context.getToken();
         String userName = accessToken.getPreferredUsername();
-        QueryWrapper<User> queryWrapper = new QueryWrapper<>();
-        queryWrapper.lambda().eq(User::getUsername, userName).eq(User::getIsDel, IsDelEnum.FALSE);
-        User user = userService.getOne(queryWrapper);
-        if(user == null) {
+        User user = userMapper.findByUserName(userName);
+        if(user == null){
             user = User.builder()
                     .username(userName)
                     .build();
-            userService.save(user);
+            userMapper.insert(user);
+            UserRole userRole = UserRole.builder()
+                    .roleId(1)
+                    .userId(user.getUserId())
+                    .build();
+            userRoleMapper.insert(userRole);
         }
-        List<GrantedAuthority> grantedAuthorities = null;
+        List<Role> roles = roleMapper.getRoles(user.getUserId());
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        for (Role role : roles) {
+            grantedAuthorities.add(new SimpleGrantedAuthority(role.getRoleName()));
+        }
         return new KeycloakAuthenticationToken(account, accessToken.isActive(), mapAuthorities(grantedAuthorities));
     }
 

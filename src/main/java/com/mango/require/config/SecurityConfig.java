@@ -9,6 +9,7 @@ import org.keycloak.adapters.springsecurity.filter.KeycloakPreAuthActionsFilter;
 import org.keycloak.adapters.springsecurity.filter.KeycloakSecurityContextRequestFilter;
 import org.keycloak.adapters.springsecurity.management.HttpSessionManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.boot.web.servlet.RegistrationBean;
@@ -23,6 +24,9 @@ import javax.annotation.Resource;
 
 @KeycloakConfiguration
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
+
+    @Value("${web.anon-url}")
+    private String[] anonUrl;
 
     @Resource
     private SecurityAuthenticationProvider authenticationProvider;
@@ -46,12 +50,13 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
-        http
-            .csrf()
-            .disable()
-            .authorizeRequests()
-            .antMatchers( "/").permitAll()
-            .anyRequest().authenticated();
+        http.headers().frameOptions().disable()
+                .and().csrf().disable()
+                .requestMatchers().antMatchers("/**")
+                .and()
+                .authorizeRequests().antMatchers(anonUrl).permitAll()
+                .antMatchers("/**").authenticated()
+                .and().httpBasic();
     }
 
     @Bean

@@ -20,4 +20,13 @@
         user_id, username, password, mobile, sex, create_time, modify_time, status, is_del
     </sql>
 
+    <select id="findByUserName" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List"/>
+        from
+            t_user
+                where is_del=0
+                    and username= #{username}
+    </select>
+
 </mapper>

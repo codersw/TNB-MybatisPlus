@@ -17,4 +17,14 @@
         role_id, role_name, remark, create_time, modify_time, is_del
     </sql>
 
+    <select id="getRoles" resultMap="BaseResultMap">
+        select
+            <include refid="Base_Column_List"/>
+        from t_role
+            where
+                role_id in
+                 (select role_id from t_user_role where user_id=#{userId})
+                    and is_del=0
+    </select>
+
 </mapper>

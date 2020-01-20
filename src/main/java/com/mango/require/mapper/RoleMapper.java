@@ -3,6 +3,8 @@ package com.mango.require.mapper;
 import com.mango.require.model.Role;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * <p>
  * 角色信息 Mapper 接口
@@ -13,4 +15,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface RoleMapper extends BaseMapper<Role> {
 
+
+    List<Role> getRoles(Integer userId);
 }
