@@ -9,7 +9,7 @@ import lombok.Getter;
  * @author swen
  */
 @Getter
-public enum GenderEnum implements IEnum<Integer> {
+public enum SexEnum implements IEnum<Integer> {
 
     MALE(1,"男"),
     FEMALE(0,"女");
@@ -19,7 +19,7 @@ public enum GenderEnum implements IEnum<Integer> {
 
     private String name;
 
-    GenderEnum(Integer value, String name) {
+    SexEnum(Integer value, String name) {
         this.value = value;
         this.name = name;
     }

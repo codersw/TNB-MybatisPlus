@@ -15,9 +15,6 @@ import lombok.NoArgsConstructor;
 @ApiModel
 public class PageRequest {
 
-	@ApiModelProperty(value = "是否分页,false不分页,true分页", name = "paging", example = "true", required = true)
-	private Boolean paging = true;
-
 	@ApiModelProperty(value = "页序号", name = "pageIndex", example = "1")
 	private Integer pageIndex = PageEnum.PAGE_INDEX.getValue();
 

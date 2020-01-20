@@ -1,7 +1,7 @@
 package com.mango.require.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.mango.require.model.User;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -10,7 +10,7 @@ import org.apache.ibatis.annotations.Param;
  * </p>
  *
  * @author swen
- * @since 2020-01-19
+ * @since 2020-01-20
  */
 public interface UserMapper extends BaseMapper<User> {
 

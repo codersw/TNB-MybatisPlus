@@ -22,11 +22,11 @@
 
     <select id="findByUserName" resultMap="BaseResultMap">
         select
-            <include refid="Base_Column_List"/>
+        <include refid="Base_Column_List"/>
         from
-            t_user
-                where is_del=0
-                    and username= #{username}
+        t_user
+        where is_del=0
+        and username= #{username}
     </select>
 
 </mapper>

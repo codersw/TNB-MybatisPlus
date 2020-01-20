@@ -1,5 +1,10 @@
 package com.mango.require.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mango.require.model.common.PageResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +29,7 @@ import javax.annotation.Resource;
  * </p>
  *
  * @author swen
- * @since 2020-01-19
+ * @since 2020-01-20
  */
 @Api(value = "用户信息接口", tags = {"用户信息接口"})
 @Slf4j
@@ -45,7 +50,16 @@ public class UserController {
      @PreAuthorize("hasAuthority('user:view')")
      @GetMapping
      public Result list(User user, PageRequest pageRequest) {
-        return ResultGenerator.genSuccessResult(userService.userList(user, pageRequest));
+          QueryWrapper<User> queryWrapper = new QueryWrapper<>();
+          //TODO 设置查询条件
+
+          //排序
+          if(StringUtils.isNotBlank(pageRequest.getSortColumn())) {
+               queryWrapper.orderBy(true, pageRequest.getSortAscend(), pageRequest.getSortColumn());
+          }
+          Page<User> page = new Page<>(pageRequest.getPageIndex(), pageRequest.getPageSize());
+          IPage<User> userPage = userService.page(page, queryWrapper);
+          return ResultGenerator.genSuccessResult(PageResponse.<User>builder().list(userPage.getRecords()).total(userPage.getTotal()).build());
      }
 
      /**

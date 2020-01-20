@@ -2,8 +2,6 @@ package ${package.Service};
 
 import ${package.Entity}.${entity};
 import ${superServiceClassPackage};
-import ${package.Entity}.common.PageRequest;
-import ${package.Entity}.common.PageResponse;
 
 /**
  * <p>
@@ -18,6 +16,5 @@ interface ${table.serviceName} : ${superServiceClass}<${entity}>
 <#else>
 public interface ${table.serviceName} extends ${superServiceClass}<${entity}> {
 
-     PageResponse<${entity}> ${entity?uncap_first}List(${entity} ${entity?uncap_first}, PageRequest pageRequest);
 }
 </#if>

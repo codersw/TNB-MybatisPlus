@@ -1,15 +1,22 @@
 package com.mango.require.model;
 
-import com.baomidou.mybatisplus.annotation.*;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
+import java.util.Date;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableField;
+import java.io.Serializable;
+
+import com.mango.require.enums.IsDelEnum;
+import com.mango.require.enums.SexEnum;
+import com.mango.require.enums.StatusEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
+import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
-
-import java.io.Serializable;
-import java.util.Date;
+import lombok.Builder;
 
 /**
  * <p>
@@ -17,7 +24,7 @@ import java.util.Date;
  * </p>
  *
  * @author swen
- * @since 2020-01-19
+ * @since 2020-01-20
  */
 @Data
 @AllArgsConstructor
@@ -47,7 +54,7 @@ public class User implements Serializable {
 
     @ApiModelProperty(value = "性别 0 男 1 女")
     @TableField("sex")
-    private Integer sex;
+    private SexEnum sex;
 
     @ApiModelProperty(value = "创建时间")
     @TableField("create_time")
@@ -59,10 +66,12 @@ public class User implements Serializable {
 
     @ApiModelProperty(value = "状态 0有效 1锁定")
     @TableField("status")
-    private Integer status;
+    private StatusEnum status;
 
     @ApiModelProperty(value = "是否删除 0 未删除 1 已删除")
     @TableField("is_del")
     @TableLogic
-    private Integer isDel;
+    private IsDelEnum isDel;
+
+
 }

@@ -2,6 +2,7 @@ package com.mango.require.enums;
 
 import com.baomidou.mybatisplus.annotation.EnumValue;
 import com.baomidou.mybatisplus.core.enums.IEnum;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
 
 /**
@@ -17,6 +18,7 @@ public enum PriorityEnum implements IEnum<Integer> {
     @EnumValue
     private Integer value;
 
+    @JsonValue
     private String name;
 
     PriorityEnum(Integer value, String name) {

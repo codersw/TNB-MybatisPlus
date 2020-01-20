@@ -7,6 +7,10 @@ import io.swagger.annotations.ApiOperation;
 <#if entityLombokModel>
 import lombok.extern.slf4j.Slf4j;
 </#if>
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,6 +31,7 @@ import ${package.Entity}.${entity};
 import ${package.Entity}.common.PageRequest;
 import ${package.Entity}.common.Result;
 import ${package.Entity}.common.ResultGenerator;
+import ${package.Entity}.common.PageResponse;
 import javax.annotation.Resource;
 
 /**
@@ -71,7 +76,16 @@ public class ${table.controllerName} {
      @PreAuthorize("hasAuthority('${entity?uncap_first}:view')")
      @GetMapping
      public Result list(${entity} ${entity?uncap_first}, PageRequest pageRequest) {
-        return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.${entity?uncap_first}List(${entity?uncap_first}, pageRequest));
+          QueryWrapper<${entity}> queryWrapper = new QueryWrapper<>();
+          //TODO 设置查询条件
+
+          //排序
+          if(StringUtils.isNotBlank(pageRequest.getSortColumn())) {
+               queryWrapper.orderBy(true, pageRequest.getSortAscend(), pageRequest.getSortColumn());
+          }
+          Page<${entity}> page = new Page<>(pageRequest.getPageIndex(), pageRequest.getPageSize());
+          IPage<${entity}> userPage = ${table.serviceName?replace("I","")?uncap_first}.page(page, queryWrapper);
+          return ResultGenerator.genSuccessResult(PageResponse.<${entity}>builder().list(${entity?uncap_first}Page.getRecords()).total(${entity?uncap_first}Page.getTotal()).build());
      }
 
      /**
@@ -83,7 +97,7 @@ public class ${table.controllerName} {
      @PreAuthorize("hasAuthority('${entity?uncap_first}:add')")
      @PostMapping
      public Result add(${entity} ${entity?uncap_first}) {
-        return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.save(${entity?uncap_first}));
+          return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.save(${entity?uncap_first}));
      }
 
      /**
@@ -95,7 +109,7 @@ public class ${table.controllerName} {
      @PreAuthorize("hasAuthority('${entity?uncap_first}:delete')")
      @DeleteMapping("/{id: \\d+}")
      public Result delete(@PathVariable Integer id) {
-        return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.removeById(id));
+          return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.removeById(id));
      }
 
      /**
@@ -107,7 +121,7 @@ public class ${table.controllerName} {
      @PreAuthorize("hasAuthority('${entity?uncap_first}:update')")
      @PutMapping
      public Result update(${entity} ${entity?uncap_first}) {
-        return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.updateById(${entity?uncap_first}));
+          return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.updateById(${entity?uncap_first}));
      }
 
      /**
@@ -119,7 +133,7 @@ public class ${table.controllerName} {
      @PreAuthorize("hasAuthority('${entity?uncap_first}:view')")
      @GetMapping("/{id: \\d+}")
      public Result detail(@PathVariable Integer id) {
-        return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.getById(id));
+          return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.getById(id));
      }
 }
 </#if>

@@ -11,9 +11,8 @@ import com.mango.require.model.common.PageResponse;
  * </p>
  *
  * @author swen
- * @since 2020-01-19
+ * @since 2020-01-20
  */
 public interface IUserService extends IService<User> {
 
-     PageResponse<User> userList(User user, PageRequest pageRequest);
 }

@@ -1,7 +1,6 @@
 package com.mango.require.model.common;
 
 
-
 import com.mango.require.constant.MdcConstant;
 import com.mango.require.enums.ResultCodeEnum;
 import org.slf4j.MDC;
