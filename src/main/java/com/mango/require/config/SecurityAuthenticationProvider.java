@@ -1,11 +1,9 @@
 package com.mango.require.config;
 
 import com.mango.require.mapper.MenuMapper;
-import com.mango.require.mapper.RoleMapper;
 import com.mango.require.mapper.UserMapper;
 import com.mango.require.mapper.UserRoleMapper;
 import com.mango.require.model.Menu;
-import com.mango.require.model.Role;
 import com.mango.require.model.User;
 import com.mango.require.model.UserRole;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +22,10 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.security.Principal;
-import java.util.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Slf4j
 @Component
@@ -32,9 +33,6 @@ public class SecurityAuthenticationProvider implements AuthenticationProvider {
 
     @Resource
     private UserMapper userMapper;
-
-    @Resource
-    private RoleMapper roleMapper;
 
     @Resource
     private MenuMapper menuMapper;
