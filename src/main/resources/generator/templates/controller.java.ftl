@@ -68,7 +68,7 @@ public class ${table.controllerName} {
       * @return Result
       */
      @ApiOperation(value = "${table.comment!}列表", notes = "${table.comment!}列表")
-     @PreAuthorize("hasAuthority('${entity?uncap_first}:list')")
+     @PreAuthorize("hasAuthority('${entity?uncap_first}:view')")
      @GetMapping
      public Result list(${entity} ${entity?uncap_first}, PageRequest pageRequest) {
         return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.${entity?uncap_first}List(${entity?uncap_first}, pageRequest));
@@ -116,7 +116,7 @@ public class ${table.controllerName} {
       * @return Result
       */
      @ApiOperation(value = "${table.comment!}详情", notes = "${table.comment!}详情")
-     @PreAuthorize("hasAuthority('${entity?uncap_first}:detail')")
+     @PreAuthorize("hasAuthority('${entity?uncap_first}:view')")
      @GetMapping("/{id: \\d+}")
      public Result detail(@PathVariable Integer id) {
         return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.getById(id));

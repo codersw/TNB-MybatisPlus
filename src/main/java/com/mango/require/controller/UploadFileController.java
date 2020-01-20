@@ -42,7 +42,7 @@ public class UploadFileController {
       * @return Result
       */
      @ApiOperation(value = "文件信息列表", notes = "文件信息列表")
-     @PreAuthorize("hasAuthority('upload:list')")
+     @PreAuthorize("hasAuthority('upload:view')")
      @GetMapping
      public Result list(UploadFile uploadFile, PageRequest pageRequest) {
         return ResultGenerator.genSuccessResult(uploadFileService.uploadFileList(uploadFile, pageRequest));
@@ -90,7 +90,7 @@ public class UploadFileController {
       * @return Result
       */
      @ApiOperation(value = "文件信息详情", notes = "文件信息详情")
-     @PreAuthorize("hasAuthority('upload:detail')")
+     @PreAuthorize("hasAuthority('upload:view')")
      @GetMapping("/{id: \\d+}")
      public Result detail(@PathVariable Integer id) {
         return ResultGenerator.genSuccessResult(uploadFileService.getById(id));

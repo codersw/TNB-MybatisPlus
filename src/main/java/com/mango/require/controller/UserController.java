@@ -42,7 +42,7 @@ public class UserController {
       * @return Result
       */
      @ApiOperation(value = "用户信息列表", notes = "用户信息列表")
-     @PreAuthorize("hasAuthority('user:list')")
+     @PreAuthorize("hasAuthority('user:view')")
      @GetMapping
      public Result list(User user, PageRequest pageRequest) {
         return ResultGenerator.genSuccessResult(userService.userList(user, pageRequest));
@@ -90,7 +90,7 @@ public class UserController {
       * @return Result
       */
      @ApiOperation(value = "用户信息详情", notes = "用户信息详情")
-     @PreAuthorize("hasAuthority('user:detail')")
+     @PreAuthorize("hasAuthority('user:view')")
      @GetMapping("/{id: \\d+}")
      public Result detail(@PathVariable Integer id) {
         return ResultGenerator.genSuccessResult(userService.getById(id));

@@ -42,7 +42,7 @@ public class MenuController {
       * @return Result
       */
      @ApiOperation(value = "菜单列表", notes = "菜单列表")
-     @PreAuthorize("hasAuthority('menu:list')")
+     @PreAuthorize("hasAuthority('menu:view')")
      @GetMapping
      public Result list(Menu menu, PageRequest pageRequest) {
         return ResultGenerator.genSuccessResult(menuService.menuList(menu, pageRequest));
@@ -90,7 +90,7 @@ public class MenuController {
       * @return Result
       */
      @ApiOperation(value = "菜单详情", notes = "菜单详情")
-     @PreAuthorize("hasAuthority('menu:detail')")
+     @PreAuthorize("hasAuthority('menu:view')")
      @GetMapping("/{id: \\d+}")
      public Result detail(@PathVariable Integer id) {
         return ResultGenerator.genSuccessResult(menuService.getById(id));

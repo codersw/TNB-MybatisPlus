@@ -42,7 +42,7 @@ public class RoleController {
       * @return Result
       */
      @ApiOperation(value = "角色信息列表", notes = "角色信息列表")
-     @PreAuthorize("hasAuthority('role:list')")
+     @PreAuthorize("hasAuthority('role:view')")
      @GetMapping
      public Result list(Role role, PageRequest pageRequest) {
         return ResultGenerator.genSuccessResult(roleService.roleList(role, pageRequest));
@@ -90,7 +90,7 @@ public class RoleController {
       * @return Result
       */
      @ApiOperation(value = "角色信息详情", notes = "角色信息详情")
-     @PreAuthorize("hasAuthority('role:detail')")
+     @PreAuthorize("hasAuthority('role:view')")
      @GetMapping("/{id: \\d+}")
      public Result detail(@PathVariable Integer id) {
         return ResultGenerator.genSuccessResult(roleService.getById(id));

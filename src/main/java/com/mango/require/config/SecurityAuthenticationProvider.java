@@ -1,13 +1,11 @@
 package com.mango.require.config;
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.mango.require.enums.IsDelEnum;
 import com.mango.require.model.User;
 import com.mango.require.service.IRoleService;
 import com.mango.require.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
-import org.keycloak.KeycloakPrincipal;
 import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.adapters.springsecurity.account.SimpleKeycloakAccount;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
