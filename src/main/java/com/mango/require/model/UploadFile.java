@@ -19,7 +19,7 @@ import lombok.Builder;
  * </p>
  *
  * @author swen
- * @since 2020-01-19
+ * @since 2020-01-20
  */
 @Data
 @AllArgsConstructor

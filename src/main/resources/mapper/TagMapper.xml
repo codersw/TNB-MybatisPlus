@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mango.require.mapper.TagMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mango.require.model.Tag">
+        <id column="tag_id" property="tagId" />
+        <result column="tag_name" property="tagName" />
+        <result column="tag_desc" property="tagDesc" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="create_time" property="createTime" />
+        <result column="modify_user_id" property="modifyUserId" />
+        <result column="modify_time" property="modifyTime" />
+        <result column="is_del" property="isDel" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        tag_id, tag_name, tag_desc, create_user_id, create_time, modify_user_id, modify_time, is_del
+    </sql>
+
+</mapper>

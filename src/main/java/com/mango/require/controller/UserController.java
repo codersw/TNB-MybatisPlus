@@ -1,13 +1,12 @@
 package com.mango.require.controller;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.mango.require.model.common.PageResponse;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,6 +20,7 @@ import com.mango.require.model.User;
 import com.mango.require.model.common.PageRequest;
 import com.mango.require.model.common.Result;
 import com.mango.require.model.common.ResultGenerator;
+import com.mango.require.model.common.PageResponse;
 import javax.annotation.Resource;
 
 /**
@@ -71,7 +71,7 @@ public class UserController {
      @PreAuthorize("hasAuthority('user:add')")
      @PostMapping
      public Result add(User user) {
-        return ResultGenerator.genSuccessResult(userService.save(user));
+          return ResultGenerator.genSuccessResult(userService.save(user));
      }
 
      /**
@@ -83,7 +83,7 @@ public class UserController {
      @PreAuthorize("hasAuthority('user:delete')")
      @DeleteMapping("/{id: \\d+}")
      public Result delete(@PathVariable Integer id) {
-        return ResultGenerator.genSuccessResult(userService.removeById(id));
+          return ResultGenerator.genSuccessResult(userService.removeById(id));
      }
 
      /**
@@ -95,7 +95,7 @@ public class UserController {
      @PreAuthorize("hasAuthority('user:update')")
      @PutMapping
      public Result update(User user) {
-        return ResultGenerator.genSuccessResult(userService.updateById(user));
+          return ResultGenerator.genSuccessResult(userService.updateById(user));
      }
 
      /**
@@ -107,6 +107,6 @@ public class UserController {
      @PreAuthorize("hasAuthority('user:view')")
      @GetMapping("/{id: \\d+}")
      public Result detail(@PathVariable Integer id) {
-        return ResultGenerator.genSuccessResult(userService.getById(id));
+          return ResultGenerator.genSuccessResult(userService.getById(id));
      }
 }

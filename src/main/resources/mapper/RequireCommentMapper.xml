@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mango.require.mapper.RequireCommentMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.mango.require.model.RequireComment">
+        <id column="comment_id" property="commentId" />
+        <result column="content" property="content" />
+        <result column="create_user_id" property="createUserId" />
+        <result column="create_time" property="createTime" />
+        <result column="modify_user_id" property="modifyUserId" />
+        <result column="modify_time" property="modifyTime" />
+        <result column="require_id" property="requireId" />
+        <result column="is_del" property="isDel" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        comment_id, content, create_user_id, create_time, modify_user_id, modify_time, require_id, is_del
+    </sql>
+
+</mapper>

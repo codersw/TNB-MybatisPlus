@@ -3,6 +3,10 @@ package com.mango.require.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +20,7 @@ import com.mango.require.model.UploadFile;
 import com.mango.require.model.common.PageRequest;
 import com.mango.require.model.common.Result;
 import com.mango.require.model.common.ResultGenerator;
+import com.mango.require.model.common.PageResponse;
 import javax.annotation.Resource;
 
 /**
@@ -24,12 +29,12 @@ import javax.annotation.Resource;
  * </p>
  *
  * @author swen
- * @since 2020-01-19
+ * @since 2020-01-20
  */
 @Api(value = "文件信息接口", tags = {"文件信息接口"})
 @Slf4j
 @RestController
-@RequestMapping("/upload")
+@RequestMapping("/upload-file")
 public class UploadFileController {
 
      @Resource
@@ -42,10 +47,19 @@ public class UploadFileController {
       * @return Result
       */
      @ApiOperation(value = "文件信息列表", notes = "文件信息列表")
-     @PreAuthorize("hasAuthority('upload:view')")
+     @PreAuthorize("hasAuthority('uploadFile:view')")
      @GetMapping
      public Result list(UploadFile uploadFile, PageRequest pageRequest) {
-        return ResultGenerator.genSuccessResult(uploadFileService.uploadFileList(uploadFile, pageRequest));
+          QueryWrapper<UploadFile> queryWrapper = new QueryWrapper<>();
+          //TODO 设置查询条件
+
+          //排序
+          if(StringUtils.isNotBlank(pageRequest.getSortColumn())) {
+               queryWrapper.orderBy(true, pageRequest.getSortAscend(), pageRequest.getSortColumn());
+          }
+          Page<UploadFile> page = new Page<>(pageRequest.getPageIndex(), pageRequest.getPageSize());
+          IPage<UploadFile> uploadFilePage = uploadFileService.page(page, queryWrapper);
+          return ResultGenerator.genSuccessResult(PageResponse.<UploadFile>builder().list(uploadFilePage.getRecords()).total(uploadFilePage.getTotal()).build());
      }
 
      /**
@@ -54,10 +68,10 @@ public class UploadFileController {
       * @return Result
       */
      @ApiOperation(value = "文件信息新增", notes = "文件信息新增")
-     @PreAuthorize("hasAuthority('upload:add')")
+     @PreAuthorize("hasAuthority('uploadFile:add')")
      @PostMapping
      public Result add(UploadFile uploadFile) {
-        return ResultGenerator.genSuccessResult(uploadFileService.save(uploadFile));
+          return ResultGenerator.genSuccessResult(uploadFileService.save(uploadFile));
      }
 
      /**
@@ -66,10 +80,10 @@ public class UploadFileController {
       * @return Result
       */
      @ApiOperation(value = "文件信息删除", notes = "文件信息删除")
-     @PreAuthorize("hasAuthority('upload:delete')")
+     @PreAuthorize("hasAuthority('uploadFile:delete')")
      @DeleteMapping("/{id: \\d+}")
      public Result delete(@PathVariable Integer id) {
-        return ResultGenerator.genSuccessResult(uploadFileService.removeById(id));
+          return ResultGenerator.genSuccessResult(uploadFileService.removeById(id));
      }
 
      /**
@@ -78,10 +92,10 @@ public class UploadFileController {
       * @return Result
       */
      @ApiOperation(value = "文件信息修改", notes = "文件信息修改")
-     @PreAuthorize("hasAuthority('upload:update')")
+     @PreAuthorize("hasAuthority('uploadFile:update')")
      @PutMapping
      public Result update(UploadFile uploadFile) {
-        return ResultGenerator.genSuccessResult(uploadFileService.updateById(uploadFile));
+          return ResultGenerator.genSuccessResult(uploadFileService.updateById(uploadFile));
      }
 
      /**
@@ -90,9 +104,9 @@ public class UploadFileController {
       * @return Result
       */
      @ApiOperation(value = "文件信息详情", notes = "文件信息详情")
-     @PreAuthorize("hasAuthority('upload:view')")
+     @PreAuthorize("hasAuthority('uploadFile:view')")
      @GetMapping("/{id: \\d+}")
      public Result detail(@PathVariable Integer id) {
-        return ResultGenerator.genSuccessResult(uploadFileService.getById(id));
+          return ResultGenerator.genSuccessResult(uploadFileService.getById(id));
      }
 }

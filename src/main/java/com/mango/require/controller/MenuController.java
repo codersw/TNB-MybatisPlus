@@ -3,6 +3,10 @@ package com.mango.require.controller;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +20,7 @@ import com.mango.require.model.Menu;
 import com.mango.require.model.common.PageRequest;
 import com.mango.require.model.common.Result;
 import com.mango.require.model.common.ResultGenerator;
+import com.mango.require.model.common.PageResponse;
 import javax.annotation.Resource;
 
 /**
@@ -24,7 +29,7 @@ import javax.annotation.Resource;
  * </p>
  *
  * @author swen
- * @since 2020-01-19
+ * @since 2020-01-20
  */
 @Api(value = "菜单接口", tags = {"菜单接口"})
 @Slf4j
@@ -45,7 +50,16 @@ public class MenuController {
      @PreAuthorize("hasAuthority('menu:view')")
      @GetMapping
      public Result list(Menu menu, PageRequest pageRequest) {
-        return ResultGenerator.genSuccessResult(menuService.menuList(menu, pageRequest));
+          QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
+          //TODO 设置查询条件
+
+          //排序
+          if(StringUtils.isNotBlank(pageRequest.getSortColumn())) {
+               queryWrapper.orderBy(true, pageRequest.getSortAscend(), pageRequest.getSortColumn());
+          }
+          Page<Menu> page = new Page<>(pageRequest.getPageIndex(), pageRequest.getPageSize());
+          IPage<Menu> menuPage = menuService.page(page, queryWrapper);
+          return ResultGenerator.genSuccessResult(PageResponse.<Menu>builder().list(menuPage.getRecords()).total(menuPage.getTotal()).build());
      }
 
      /**
@@ -57,7 +71,7 @@ public class MenuController {
      @PreAuthorize("hasAuthority('menu:add')")
      @PostMapping
      public Result add(Menu menu) {
-        return ResultGenerator.genSuccessResult(menuService.save(menu));
+          return ResultGenerator.genSuccessResult(menuService.save(menu));
      }
 
      /**
@@ -69,7 +83,7 @@ public class MenuController {
      @PreAuthorize("hasAuthority('menu:delete')")
      @DeleteMapping("/{id: \\d+}")
      public Result delete(@PathVariable Integer id) {
-        return ResultGenerator.genSuccessResult(menuService.removeById(id));
+          return ResultGenerator.genSuccessResult(menuService.removeById(id));
      }
 
      /**
@@ -81,7 +95,7 @@ public class MenuController {
      @PreAuthorize("hasAuthority('menu:update')")
      @PutMapping
      public Result update(Menu menu) {
-        return ResultGenerator.genSuccessResult(menuService.updateById(menu));
+          return ResultGenerator.genSuccessResult(menuService.updateById(menu));
      }
 
      /**
@@ -93,6 +107,6 @@ public class MenuController {
      @PreAuthorize("hasAuthority('menu:view')")
      @GetMapping("/{id: \\d+}")
      public Result detail(@PathVariable Integer id) {
-        return ResultGenerator.genSuccessResult(menuService.getById(id));
+          return ResultGenerator.genSuccessResult(menuService.getById(id));
      }
 }

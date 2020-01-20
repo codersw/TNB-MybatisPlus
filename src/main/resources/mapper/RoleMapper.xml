@@ -18,13 +18,18 @@
     </sql>
 
     <select id="getRoles" resultMap="BaseResultMap">
-        select
-            <include refid="Base_Column_List"/>
-        from t_role
-            where
-                role_id in
-                 (select role_id from t_user_role where user_id=#{userId})
-                    and is_del=0
+        SELECT
+            <include refid="Base_Column_List" />
+        FROM
+            t_role
+        WHERE
+            role_id IN (
+            SELECT
+                role_id
+            FROM
+                t_user_role
+            WHERE
+                user_id = #{userId})
+        AND is_del =0
     </select>
-
 </mapper>

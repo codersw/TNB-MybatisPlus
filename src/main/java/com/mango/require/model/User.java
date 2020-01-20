@@ -7,10 +7,6 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
 import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
-
-import com.mango.require.enums.IsDelEnum;
-import com.mango.require.enums.SexEnum;
-import com.mango.require.enums.StatusEnum;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -54,7 +50,11 @@ public class User implements Serializable {
 
     @ApiModelProperty(value = "性别 0 男 1 女")
     @TableField("sex")
-    private SexEnum sex;
+    private Integer sex;
+
+    @ApiModelProperty(value = "部门id")
+    @TableField("dept_id")
+    private Integer deptId;
 
     @ApiModelProperty(value = "创建时间")
     @TableField("create_time")
@@ -66,12 +66,12 @@ public class User implements Serializable {
 
     @ApiModelProperty(value = "状态 0有效 1锁定")
     @TableField("status")
-    private StatusEnum status;
+    private Integer status;
 
     @ApiModelProperty(value = "是否删除 0 未删除 1 已删除")
     @TableField("is_del")
     @TableLogic
-    private IsDelEnum isDel;
+    private Integer isDel;
 
 
 }

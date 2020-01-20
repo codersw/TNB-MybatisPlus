@@ -84,7 +84,7 @@ public class ${table.controllerName} {
                queryWrapper.orderBy(true, pageRequest.getSortAscend(), pageRequest.getSortColumn());
           }
           Page<${entity}> page = new Page<>(pageRequest.getPageIndex(), pageRequest.getPageSize());
-          IPage<${entity}> userPage = ${table.serviceName?replace("I","")?uncap_first}.page(page, queryWrapper);
+          IPage<${entity}> ${entity?uncap_first}Page = ${table.serviceName?replace("I","")?uncap_first}.page(page, queryWrapper);
           return ResultGenerator.genSuccessResult(PageResponse.<${entity}>builder().list(${entity?uncap_first}Page.getRecords()).total(${entity?uncap_first}Page.getTotal()).build());
      }
 

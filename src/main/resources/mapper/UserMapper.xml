@@ -21,12 +21,13 @@
     </sql>
 
     <select id="findByUserName" resultMap="BaseResultMap">
-        select
-        <include refid="Base_Column_List"/>
-        from
-        t_user
-        where is_del=0
-        and username= #{username}
+        SELECT
+            <include refid="Base_Column_List"/>
+        FROM
+            t_user
+        WHERE
+            is_del = 0
+        AND username= #{username}
     </select>
 
 </mapper>

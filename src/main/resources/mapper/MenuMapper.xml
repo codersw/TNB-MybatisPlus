@@ -33,5 +33,4 @@
             INNER JOIN t_user_role tur ON tur.role_id = trm.role_id
             AND tur.user_id=#{userId}
     </select>
-
 </mapper>

@@ -2,8 +2,6 @@ package com.mango.require.service;
 
 import com.mango.require.model.User;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.mango.require.model.common.PageRequest;
-import com.mango.require.model.common.PageResponse;
 
 /**
  * <p>
