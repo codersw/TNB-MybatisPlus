@@ -5,23 +5,22 @@ import com.baomidou.mybatisplus.core.enums.IEnum;
 import lombok.Getter;
 
 /**
- * 是否删除枚举
+ * 男女枚举
  * @author swen
  */
 @Getter
-public enum IsDelEnum implements IEnum<Integer> {
+public enum GenderEnum implements IEnum<Integer> {
 
-    FALSE(0,"未删除"),
-    TRUE(1,"已删除");
+    MALE(1,"男"),
+    FEMALE(0,"女");
 
     @EnumValue
     private Integer value;
 
     private String name;
 
-    IsDelEnum(Integer value, String name){
+    GenderEnum(Integer value, String name) {
         this.value = value;
         this.name = name;
     }
-
 }

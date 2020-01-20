@@ -5,23 +5,22 @@ import com.baomidou.mybatisplus.core.enums.IEnum;
 import lombok.Getter;
 
 /**
- * 是否删除枚举
+ * 优先级枚举
  * @author swen
  */
 @Getter
-public enum IsDelEnum implements IEnum<Integer> {
+public enum PriorityEnum implements IEnum<Integer> {
 
-    FALSE(0,"未删除"),
-    TRUE(1,"已删除");
+    IMPORTANT(1,"重要"),
+    NOIMPORTANT(0,"不重要");
 
     @EnumValue
     private Integer value;
 
     private String name;
 
-    IsDelEnum(Integer value, String name){
+    PriorityEnum(Integer value, String name) {
         this.value = value;
         this.name = name;
     }
-
 }

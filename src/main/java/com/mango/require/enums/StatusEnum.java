@@ -5,23 +5,23 @@ import com.baomidou.mybatisplus.core.enums.IEnum;
 import lombok.Getter;
 
 /**
- * 是否删除枚举
+ * 状态值枚举
  * @author swen
  */
 @Getter
-public enum IsDelEnum implements IEnum<Integer> {
+public enum StatusEnum implements IEnum<Integer> {
 
-    FALSE(0,"未删除"),
-    TRUE(1,"已删除");
+    INPLANNING(0,"规划中"),
+    REALIZED(1,"已实现"),
+    REJECTED(2,"已拒绝");
 
     @EnumValue
     private Integer value;
 
     private String name;
 
-    IsDelEnum(Integer value, String name){
+    StatusEnum(Integer value, String name) {
         this.value = value;
         this.name = name;
     }
-
 }
