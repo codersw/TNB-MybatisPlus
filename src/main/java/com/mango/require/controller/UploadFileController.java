@@ -29,7 +29,7 @@ import javax.annotation.Resource;
 @Api(value = "文件信息接口", tags = {"文件信息接口"})
 @Slf4j
 @RestController
-@RequestMapping("/upload-file")
+@RequestMapping("/upload")
 public class UploadFileController {
 
      @Resource
@@ -42,7 +42,7 @@ public class UploadFileController {
       * @return Result
       */
      @ApiOperation(value = "文件信息列表", notes = "文件信息列表")
-     @PreAuthorize("hasAuthority('uploadFile:list')")
+     @PreAuthorize("hasAuthority('upload:list')")
      @GetMapping
      public Result list(UploadFile uploadFile, PageRequest pageRequest) {
         return ResultGenerator.genSuccessResult(uploadFileService.uploadFileList(uploadFile, pageRequest));
@@ -54,7 +54,7 @@ public class UploadFileController {
       * @return Result
       */
      @ApiOperation(value = "文件信息新增", notes = "文件信息新增")
-     @PreAuthorize("hasAuthority('uploadFile:add')")
+     @PreAuthorize("hasAuthority('upload:add')")
      @PostMapping
      public Result add(UploadFile uploadFile) {
         return ResultGenerator.genSuccessResult(uploadFileService.save(uploadFile));
@@ -66,7 +66,7 @@ public class UploadFileController {
       * @return Result
       */
      @ApiOperation(value = "文件信息删除", notes = "文件信息删除")
-     @PreAuthorize("hasAuthority('uploadFile:delete')")
+     @PreAuthorize("hasAuthority('upload:delete')")
      @DeleteMapping("/{id: \\d+}")
      public Result delete(@PathVariable Integer id) {
         return ResultGenerator.genSuccessResult(uploadFileService.removeById(id));
@@ -78,7 +78,7 @@ public class UploadFileController {
       * @return Result
       */
      @ApiOperation(value = "文件信息修改", notes = "文件信息修改")
-     @PreAuthorize("hasAuthority('uploadFile:update')")
+     @PreAuthorize("hasAuthority('upload:update')")
      @PutMapping
      public Result update(UploadFile uploadFile) {
         return ResultGenerator.genSuccessResult(uploadFileService.updateById(uploadFile));
@@ -90,7 +90,7 @@ public class UploadFileController {
       * @return Result
       */
      @ApiOperation(value = "文件信息详情", notes = "文件信息详情")
-     @PreAuthorize("hasAuthority('uploadFile:detail')")
+     @PreAuthorize("hasAuthority('upload:detail')")
      @GetMapping("/{id: \\d+}")
      public Result detail(@PathVariable Integer id) {
         return ResultGenerator.genSuccessResult(uploadFileService.getById(id));
