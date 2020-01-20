@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 9090
   servlet:
     context-path: /
   tomcat:
@@ -7,3 +7,17 @@ server:
 spring:
   profiles:
     active: dev
+  #控制台日志输出取消颜色
+  output:
+    ansi:
+      enabled: always
+  application:
+    name: dms
+#开启actuator
+management:
+  endpoints:
+    web:
+      exposure.include: "*"
+  endpoint:
+    health:
+      show-details: always

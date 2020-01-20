@@ -21,7 +21,7 @@ public class PageRequest {
 	@ApiModelProperty(value = "页序号", name = "pageIndex", example = "1")
 	private Integer pageIndex = PageEnum.PAGE_INDEX.getValue();
 
-	@ApiModelProperty(value = "每页记录数", name = "pageSize", example = "10")
+	@ApiModelProperty(value = "每页条数", name = "pageSize", example = "10")
 	private Integer pageSize = PageEnum.PAGE_SIZE.getValue();
 
 	@ApiModelProperty(value = "排序true为正序，false为倒序", name = "sortAscend", example = "true")

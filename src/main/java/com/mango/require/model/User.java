@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
+import com.baomidou.mybatisplus.annotation.TableField;
 import java.io.Serializable;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,13 +20,13 @@ import lombok.Builder;
  * </p>
  *
  * @author swen
- * @since 2020-01-17
+ * @since 2020-01-19
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@TableName("sys_user")
+@TableName("t_user")
 @ApiModel(value="User对象", description="用户信息")
 public class User implements Serializable {
 
@@ -35,22 +36,36 @@ public class User implements Serializable {
     @TableId(value = "user_id", type = IdType.AUTO)
     private Integer userId;
 
-    @ApiModelProperty(value = "用户名")
+    @ApiModelProperty(value = "登录名")
+    @TableField("username")
     private String username;
 
-    @ApiModelProperty(value = "密码")
+    @ApiModelProperty(value = "用户密码")
+    @TableField("password")
     private String password;
 
-    @ApiModelProperty(value = "性别 0 男 1女")
+    @ApiModelProperty(value = "手机号")
+    @TableField("mobile")
+    private String mobile;
+
+    @ApiModelProperty(value = "性别 0 男 1 女")
+    @TableField("sex")
     private Integer sex;
 
     @ApiModelProperty(value = "创建时间")
+    @TableField("create_time")
     private Date createTime;
 
     @ApiModelProperty(value = "修改时间")
+    @TableField("modify_time")
     private Date modifyTime;
 
-    @ApiModelProperty(value = "是否删除")
+    @ApiModelProperty(value = "状态 0有效 1锁定")
+    @TableField("status")
+    private Integer status;
+
+    @ApiModelProperty(value = "是否删除 0 未删除 1 已删除")
+    @TableField("is_del")
     @TableLogic
     private Integer isDel;
 

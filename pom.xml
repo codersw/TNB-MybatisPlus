@@ -19,10 +19,11 @@
         <mybaits.version>2.1.1</mybaits.version>
         <mybaitsplus.version>3.3.0</mybaitsplus.version>
         <swagger.version>2.9.2</swagger.version>
-        <fastjson.version>1.2.9</fastjson.version>
+        <fastjson.version>1.2.30</fastjson.version>
         <commons-collections.version>4.4</commons-collections.version>
         <commons-lang.version>3.9</commons-lang.version>
         <orika.version>1.5.4</orika.version>
+        <keycloak.version>6.0.1</keycloak.version>
     </properties>
 
     <dependencies>
@@ -34,6 +35,11 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+        </dependency>
+        <!-- actuator -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
         <!--aop-->
         <dependency>
@@ -115,6 +121,17 @@
             <artifactId>commons-collections4</artifactId>
             <version>${commons-collections.version}</version>
         </dependency>
+        <!--security-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <!--keycloak-->
+        <dependency>
+            <groupId>org.keycloak</groupId>
+            <artifactId>keycloak-spring-boot-starter</artifactId>
+            <version>${keycloak.version}</version>
+        </dependency>
         <!-- 单元测试 -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -122,6 +139,18 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.keycloak.bom</groupId>
+                <artifactId>keycloak-adapter-bom</artifactId>
+                <version>${keycloak.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
     <build>
         <plugins>

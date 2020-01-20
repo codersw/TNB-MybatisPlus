@@ -7,15 +7,17 @@
         <id column="user_id" property="userId" />
         <result column="username" property="username" />
         <result column="password" property="password" />
+        <result column="mobile" property="mobile" />
         <result column="sex" property="sex" />
         <result column="create_time" property="createTime" />
         <result column="modify_time" property="modifyTime" />
+        <result column="status" property="status" />
         <result column="is_del" property="isDel" />
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        user_id, username, password, sex, create_time, modify_time, is_del
+        user_id, username, password, mobile, sex, create_time, modify_time, status, is_del
     </sql>
 
 </mapper>

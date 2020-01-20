@@ -115,6 +115,8 @@ public class Generator {
         strategy.setRestControllerStyle(true);
         //驼峰转连字符
         strategy.setControllerMappingHyphenStyle(true);
+        //数据库注释
+        strategy.setEntityTableFieldAnnotationEnable(true);
         //逻辑删除字段
         strategy.setLogicDeleteFieldName("is_del");
         //表名前缀

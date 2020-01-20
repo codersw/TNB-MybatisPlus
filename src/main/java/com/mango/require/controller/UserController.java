@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.security.access.prepost.PreAuthorize;
 import com.mango.require.service.IUserService;
 import com.mango.require.model.User;
 import com.mango.require.model.common.PageRequest;
@@ -22,7 +24,7 @@ import javax.annotation.Resource;
  * </p>
  *
  * @author swen
- * @since 2020-01-17
+ * @since 2020-01-19
  */
 @Api(value = "用户信息接口", tags = {"用户信息接口"})
 @Slf4j
@@ -40,7 +42,8 @@ public class UserController {
       * @return Result
       */
      @ApiOperation(value = "用户信息列表", notes = "用户信息列表")
-     @GetMapping("/list")
+     @PreAuthorize("hasAuthority('user:list')")
+     @GetMapping
      public Result list(User user, PageRequest pageRequest) {
         return ResultGenerator.genSuccessResult(userService.userList(user, pageRequest));
      }
@@ -51,7 +54,8 @@ public class UserController {
       * @return Result
       */
      @ApiOperation(value = "用户信息新增", notes = "用户信息新增")
-     @PostMapping("/add")
+     @PreAuthorize("hasAuthority('user:add')")
+     @PostMapping
      public Result add(User user) {
         return ResultGenerator.genSuccessResult(userService.save(user));
      }
@@ -62,7 +66,8 @@ public class UserController {
       * @return Result
       */
      @ApiOperation(value = "用户信息删除", notes = "用户信息删除")
-     @DeleteMapping("/{id}")
+     @PreAuthorize("hasAuthority('user:delete')")
+     @DeleteMapping("/{id: \\d+}")
      public Result delete(@PathVariable Integer id) {
         return ResultGenerator.genSuccessResult(userService.removeById(id));
      }
@@ -73,7 +78,8 @@ public class UserController {
       * @return Result
       */
      @ApiOperation(value = "用户信息修改", notes = "用户信息修改")
-     @PostMapping("/update")
+     @PreAuthorize("hasAuthority('user:update')")
+     @PutMapping
      public Result update(User user) {
         return ResultGenerator.genSuccessResult(userService.updateById(user));
      }
@@ -84,7 +90,8 @@ public class UserController {
       * @return Result
       */
      @ApiOperation(value = "用户信息详情", notes = "用户信息详情")
-     @GetMapping("/{id}")
+     @PreAuthorize("hasAuthority('user:detail')")
+     @GetMapping("/{id: \\d+}")
      public Result detail(@PathVariable Integer id) {
         return ResultGenerator.genSuccessResult(userService.getById(id));
      }

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 <#if restControllerStyle>
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ import org.springframework.stereotype.Controller;
 <#if superControllerClassPackage??>
 import ${superControllerClassPackage};
 </#if>
+import org.springframework.security.access.prepost.PreAuthorize;
 import ${package.Service}.${table.serviceName};
 import ${package.Entity}.${entity};
 import ${package.Entity}.common.PageRequest;
@@ -66,7 +68,8 @@ public class ${table.controllerName} {
       * @return Result
       */
      @ApiOperation(value = "${table.comment!}列表", notes = "${table.comment!}列表")
-     @GetMapping("/list")
+     @PreAuthorize("hasAuthority('${entity?uncap_first}:list')")
+     @GetMapping
      public Result list(${entity} ${entity?uncap_first}, PageRequest pageRequest) {
         return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.${entity?uncap_first}List(${entity?uncap_first}, pageRequest));
      }
@@ -77,7 +80,8 @@ public class ${table.controllerName} {
       * @return Result
       */
      @ApiOperation(value = "${table.comment!}新增", notes = "${table.comment!}新增")
-     @PostMapping("/add")
+     @PreAuthorize("hasAuthority('${entity?uncap_first}:add')")
+     @PostMapping
      public Result add(${entity} ${entity?uncap_first}) {
         return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.save(${entity?uncap_first}));
      }
@@ -88,7 +92,8 @@ public class ${table.controllerName} {
       * @return Result
       */
      @ApiOperation(value = "${table.comment!}删除", notes = "${table.comment!}删除")
-     @DeleteMapping("/{id}")
+     @PreAuthorize("hasAuthority('${entity?uncap_first}:delete')")
+     @DeleteMapping("/{id: \\d+}")
      public Result delete(@PathVariable Integer id) {
         return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.removeById(id));
      }
@@ -99,7 +104,8 @@ public class ${table.controllerName} {
       * @return Result
       */
      @ApiOperation(value = "${table.comment!}修改", notes = "${table.comment!}修改")
-     @PostMapping("/update")
+     @PreAuthorize("hasAuthority('${entity?uncap_first}:update')")
+     @PutMapping
      public Result update(${entity} ${entity?uncap_first}) {
         return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.updateById(${entity?uncap_first}));
      }
@@ -110,7 +116,8 @@ public class ${table.controllerName} {
       * @return Result
       */
      @ApiOperation(value = "${table.comment!}详情", notes = "${table.comment!}详情")
-     @GetMapping("/{id}")
+     @PreAuthorize("hasAuthority('${entity?uncap_first}:detail')")
+     @GetMapping("/{id: \\d+}")
      public Result detail(@PathVariable Integer id) {
         return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.getById(id));
      }
