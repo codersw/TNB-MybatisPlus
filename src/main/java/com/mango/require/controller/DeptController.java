@@ -25,13 +25,13 @@ import javax.annotation.Resource;
 
 /**
  * <p>
- *  前端控制器
+ *  部门信息前端控制器
  * </p>
  *
  * @author swen
  * @since 2020-01-20
  */
-@Api(value = "接口", tags = {"接口"})
+@Api(value = "部门信息接口", tags = {"部门信息接口"})
 @Slf4j
 @RestController
 @RequestMapping("/dept")
@@ -42,11 +42,11 @@ public class DeptController {
 
      /**
       * 列表
-      * @param dept 
+      * @param dept 部门信息
       * @param pageRequest 分页参数
       * @return Result
       */
-     @ApiOperation(value = "列表", notes = "列表")
+     @ApiOperation(value = "部门信息列表", notes = "部门信息列表")
      @PreAuthorize("hasAuthority('dept:view')")
      @GetMapping
      public Result list(Dept dept, PageRequest pageRequest) {
@@ -64,10 +64,10 @@ public class DeptController {
 
      /**
       * 新增
-      * @param dept 
+      * @param dept 部门信息
       * @return Result
       */
-     @ApiOperation(value = "新增", notes = "新增")
+     @ApiOperation(value = "部门信息新增", notes = "部门信息新增")
      @PreAuthorize("hasAuthority('dept:add')")
      @PostMapping
      public Result add(Dept dept) {
@@ -76,10 +76,10 @@ public class DeptController {
 
      /**
       * 删除
-      * @param id 主键
+      * @param id 部门信息主键
       * @return Result
       */
-     @ApiOperation(value = "删除", notes = "删除")
+     @ApiOperation(value = "部门信息删除", notes = "部门信息删除")
      @PreAuthorize("hasAuthority('dept:delete')")
      @DeleteMapping("/{id: \\d+}")
      public Result delete(@PathVariable Integer id) {
@@ -88,10 +88,10 @@ public class DeptController {
 
      /**
       * 修改
-      * @param dept 
+      * @param dept 部门信息
       * @return Result
       */
-     @ApiOperation(value = "修改", notes = "修改")
+     @ApiOperation(value = "部门信息修改", notes = "部门信息修改")
      @PreAuthorize("hasAuthority('dept:update')")
      @PutMapping
      public Result update(Dept dept) {
@@ -100,10 +100,10 @@ public class DeptController {
 
      /**
       * 详情
-      * @param id 主键
+      * @param id 部门信息主键
       * @return Result
       */
-     @ApiOperation(value = "详情", notes = "详情")
+     @ApiOperation(value = "部门信息详情", notes = "部门信息详情")
      @PreAuthorize("hasAuthority('dept:view')")
      @GetMapping("/{id: \\d+}")
      public Result detail(@PathVariable Integer id) {
