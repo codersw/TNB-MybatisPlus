@@ -1,27 +1,24 @@
 package com.mango.require.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mango.require.model.Require;
+import com.mango.require.model.common.PageRequest;
+import com.mango.require.model.common.PageResponse;
+import com.mango.require.model.common.Result;
+import com.mango.require.model.common.ResultGenerator;
+import com.mango.require.service.IRequireService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.access.prepost.PreAuthorize;
-import com.mango.require.service.IRequireService;
-import com.mango.require.model.Require;
-import com.mango.require.model.common.PageRequest;
-import com.mango.require.model.common.Result;
-import com.mango.require.model.common.ResultGenerator;
-import com.mango.require.model.common.PageResponse;
+import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
+import java.util.Arrays;
 
 /**
  * <p>
@@ -77,14 +74,14 @@ public class RequireController {
 
      /**
       * 需求信息删除
-      * @param id 需求信息主键
+      * @param ids 需求信息主键
       * @return Result
       */
      @ApiOperation(value = "需求信息删除", notes = "需求信息删除")
      @PreAuthorize("hasAuthority('require:delete')")
-     @DeleteMapping("/{id: \\d+}")
-     public Result delete(@PathVariable Integer id) {
-          return ResultGenerator.genSuccessResult(requireService.removeById(id));
+     @DeleteMapping("/{ids}")
+     public Result delete(@PathVariable String ids) {
+          return ResultGenerator.genSuccessResult(requireService.removeByIds(Arrays.asList(ids.split(StringPool.COMMA))));
      }
 
      /**

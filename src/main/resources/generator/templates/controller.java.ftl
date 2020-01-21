@@ -107,9 +107,9 @@ public class ${table.controllerName} {
       */
      @ApiOperation(value = "${table.comment!}删除", notes = "${table.comment!}删除")
      @PreAuthorize("hasAuthority('${entity?uncap_first}:delete')")
-     @DeleteMapping("/{id: \\d+}")
-     public Result delete(@PathVariable Integer id) {
-          return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.removeById(id));
+     @DeleteMapping("/{ids}")
+     public Result delete(@PathVariable String ids) {
+          return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.removeByIds(Arrays.asList(ids.split(StringPool.COMMA))));
      }
 
      /**

@@ -1,5 +1,6 @@
 package com.mango.require.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -19,6 +20,7 @@ import com.mango.require.model.common.PageResponse;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
+import java.util.Arrays;
 
 /**
  * <p>
@@ -73,14 +75,14 @@ public class UploadFileController {
 
      /**
       * 文件信息删除
-      * @param id 文件信息主键
+      * @param ids 文件信息主键
       * @return Result
       */
      @ApiOperation(value = "文件信息删除", notes = "文件信息删除")
      @PreAuthorize("hasAuthority('upload:delete')")
-     @DeleteMapping("/{id: \\d+}")
-     public Result delete(@PathVariable Integer id) {
-          return ResultGenerator.genSuccessResult(uploadFileService.removeById(id));
+     @DeleteMapping("/{ids}")
+     public Result delete(@PathVariable String ids) {
+          return ResultGenerator.genSuccessResult(uploadFileService.removeByIds(Arrays.asList(ids.split(StringPool.COMMA))));
      }
 
      /**

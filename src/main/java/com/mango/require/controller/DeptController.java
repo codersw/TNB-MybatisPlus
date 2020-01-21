@@ -1,5 +1,6 @@
 package com.mango.require.controller;
 
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,7 @@ import com.mango.require.model.common.Result;
 import com.mango.require.model.common.ResultGenerator;
 import com.mango.require.model.common.PageResponse;
 import javax.annotation.Resource;
+import java.util.Arrays;
 
 /**
  * <p>
@@ -76,14 +78,14 @@ public class DeptController {
 
      /**
       * 删除
-      * @param id 部门信息主键
+      * @param ids 部门信息主键
       * @return Result
       */
      @ApiOperation(value = "部门信息删除", notes = "部门信息删除")
      @PreAuthorize("hasAuthority('dept:delete')")
-     @DeleteMapping("/{id: \\d+}")
-     public Result delete(@PathVariable Integer id) {
-          return ResultGenerator.genSuccessResult(deptService.removeById(id));
+     @DeleteMapping("/{ids}")
+     public Result delete(@PathVariable String ids) {
+          return ResultGenerator.genSuccessResult(deptService.removeByIds(Arrays.asList(ids.split(StringPool.COMMA))));
      }
 
      /**
