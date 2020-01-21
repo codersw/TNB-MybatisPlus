@@ -1,5 +1,6 @@
 package com.mango.require.config;
 
+import com.mango.require.handler.CustomAccessDeniedHandler;
 import com.mango.require.service.impl.SecurityUserService;
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
@@ -36,6 +37,12 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     @Resource
     private SecurityUserService securityUserService;
 
+    @Resource
+    private CustomAccessDeniedHandler authenticationAccessDeniedHandler;
+
+    @Resource
+    private CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(securityUserService);
@@ -56,13 +63,20 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
-        http.headers().frameOptions().disable()
-                .and().csrf().disable()
-                .requestMatchers().antMatchers("/**")
-                .and()
-                .authorizeRequests().antMatchers(anonUrl).permitAll()
-                .antMatchers("/**").authenticated()
-                .and().httpBasic();
+        http
+            .cors()//跨域资源共享
+            .and()
+            .csrf()//csrf保护
+            .disable()//关闭
+            .authorizeRequests()// 授权配置
+            .antMatchers(anonUrl)// 免认证路径
+            .permitAll() // 配置免认证路径
+            .anyRequest()// 所有请求
+            .authenticated();// 都需要认证
+        http
+            //添加自定义异常入口，处理accessdeine异常
+            .exceptionHandling().authenticationEntryPoint(customAuthenticationEntryPoint)
+                .accessDeniedHandler(authenticationAccessDeniedHandler);
     }
 
     @Bean
@@ -99,5 +113,4 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     protected HttpSessionManager httpSessionManager() {
         return new HttpSessionManager();
     }
-
 }

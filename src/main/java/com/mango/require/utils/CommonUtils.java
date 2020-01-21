@@ -86,4 +86,16 @@ public class CommonUtils {
         }
         return ip.equals("0:0:0:0:0:0:0:1") ? "127.0.0.1" : ip;
     }
+
+
+    /**
+     * 判断是否为 AJAX 请求
+     *
+     * @param request HttpServletRequest
+     * @return boolean
+     */
+    public static boolean isAjaxRequest(HttpServletRequest request) {
+        return (request.getHeader("X-Requested-With") != null
+                && "XMLHttpRequest".equals(request.getHeader("X-Requested-With")));
+    }
 }
