@@ -1,5 +1,6 @@
-package com.mango.require.config;
+package com.mango.require.handler;
 
+import com.alibaba.fastjson.JSON;
 import com.mango.require.mapper.MenuMapper;
 import com.mango.require.mapper.UserMapper;
 import com.mango.require.mapper.UserRoleMapper;
@@ -54,7 +55,7 @@ public class SecurityAuthenticationProvider implements AuthenticationProvider {
         //从token中获取用户信息
         SimpleKeycloakAccount account = (SimpleKeycloakAccount) authentication.getDetails();
         Principal principal = account.getPrincipal();
-        log.info(principal.getName());
+        log.info("principal username" + principal.getName());
         KeycloakSecurityContext context= account.getKeycloakSecurityContext();
         AccessToken accessToken = context.getToken();
         String userName = accessToken.getPreferredUsername();
