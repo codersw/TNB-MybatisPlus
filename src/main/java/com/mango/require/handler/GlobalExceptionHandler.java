@@ -11,6 +11,7 @@ import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -120,5 +121,18 @@ public class GlobalExceptionHandler {
     public Result applicationPhotoAlbumException(RequireException e) {
         log.error(String.format(APPLICATION_EXCEPTION, e.getMessage()), e);
         return ResultGenerator.genResult(ResultCodeEnum.FAIL, e.getMessage());
+    }
+
+    /**
+     * AccessDeniedException
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(value = AccessDeniedException.class)
+    @ResponseBody
+    @ResponseStatus(value = HttpStatus.OK)
+    public Result applicationUnauthorizedException(AccessDeniedException e) {
+        log.error(String.format(APPLICATION_EXCEPTION, e.getMessage()), e);
+        return ResultGenerator.genResult(ResultCodeEnum.UNAUTHORIZED, "权限不足");
     }
 }
