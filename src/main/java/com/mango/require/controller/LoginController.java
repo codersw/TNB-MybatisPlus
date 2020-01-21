@@ -1,6 +1,5 @@
 package com.mango.require.controller;
 
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.mango.require.model.common.Result;
 import com.mango.require.model.common.ResultGenerator;
 import lombok.extern.slf4j.Slf4j;
@@ -15,8 +14,7 @@ import springfox.documentation.annotations.ApiIgnore;
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
-import java.util.Map;
+
 
 /**
  * <p>
@@ -51,13 +49,10 @@ public class LoginController {
         request.logout();
     }
 
-//    @GetMapping
-//    @ResponseBody
-//    public Result index(Principal principal) {
-//        if (principal != null) {
-//            return ResultGenerator.genSuccessResult("登录成功");
-//        }else {
-//            return ResultGenerator.genFailResult("登录失败");
-//        }
-//    }
+    @GetMapping
+    @ResponseBody
+    public Result index() {
+        return ResultGenerator.genSuccessResult("登录成功");
+    }
+
 }

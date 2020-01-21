@@ -68,7 +68,13 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
             .antMatchers(anonUrl)// 免认证路径
             .permitAll() // 配置免认证路径
             .anyRequest()// 所有请求
-            .authenticated();// 都需要认证
+            .authenticated()// 都需要认证
+            .and()
+            .logout()
+            .logoutUrl("/logout")
+            .logoutSuccessUrl("/login")
+            .deleteCookies("JSESSIONID")
+            .and();
     }
 
     @Bean
