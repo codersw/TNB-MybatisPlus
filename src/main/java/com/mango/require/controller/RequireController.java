@@ -18,6 +18,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.Arrays;
 
 /**
@@ -46,7 +48,8 @@ public class RequireController {
      @ApiOperation(value = "需求信息列表", notes = "需求信息列表")
      @PreAuthorize("hasAuthority('require:view')")
      @GetMapping
-     public Result list(Require require, PageRequest pageRequest) {
+     public Result list(Require require, PageRequest pageRequest, HttpServletRequest request) {
+          Principal principal = request.getUserPrincipal();
           QueryWrapper<Require> queryWrapper = new QueryWrapper<>();
           //TODO 设置查询条件
 

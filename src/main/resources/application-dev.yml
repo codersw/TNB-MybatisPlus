@@ -31,6 +31,10 @@ spring:
     locale: zh_CN
   resources:
     static-locations: file:${web.upload-path}
+  freemarker:
+    cache: false
+    charset: utf-8
+    suffix: .ftl
 #文件存放路径
 web:
   upload-path: D:/upload/
@@ -46,7 +50,7 @@ keycloak:
   auth-server-url: https://keycloaksso.517api.cn/auth/
   realm: test
   ssl-required: external
-  resource: dms
+  resource: mvc-api
   principal-attribute: preferred_username
   use-resource-role-mappings: true
-  credentials.secret: 5db096d6-d4fb-4578-9fb6-3146afb2281d
+  bearer-only: true

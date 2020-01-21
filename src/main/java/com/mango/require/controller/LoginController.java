@@ -50,9 +50,8 @@ public class LoginController {
     }
 
     @GetMapping
-    @ResponseBody
-    public Result index() {
-        return ResultGenerator.genSuccessResult("登录成功");
+    public String index() {
+        return "index";
     }
 
 }
