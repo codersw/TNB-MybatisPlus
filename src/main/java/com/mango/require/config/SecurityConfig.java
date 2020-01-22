@@ -60,19 +60,16 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         super.configure(http);
-//        http
-//            .cors()//跨域资源共享
-//            .and()
-//            .csrf()//csrf保护
-//            .disable()//关闭
-//            .authorizeRequests()// 授权配置
-//            .antMatchers(anonUrl)// 免认证路径
-//            .permitAll() // 配置免认证路径
-//            .anyRequest()// 所有请求
-//            .authenticated();// 都需要认证
         http
-            .authorizeRequests()
-            .anyRequest().permitAll();
+            .cors()//跨域资源共享
+            .and()
+            .csrf()//csrf保护
+            .disable()//关闭
+            .authorizeRequests()// 授权配置
+            .antMatchers(anonUrl)// 免认证路径
+            .permitAll() // 配置免认证路径
+            .anyRequest()// 所有请求
+            .authenticated();// 都需要认证
     }
 
     @Bean
