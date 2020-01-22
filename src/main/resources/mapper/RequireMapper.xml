@@ -80,10 +80,7 @@
             r.modify_user_id  as modify_user_id,
             r.modify_time as modify_time,
             r.parent_id as parent_id,
-            r.is_del as is_del,
-            tag.tag_id as tag_id,
-            tag.tag_name as tag_name,
-            tag.tag_desc as tag_desc
+            r.is_del as is_del
         FROM
             t_require_merge rme
         INNER JOIN t_require r ON rme.require_branch_id =  r.require_id AND rme.require_master_id = #{masterId}
@@ -103,10 +100,7 @@
             r.modify_user_id  as modify_user_id,
             r.modify_time as modify_time,
             r.parent_id as parent_id,
-            r.is_del as is_del,
-            tag.tag_id as tag_id,
-            tag.tag_name as tag_name,
-            tag.tag_desc as tag_desc
+            r.is_del as is_del
         FROM
             t_require_merge rme
         INNER JOIN  t_require r ON rme.require_master_id =  r.require_id AND rme.require_branch_id = #{branchId}
