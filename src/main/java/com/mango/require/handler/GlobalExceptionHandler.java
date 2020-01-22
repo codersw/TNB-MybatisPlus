@@ -102,10 +102,11 @@ public class GlobalExceptionHandler {
      * @param e
      * @return
      */
-    @ExceptionHandler(value = UnAuthorizedException.class)
+    @ExceptionHandler(value = { UnAuthorizedException.class,
+            AccessDeniedException.class})
     @ResponseBody
     @ResponseStatus(value = HttpStatus.OK)
-    public Result applicationUnauthorizedException(UnAuthorizedException e) {
+    public Result applicationUnauthorizedException(Exception e) {
         log.error(String.format(APPLICATION_EXCEPTION, e.getMessage()), e);
         return ResultGenerator.genResult(ResultCodeEnum.UNAUTHORIZED, e.getMessage());
     }
@@ -118,21 +119,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = RequireException.class)
     @ResponseBody
     @ResponseStatus(value = HttpStatus.OK)
-    public Result applicationPhotoAlbumException(RequireException e) {
+    public Result applicationRequireException(RequireException e) {
         log.error(String.format(APPLICATION_EXCEPTION, e.getMessage()), e);
         return ResultGenerator.genResult(ResultCodeEnum.FAIL, e.getMessage());
-    }
-
-    /**
-     * AccessDeniedException
-     * @param e
-     * @return
-     */
-    @ExceptionHandler(value = AccessDeniedException.class)
-    @ResponseBody
-    @ResponseStatus(value = HttpStatus.OK)
-    public Result applicationUnauthorizedException(AccessDeniedException e) {
-        log.error(String.format(APPLICATION_EXCEPTION, e.getMessage()), e);
-        return ResultGenerator.genResult(ResultCodeEnum.UNAUTHORIZED, "权限不足");
     }
 }

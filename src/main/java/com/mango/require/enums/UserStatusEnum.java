@@ -2,6 +2,7 @@ package com.mango.require.enums;
 
 
 import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,16 +13,15 @@ import java.util.Map;
  * @author swen
  */
 @Getter
-public enum StatusEnum {
+public enum UserStatusEnum {
 
-    INPLANNING(0,"规划中"),
-    REALIZED(1,"已实现"),
-    REJECTED(2,"已拒绝");
+    NOBLOCK(0,"未锁定"),
+    ISBLOCK(1,"已锁定");
 
     private Integer value;
     private String name;
 
-    StatusEnum(Integer value, String name) {
+    UserStatusEnum(Integer value, String name) {
         this.value = value;
         this.name = name;
     }
@@ -32,9 +32,9 @@ public enum StatusEnum {
 
     public static List<Map<String, String>> toList() {
         if (list == null) {
-            StatusEnum[] ary = StatusEnum.values();
+            UserStatusEnum[] ary = UserStatusEnum.values();
             List<Map<String, String>> listTmp = new ArrayList<>();
-            for (StatusEnum statusEnum : ary) {
+            for (UserStatusEnum statusEnum : ary) {
                 Map<String, String> map = new HashMap<>();
                 map.put("value", String.valueOf(statusEnum.getValue()));
                 map.put("name", statusEnum.getName());
@@ -47,9 +47,9 @@ public enum StatusEnum {
 
     public static Map<Integer, String> toMap() {
         if (map == null) {
-            StatusEnum[] ary = StatusEnum.values();
+            UserStatusEnum[] ary = UserStatusEnum.values();
             Map<Integer, String> enumMap = new HashMap<>();
-            for (StatusEnum statusEnum : ary) {
+            for (UserStatusEnum statusEnum : ary) {
                 enumMap.put(statusEnum.getValue(), statusEnum.getName());
             }
             map = enumMap;

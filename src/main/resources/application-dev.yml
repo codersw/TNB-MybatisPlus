@@ -38,7 +38,7 @@ spring:
 #文件存放路径
 web:
   upload-path: D:/upload/
-  anon-url: /actuator/**,/swagger-ui.html,/webjars/**,/swagger-resources/**,/v2/api-docs/**,/,/csrf,/login,/logout
+  anon-url: /actuator/**,/swagger-ui.html,/webjars/**,/swagger-resources/**,/v2/api-docs/**,/,/csrf
 #此配置开启mybatis sql打印
 logging:
   level:
