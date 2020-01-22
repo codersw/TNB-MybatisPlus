@@ -1,6 +1,8 @@
 package com.mango.require.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.mango.require.model.CurrentUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -8,6 +10,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -52,6 +55,10 @@ public class UserController {
      @PreAuthorize("hasAuthority('user:view')")
      @GetMapping
      public Result list(User user, PageRequest pageRequest) {
+          CurrentUser currentUser = (CurrentUser) SecurityContextHolder.getContext()
+                  .getAuthentication()
+                  .getDetails();
+          log.info("{}", JSONObject.toJSONString(currentUser));
           QueryWrapper<User> queryWrapper = new QueryWrapper<>();
           //TODO 设置查询条件
 

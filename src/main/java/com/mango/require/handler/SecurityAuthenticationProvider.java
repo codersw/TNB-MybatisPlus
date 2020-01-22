@@ -1,5 +1,6 @@
 package com.mango.require.handler;
 
+import com.mango.require.model.CurrentUser;
 import com.mango.require.model.Role;
 import com.mango.require.model.User;
 import com.mango.require.service.IMenuService;
@@ -15,12 +16,12 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
+import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
 
 @Slf4j
 @Component
@@ -43,8 +44,7 @@ public class SecurityAuthenticationProvider implements AuthenticationProvider {
      */
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        KeycloakAuthenticationToken token = (KeycloakAuthenticationToken)authentication;
-        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+        KeycloakAuthenticationToken token = (KeycloakAuthenticationToken) authentication;
         //从token中获取用户信息
         SimpleKeycloakAccount account = (SimpleKeycloakAccount) authentication.getDetails();
         KeycloakSecurityContext context= account.getKeycloakSecurityContext();
@@ -61,7 +61,19 @@ public class SecurityAuthenticationProvider implements AuthenticationProvider {
             }});
         }
         String permissions = menuService.findUserPermissions(user.getUserId());
-        return new KeycloakAuthenticationToken(token.getAccount(), token.isInteractive(), mapAuthorities(AuthorityUtils.commaSeparatedStringToAuthorityList(permissions)));
+        CurrentUser crrentUser = new CurrentUser(user.getUsername(), user.getPassword(), true,
+                true, true, true,
+                AuthorityUtils.commaSeparatedStringToAuthorityList(permissions));
+        crrentUser.setUserId(user.getUserId());
+        crrentUser.setDeptId(user.getDeptId());
+        crrentUser.setMobile(user.getMobile());
+        crrentUser.setSex(user.getSex());
+        //重写token 将当前登陆人信息塞入token中
+        PreAuthenticatedAuthenticationToken preAuthenticatedAuthenticationToken =
+                new PreAuthenticatedAuthenticationToken(crrentUser, crrentUser.getPassword(),
+                        mapAuthorities(AuthorityUtils.commaSeparatedStringToAuthorityList(permissions)));
+        preAuthenticatedAuthenticationToken.setDetails(crrentUser);
+        return preAuthenticatedAuthenticationToken;
     }
 
     @Override

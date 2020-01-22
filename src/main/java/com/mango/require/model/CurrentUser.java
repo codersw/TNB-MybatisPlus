@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.User;
 
 import java.util.Collection;
 
-public class UserDetails extends User {
+public class CurrentUser extends User {
 
     private Integer userId;
 
@@ -77,11 +77,11 @@ public class UserDetails extends User {
         this.deptId = deptId;
     }
 
-    public UserDetails(String username, String password, Collection<? extends GrantedAuthority> authorities) {
+    public CurrentUser(String username, String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
     }
 
-    public UserDetails(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
+    public CurrentUser(String username, String password, boolean enabled, boolean accountNonExpired, boolean credentialsNonExpired, boolean accountNonLocked, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, authorities);
     }
 }
