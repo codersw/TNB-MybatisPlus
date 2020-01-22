@@ -9,7 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 </#if>
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
+import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,12 +28,12 @@ import ${superControllerClassPackage};
 import org.springframework.security.access.prepost.PreAuthorize;
 import ${package.Service}.${table.serviceName};
 import ${package.Entity}.${entity};
-import ${package.Entity}.common.PageRequest;
-import ${package.Entity}.common.Result;
-import ${package.Entity}.common.ResultGenerator;
-import ${package.Entity}.common.PageResponse;
+import ${package.Entity?replace(".pojo","")}.common.PageRequest;
+import ${package.Entity?replace(".pojo","")}.common.Result;
+import ${package.Entity?replace(".pojo","")}.common.ResultGenerator;
+import ${package.Entity?replace(".pojo","")}.common.PageResponse;
 import javax.annotation.Resource;
-
+import java.util.Arrays;
 /**
  * <p>
  * ${table.comment!} 前端控制器
@@ -79,10 +79,6 @@ public class ${table.controllerName} {
           QueryWrapper<${entity}> queryWrapper = new QueryWrapper<>();
           //TODO 设置查询条件
 
-          //排序
-          if(StringUtils.isNotBlank(pageRequest.getSortColumn())) {
-               queryWrapper.orderBy(true, pageRequest.getSortAscend(), pageRequest.getSortColumn());
-          }
           Page<${entity}> page = new Page<>(pageRequest.getPageIndex(), pageRequest.getPageSize());
           IPage<${entity}> ${entity?uncap_first}Page = ${table.serviceName?replace("I","")?uncap_first}.page(page, queryWrapper);
           return ResultGenerator.genSuccessResult(PageResponse.<${entity}>builder().list(${entity?uncap_first}Page.getRecords()).total(${entity?uncap_first}Page.getTotal()).build());
@@ -102,7 +98,7 @@ public class ${table.controllerName} {
 
      /**
       * ${table.comment!}删除
-      * @param id ${table.comment!}主键
+      * @param ids ${table.comment!}主键
       * @return Result
       */
      @ApiOperation(value = "${table.comment!}删除", notes = "${table.comment!}删除")

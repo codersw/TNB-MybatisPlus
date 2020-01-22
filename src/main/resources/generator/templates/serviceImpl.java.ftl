@@ -1,8 +1,6 @@
 package ${package.ServiceImpl};
 
 import ${package.Entity}.${entity};
-import ${package.Entity}.common.PageRequest;
-import ${package.Entity}.common.PageResponse;
 import ${package.Mapper}.${table.mapperName};
 import ${package.Service}.${table.serviceName};
 import ${superServiceImplClassPackage};
