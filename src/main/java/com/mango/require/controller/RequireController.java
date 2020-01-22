@@ -5,7 +5,9 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mango.require.model.CurrentUser;
 import com.mango.require.model.Require;
+import com.mango.require.model.RequireCo;
 import com.mango.require.model.common.PageRequest;
 import com.mango.require.model.common.PageResponse;
 import com.mango.require.model.common.Result;
@@ -16,6 +18,7 @@ import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -48,8 +51,7 @@ public class RequireController {
      @ApiOperation(value = "需求信息列表", notes = "需求信息列表")
      @PreAuthorize("hasAuthority('require:view')")
      @GetMapping
-     public Result list(Require require, PageRequest pageRequest, HttpServletRequest request) {
-          Principal principal = request.getUserPrincipal();
+     public Result list(Require require, PageRequest pageRequest) {
           QueryWrapper<Require> queryWrapper = new QueryWrapper<>();
           //TODO 设置查询条件
 
@@ -64,14 +66,15 @@ public class RequireController {
 
      /**
       * 需求信息新增
-      * @param require 需求信息
+      * @param requireCo 需求信息
+      * @param currentUser 当前登陆人
       * @return Result
       */
      @ApiOperation(value = "需求信息新增", notes = "需求信息新增")
      @PreAuthorize("hasAuthority('require:add')")
      @PostMapping
-     public Result add(Require require, String fileIds) {
-          requireService.save(require, fileIds.split(","));
+     public Result add(RequireCo requireCo,@ApiIgnore CurrentUser currentUser) {
+          requireService.save(requireCo, currentUser);
           return ResultGenerator.genSuccessResult();
      }
 

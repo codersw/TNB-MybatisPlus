@@ -1,9 +1,9 @@
 package com.mango.require.service;
 
-import com.mango.require.model.Require;
 import com.baomidou.mybatisplus.extension.service.IService;
-
-import java.util.List;
+import com.mango.require.model.CurrentUser;
+import com.mango.require.model.Require;
+import com.mango.require.model.RequireCo;
 
 /**
  * <p>
@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface IRequireService extends IService<Require> {
 
-    void save(Require require, String[] fileIds);
+    void save(RequireCo requireCo, CurrentUser currentUser);
 
     void update(Require require, String[] fileIds);
 }
