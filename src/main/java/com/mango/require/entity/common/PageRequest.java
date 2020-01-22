@@ -20,10 +20,4 @@ public class PageRequest {
 
 	@ApiModelProperty(value = "每页条数", name = "pageSize", example = "10")
 	private Integer pageSize = PageEnum.PAGE_SIZE.getValue();
-
-	@ApiModelProperty(value = "排序true为正序，false为倒序", name = "sortAscend", example = "true")
-	private Boolean sortAscend;
-
-	@ApiModelProperty(value = "排序列", name = "sortColumn", example = "")
-	private String sortColumn;
 }

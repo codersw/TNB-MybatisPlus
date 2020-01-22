@@ -7,4 +7,9 @@ import lombok.*;
 @Data
 public class RequireVo extends Require {
 
+    private Integer tagId;
+
+    private String tagName;
+
+    private String tagDesc;
 }

@@ -1,22 +1,17 @@
 package com.mango.require.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mango.require.entity.co.RequireListCo;
 import com.mango.require.entity.co.RequireUpdateCo;
 import com.mango.require.entity.common.CurrentUser;
-import com.mango.require.entity.pojo.Require;
 import com.mango.require.entity.co.RequireAddCo;
-import com.mango.require.entity.common.PageRequest;
-import com.mango.require.entity.common.PageResponse;
 import com.mango.require.entity.common.Result;
 import com.mango.require.entity.common.ResultGenerator;
+import com.mango.require.enums.RequireHandleTypeEnum;
 import com.mango.require.service.IRequireService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +19,7 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * <p>
@@ -95,13 +91,39 @@ public class RequireController {
      }
 
      /**
+      * 需求信息合并
+      * @param type 操作类型
+      * @param requireId 需求id
+      * @param param 参数
+      * @return Result
+      */
+     @ApiOperation(value = "需求信息操作", notes = "需求信息操作")
+     @PreAuthorize("hasAuthority('require:update')")
+     @GetMapping("/{type}/{requireId:\\d+}/{param}")
+     public Result handle(@ApiParam("操作类型") @PathVariable @RequestParam String type, @ApiParam("主需求id") @PathVariable @RequestParam Integer requireId,
+                          @ApiParam(value = "参数") @RequestParam @PathVariable String param) {
+          if(type.equals(RequireHandleTypeEnum.MERGE.getValue())) {
+               requireService.merge(requireId, param);
+          } else if(type.equals(RequireHandleTypeEnum.TAG.getValue())) {
+               requireService.tag(requireId, param);
+          } else if(type.equals(RequireHandleTypeEnum.PRIORITY.getValue())) {
+               requireService.priority(requireId, Integer.valueOf(param));
+          } else if(type.equals(RequireHandleTypeEnum.URGENT.getValue())) {
+               requireService.urgent(requireId, Integer.valueOf(param));
+          } else if(type.equals(RequireHandleTypeEnum.STATUS.getValue())) {
+               requireService.status(requireId, Integer.valueOf(param));
+          }
+          return ResultGenerator.genSuccessResult();
+     }
+
+     /**
       * 需求信息详情
       * @param id 需求信息主键
       * @return Result
       */
      @ApiOperation(value = "需求信息详情", notes = "需求信息详情")
      @PreAuthorize("hasAuthority('require:view')")
-     @GetMapping("/{id: \\d+}")
+     @GetMapping("/{id:\\d+}")
      public Result detail(@PathVariable Integer id) {
           return ResultGenerator.genSuccessResult(requireService.getById(id));
      }

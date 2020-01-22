@@ -18,8 +18,11 @@
         <result column="is_del" property="isDel" />
     </resultMap>
 
+    <!--重组映射结果-->
     <resultMap id="BaseResultMapVo" type="com.mango.require.entity.vo.RequireVo" extends="BaseResultMap">
-
+        <result column="tag_id" property="tagId"/>
+        <result column="tag_name" property="tagName"/>
+        <result column="tag_desc" property="tagDesc"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -28,7 +31,40 @@
     </sql>
 
     <select id="selectList" resultMap="BaseResultMapVo">
-        SELECT <include refid="Base_Column_List"/> FROM t_require ${ew.customSqlSegment}
+        SELECT
+            r.require_id as require_id,
+            r.require_title as require_title,
+            r.content as content,
+            r.priority as priority,
+            r.urgent as urgent,
+            r.status as status,
+            r.create_user_id as create_user_id,
+            r.create_time as create_time,
+            r.modify_user_id  as modify_user_id,
+            r.modify_time as modify_time,
+            r.parent_id as parent_id,
+            r.is_del as is_del,
+            tag.tag_id as tag_id,
+            tag.tag_name as tag_name,
+            tag.tag_desc as tag_desc
+        FROM
+            t_require r
+        LEFT JOIN ( SELECT any_value(tag_id) tag_id, require_id FROM t_require_tag  GROUP BY require_id ) a ON a.require_id = r.require_id
+            AND r.is_del = 0
+            AND r.require_id NOT IN ( SELECT require_branch_id FROM t_require_merge )
+        LEFT JOIN t_tag tag ON a.tag_id = tag.tag_id
+            AND tag.is_del =0
+        where 1 = 1
+        <if test="requireListCo.requireTitle !=null and requireListCo.requireTitle != ''">
+            and r.require_title LIKE CONCAT('%',#{requireListCo.requireTitle},'%')
+        </if>
+        <if test="requireListCo.status !=null">
+            and r.status = #{requireListCo.status}
+        </if>
+        <if test="requireListCo.tagId !=null">
+            and tag.tag_id = #{requireListCo.tagId}
+        </if>
+        order by priority,urgent,status
     </select>
 
 </mapper>

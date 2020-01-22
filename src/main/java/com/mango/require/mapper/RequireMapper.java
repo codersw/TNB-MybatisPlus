@@ -20,5 +20,5 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface RequireMapper extends BaseMapper<Require> {
 
-    IPage<RequireVo> selectList(Page<RequireVo> page, @Param(Constants.WRAPPER) Wrapper<RequireListCo> wrapper);
+    IPage<RequireVo> selectList(Page<RequireVo> page, @Param("requireListCo") RequireListCo requireListCo);
 }

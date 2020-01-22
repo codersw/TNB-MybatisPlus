@@ -22,5 +22,15 @@ public interface IRequireService extends IService<Require> {
 
     void update(RequireUpdateCo requireUpdateCo, CurrentUser currentUser);
 
+    void merge(Integer masterId, String branchIds);
+
+    void tag(Integer requireId, String tagIds);
+
+    void priority(Integer requireId, Integer priority);
+
+    void urgent(Integer requireId, Integer urgent);
+
+    void status(Integer requireId, Integer status);
+
     PageResponse list(RequireListCo requireListCo);
 }
