@@ -1,4 +1,4 @@
-package com.mango.require.model;
+package com.mango.require.entity.common;
 
 
 import com.mango.require.enums.SexEnum;

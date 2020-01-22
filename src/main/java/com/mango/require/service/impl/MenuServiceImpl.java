@@ -1,8 +1,6 @@
 package com.mango.require.service.impl;
 
-import com.mango.require.model.Menu;
-import com.mango.require.model.common.PageRequest;
-import com.mango.require.model.common.PageResponse;
+import com.mango.require.entity.pojo.Menu;
 import com.mango.require.mapper.MenuMapper;
 import com.mango.require.service.IMenuService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

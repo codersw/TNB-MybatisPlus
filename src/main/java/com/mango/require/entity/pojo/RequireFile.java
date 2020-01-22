@@ -1,4 +1,4 @@
-package com.mango.require.model;
+package com.mango.require.entity.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableId;

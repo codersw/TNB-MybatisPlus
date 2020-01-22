@@ -1,4 +1,4 @@
-package com.mango.require.model;
+package com.mango.require.entity.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -13,7 +13,7 @@ import lombok.Builder;
 
 /**
  * <p>
- * 需求合并
+ * 角色菜单
  * </p>
  *
  * @author swen
@@ -23,19 +23,19 @@ import lombok.Builder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@TableName("t_require_merge")
-@ApiModel(value="RequireMerge对象", description="需求合并")
-public class RequireMerge implements Serializable {
+@TableName("t_role_menu")
+@ApiModel(value="RoleMenu对象", description="角色菜单")
+public class RoleMenu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "主需求id")
-    @TableId("require_master_id")
-    private Integer requireMasterId;
+    @ApiModelProperty(value = "角色id")
+    @TableId("role_id")
+    private Integer roleId;
 
-    @ApiModelProperty(value = "分支需求id")
-    @TableField("require_branch_id")
-    private Integer requireBranchId;
+    @ApiModelProperty(value = "菜单id")
+    @TableField("menu_id")
+    private Integer menuId;
 
 
 }

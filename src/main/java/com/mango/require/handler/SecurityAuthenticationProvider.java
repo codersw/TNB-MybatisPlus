@@ -1,8 +1,8 @@
 package com.mango.require.handler;
 
-import com.mango.require.model.CurrentUser;
-import com.mango.require.model.Role;
-import com.mango.require.model.User;
+import com.mango.require.entity.common.CurrentUser;
+import com.mango.require.entity.pojo.Role;
+import com.mango.require.entity.pojo.User;
 import com.mango.require.service.IMenuService;
 import com.mango.require.service.IUserService;
 import lombok.extern.slf4j.Slf4j;

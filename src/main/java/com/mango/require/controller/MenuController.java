@@ -17,11 +17,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.access.prepost.PreAuthorize;
 import com.mango.require.service.IMenuService;
-import com.mango.require.model.Menu;
-import com.mango.require.model.common.PageRequest;
-import com.mango.require.model.common.Result;
-import com.mango.require.model.common.ResultGenerator;
-import com.mango.require.model.common.PageResponse;
+import com.mango.require.entity.pojo.Menu;
+import com.mango.require.entity.common.PageRequest;
+import com.mango.require.entity.common.Result;
+import com.mango.require.entity.common.ResultGenerator;
+import com.mango.require.entity.common.PageResponse;
 import javax.annotation.Resource;
 import java.util.Arrays;
 

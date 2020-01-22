@@ -12,11 +12,11 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import com.mango.require.service.IUploadFileService;
-import com.mango.require.model.UploadFile;
-import com.mango.require.model.common.PageRequest;
-import com.mango.require.model.common.Result;
-import com.mango.require.model.common.ResultGenerator;
-import com.mango.require.model.common.PageResponse;
+import com.mango.require.entity.pojo.UploadFile;
+import com.mango.require.entity.common.PageRequest;
+import com.mango.require.entity.common.Result;
+import com.mango.require.entity.common.ResultGenerator;
+import com.mango.require.entity.common.PageResponse;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;

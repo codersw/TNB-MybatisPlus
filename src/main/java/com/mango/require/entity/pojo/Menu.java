@@ -1,4 +1,4 @@
-package com.mango.require.model;
+package com.mango.require.entity.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -16,7 +16,7 @@ import lombok.Builder;
 
 /**
  * <p>
- * 
+ * 菜单
  * </p>
  *
  * @author swen
@@ -26,23 +26,43 @@ import lombok.Builder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@TableName("t_dept")
-@ApiModel(value="Dept对象", description="")
-public class Dept implements Serializable {
+@TableName("t_menu")
+@ApiModel(value="Menu对象", description="菜单")
+public class Menu implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "部门id")
-    @TableId(value = "dept_id", type = IdType.AUTO)
-    private Integer deptId;
-
-    @ApiModelProperty(value = "部门名字")
-    @TableField("dept_name")
-    private String deptName;
+    @ApiModelProperty(value = "菜单id")
+    @TableId(value = "menu_id", type = IdType.AUTO)
+    private Integer menuId;
 
     @ApiModelProperty(value = "父级id")
     @TableField("parent_id")
     private Integer parentId;
+
+    @ApiModelProperty(value = "菜单/按钮名称")
+    @TableField("menu_name")
+    private String menuName;
+
+    @ApiModelProperty(value = "对应路由path")
+    @TableField("path")
+    private String path;
+
+    @ApiModelProperty(value = "对应路由组件component")
+    @TableField("component")
+    private String component;
+
+    @ApiModelProperty(value = "权限标识")
+    @TableField("perms")
+    private String perms;
+
+    @ApiModelProperty(value = "图标")
+    @TableField("icon")
+    private String icon;
+
+    @ApiModelProperty(value = "类型 0菜单 1按钮")
+    @TableField("type")
+    private Integer type;
 
     @ApiModelProperty(value = "排序")
     @TableField("order_num")

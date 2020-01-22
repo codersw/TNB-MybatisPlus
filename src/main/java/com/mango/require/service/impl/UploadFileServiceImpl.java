@@ -1,7 +1,7 @@
 package com.mango.require.service.impl;
 
 import com.mango.require.enums.IsDelEnum;
-import com.mango.require.model.UploadFile;
+import com.mango.require.entity.pojo.UploadFile;
 import com.mango.require.mapper.UploadFileMapper;
 import com.mango.require.service.IUploadFileService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

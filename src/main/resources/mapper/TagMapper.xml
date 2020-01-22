@@ -3,7 +3,7 @@
 <mapper namespace="com.mango.require.mapper.TagMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.mango.require.model.Tag">
+    <resultMap id="BaseResultMap" type="com.mango.require.entity.pojo.Tag">
         <id column="tag_id" property="tagId" />
         <result column="tag_name" property="tagName" />
         <result column="tag_desc" property="tagDesc" />

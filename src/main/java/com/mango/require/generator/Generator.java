@@ -67,10 +67,10 @@ public class Generator {
         //包配置
         PackageConfig pc = new PackageConfig();
         pc.setParent("com.mango.require");
-        pc.setEntity("model");
+        pc.setEntity("entity.pojo");
         //自定义生成路径信息
         Map<String, String> pathInfo = new HashMap<>(6);
-        pathInfo.put(ConstVal.ENTITY_PATH, gc.getOutputDir() + pc.getParent().replace(".","/") + "/model/");
+        pathInfo.put(ConstVal.ENTITY_PATH, gc.getOutputDir() + pc.getParent().replace(".","/") + "/entity/pojo/");
         pathInfo.put(ConstVal.MAPPER_PATH,  gc.getOutputDir() + pc.getParent().replace(".","/") + "/mapper/");
         pathInfo.put(ConstVal.XML_PATH, projectPath + "/src/main/resources/mapper/");
         pathInfo.put(ConstVal.SERVICE_PATH, gc.getOutputDir() + pc.getParent().replace(".","/") + "/service/");

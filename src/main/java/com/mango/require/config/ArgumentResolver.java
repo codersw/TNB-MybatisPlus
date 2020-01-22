@@ -1,6 +1,6 @@
 package com.mango.require.config;
 
-import com.mango.require.model.CurrentUser;
+import com.mango.require.entity.common.CurrentUser;
 import org.springframework.core.MethodParameter;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;

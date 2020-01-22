@@ -1,4 +1,4 @@
-package com.mango.require.model.common;
+package com.mango.require.entity.common;
 
 
 import io.swagger.annotations.ApiModel;

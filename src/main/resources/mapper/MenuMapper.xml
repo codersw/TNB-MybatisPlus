@@ -3,7 +3,7 @@
 <mapper namespace="com.mango.require.mapper.MenuMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.mango.require.model.Menu">
+    <resultMap id="BaseResultMap" type="com.mango.require.entity.pojo.Menu">
         <id column="menu_id" property="menuId" />
         <result column="parent_id" property="parentId" />
         <result column="menu_name" property="menuName" />

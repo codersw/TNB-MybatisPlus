@@ -1,4 +1,4 @@
-package com.mango.require.model;
+package com.mango.require.entity.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -13,7 +13,7 @@ import lombok.Builder;
 
 /**
  * <p>
- * 角色菜单
+ * 用户角色
  * </p>
  *
  * @author swen
@@ -23,19 +23,19 @@ import lombok.Builder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@TableName("t_role_menu")
-@ApiModel(value="RoleMenu对象", description="角色菜单")
-public class RoleMenu implements Serializable {
+@TableName("t_user_role")
+@ApiModel(value="UserRole对象", description="用户角色")
+public class UserRole implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "角色id")
-    @TableId("role_id")
-    private Integer roleId;
+    @ApiModelProperty(value = "用户id")
+    @TableId("user_id")
+    private Integer userId;
 
-    @ApiModelProperty(value = "菜单id")
-    @TableField("menu_id")
-    private Integer menuId;
+    @ApiModelProperty(value = "角色id")
+    @TableField("role_id")
+    private Integer roleId;
 
 
 }

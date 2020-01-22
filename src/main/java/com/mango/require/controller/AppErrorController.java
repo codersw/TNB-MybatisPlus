@@ -2,8 +2,8 @@ package com.mango.require.controller;
 
 
 import com.mango.require.enums.ResultCodeEnum;
-import com.mango.require.model.common.Result;
-import com.mango.require.model.common.ResultGenerator;
+import com.mango.require.entity.common.Result;
+import com.mango.require.entity.common.ResultGenerator;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;

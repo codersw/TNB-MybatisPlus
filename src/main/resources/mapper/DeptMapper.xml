@@ -3,7 +3,7 @@
 <mapper namespace="com.mango.require.mapper.DeptMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.mango.require.model.Dept">
+    <resultMap id="BaseResultMap" type="com.mango.require.entity.pojo.Dept">
         <id column="dept_id" property="deptId" />
         <result column="dept_name" property="deptName" />
         <result column="parent_id" property="parentId" />

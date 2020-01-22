@@ -1,6 +1,7 @@
-package com.mango.require.model;
+package com.mango.require.entity.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.IdType;
 import java.util.Date;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
@@ -15,7 +16,7 @@ import lombok.Builder;
 
 /**
  * <p>
- * 角色信息
+ * 
  * </p>
  *
  * @author swen
@@ -25,23 +26,27 @@ import lombok.Builder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@TableName("t_role")
-@ApiModel(value="Role对象", description="角色信息")
-public class Role implements Serializable {
+@TableName("t_dept")
+@ApiModel(value="Dept对象", description="")
+public class Dept implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "角色ID")
-    @TableId("role_id")
-    private Integer roleId;
+    @ApiModelProperty(value = "部门id")
+    @TableId(value = "dept_id", type = IdType.AUTO)
+    private Integer deptId;
 
-    @ApiModelProperty(value = "角色名称")
-    @TableField("role_name")
-    private String roleName;
+    @ApiModelProperty(value = "部门名字")
+    @TableField("dept_name")
+    private String deptName;
 
-    @ApiModelProperty(value = "角色描述")
-    @TableField("remark")
-    private String remark;
+    @ApiModelProperty(value = "父级id")
+    @TableField("parent_id")
+    private Integer parentId;
+
+    @ApiModelProperty(value = "排序")
+    @TableField("order_num")
+    private Integer orderNum;
 
     @ApiModelProperty(value = "创建时间")
     @TableField("create_time")
@@ -51,7 +56,7 @@ public class Role implements Serializable {
     @TableField("modify_time")
     private Date modifyTime;
 
-    @ApiModelProperty(value = "是否删除 0 未删除 1 已删除")
+    @ApiModelProperty(value = "是否删除 0未删除 1已删除")
     @TableField("is_del")
     @TableLogic
     private Integer isDel;

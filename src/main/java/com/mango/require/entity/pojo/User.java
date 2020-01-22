@@ -1,4 +1,4 @@
-package com.mango.require.model;
+package com.mango.require.entity.pojo;
 
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.baomidou.mybatisplus.annotation.IdType;
@@ -16,7 +16,7 @@ import lombok.Builder;
 
 /**
  * <p>
- * 标签信息
+ * 用户信息
  * </p>
  *
  * @author swen
@@ -26,41 +26,49 @@ import lombok.Builder;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@TableName("t_tag")
-@ApiModel(value="Tag对象", description="标签信息")
-public class Tag implements Serializable {
+@TableName("t_user")
+@ApiModel(value="User对象", description="用户信息")
+public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @ApiModelProperty(value = "标签id")
-    @TableId(value = "tag_id", type = IdType.AUTO)
-    private Integer tagId;
+    @ApiModelProperty(value = "用户id")
+    @TableId(value = "user_id", type = IdType.AUTO)
+    private Integer userId;
 
-    @ApiModelProperty(value = "标签名字")
-    @TableField("tag_name")
-    private String tagName;
+    @ApiModelProperty(value = "登录名")
+    @TableField("username")
+    private String username;
 
-    @ApiModelProperty(value = "标签描述")
-    @TableField("tag_desc")
-    private String tagDesc;
+    @ApiModelProperty(value = "用户密码")
+    @TableField("password")
+    private String password;
 
-    @ApiModelProperty(value = "创建人id")
-    @TableField("create_user_id")
-    private Integer createUserId;
+    @ApiModelProperty(value = "手机号")
+    @TableField("mobile")
+    private String mobile;
+
+    @ApiModelProperty(value = "性别 0 男 1 女")
+    @TableField("sex")
+    private Integer sex;
+
+    @ApiModelProperty(value = "部门id")
+    @TableField("dept_id")
+    private Integer deptId;
 
     @ApiModelProperty(value = "创建时间")
     @TableField("create_time")
     private Date createTime;
 
-    @ApiModelProperty(value = "修改人id")
-    @TableField("modify_user_id")
-    private Integer modifyUserId;
-
     @ApiModelProperty(value = "修改时间")
     @TableField("modify_time")
     private Date modifyTime;
 
-    @ApiModelProperty(value = "是否删除 0未删除 1 以删除")
+    @ApiModelProperty(value = "状态 0有效 1锁定")
+    @TableField("status")
+    private Integer status;
+
+    @ApiModelProperty(value = "是否删除 0 未删除 1 已删除")
     @TableField("is_del")
     @TableLogic
     private Integer isDel;

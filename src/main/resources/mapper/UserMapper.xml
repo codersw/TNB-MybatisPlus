@@ -3,7 +3,7 @@
 <mapper namespace="com.mango.require.mapper.UserMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.mango.require.model.User">
+    <resultMap id="BaseResultMap" type="com.mango.require.entity.pojo.User">
         <id column="user_id" property="userId" />
         <result column="username" property="username" />
         <result column="password" property="password" />

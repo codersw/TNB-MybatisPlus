@@ -3,7 +3,7 @@
 <mapper namespace="com.mango.require.mapper.RoleMenuMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.mango.require.model.RoleMenu">
+    <resultMap id="BaseResultMap" type="com.mango.require.entity.pojo.RoleMenu">
         <id column="role_id" property="roleId" />
         <result column="menu_id" property="menuId" />
     </resultMap>

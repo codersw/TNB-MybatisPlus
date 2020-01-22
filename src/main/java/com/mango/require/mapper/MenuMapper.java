@@ -1,6 +1,6 @@
 package com.mango.require.mapper;
 
-import com.mango.require.model.Menu;
+import com.mango.require.entity.pojo.Menu;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
 

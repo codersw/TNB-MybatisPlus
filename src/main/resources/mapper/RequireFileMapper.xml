@@ -3,7 +3,7 @@
 <mapper namespace="com.mango.require.mapper.RequireFileMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.mango.require.model.RequireFile">
+    <resultMap id="BaseResultMap" type="com.mango.require.entity.pojo.RequireFile">
         <id column="require_id" property="requireId" />
         <result column="file_id" property="fileId" />
     </resultMap>

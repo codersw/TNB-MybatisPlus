@@ -3,7 +3,7 @@
 <mapper namespace="com.mango.require.mapper.RequireMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.mango.require.model.Require">
+    <resultMap id="BaseResultMap" type="com.mango.require.entity.pojo.Require">
         <id column="require_id" property="requireId" />
         <result column="require_title" property="requireTitle" />
         <result column="content" property="content" />

@@ -1,6 +1,6 @@
 package com.mango.require.mapper;
 
-import com.mango.require.model.RequireTag;
+import com.mango.require.entity.pojo.RequireTag;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**

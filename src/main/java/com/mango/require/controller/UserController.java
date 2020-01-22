@@ -2,7 +2,7 @@ package com.mango.require.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.mango.require.model.CurrentUser;
+import com.mango.require.entity.common.CurrentUser;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -20,11 +20,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.access.prepost.PreAuthorize;
 import com.mango.require.service.IUserService;
-import com.mango.require.model.User;
-import com.mango.require.model.common.PageRequest;
-import com.mango.require.model.common.Result;
-import com.mango.require.model.common.ResultGenerator;
-import com.mango.require.model.common.PageResponse;
+import com.mango.require.entity.pojo.User;
+import com.mango.require.entity.common.PageRequest;
+import com.mango.require.entity.common.Result;
+import com.mango.require.entity.common.ResultGenerator;
+import com.mango.require.entity.common.PageResponse;
 import javax.annotation.Resource;
 import java.util.Arrays;
 

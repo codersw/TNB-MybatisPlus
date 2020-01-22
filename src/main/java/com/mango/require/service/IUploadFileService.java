@@ -1,6 +1,6 @@
 package com.mango.require.service;
 
-import com.mango.require.model.UploadFile;
+import com.mango.require.entity.pojo.UploadFile;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.multipart.MultipartFile;
 

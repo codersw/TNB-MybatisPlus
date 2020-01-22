@@ -3,7 +3,7 @@
 <mapper namespace="com.mango.require.mapper.UploadFileMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.mango.require.model.UploadFile">
+    <resultMap id="BaseResultMap" type="com.mango.require.entity.pojo.UploadFile">
         <id column="file_id" property="fileId" />
         <result column="file_type" property="fileType" />
         <result column="file_path" property="filePath" />

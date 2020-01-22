@@ -1,6 +1,6 @@
 package com.mango.require.service;
 
-import com.mango.require.model.Role;
+import com.mango.require.entity.pojo.Role;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**

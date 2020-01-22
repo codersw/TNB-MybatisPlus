@@ -11,10 +11,10 @@ import com.mango.require.enums.UrgentEnum;
 import com.mango.require.exception.RequireException;
 import com.mango.require.mapper.RequireFileMapper;
 import com.mango.require.mapper.RequireMapper;
-import com.mango.require.model.CurrentUser;
-import com.mango.require.model.Require;
-import com.mango.require.model.RequireCo;
-import com.mango.require.model.RequireFile;
+import com.mango.require.entity.common.CurrentUser;
+import com.mango.require.entity.pojo.Require;
+import com.mango.require.entity.co.RequireAddCo;
+import com.mango.require.entity.pojo.RequireFile;
 import com.mango.require.service.IRequireService;
 import com.mango.require.utils.MapperUtils;
 import org.apache.commons.collections4.CollectionUtils;
@@ -22,9 +22,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 
 /**
  * <p>
@@ -42,7 +40,7 @@ public class RequireServiceImpl extends ServiceImpl<RequireMapper, Require> impl
     private RequireFileMapper requireFileMapper;
 
     @Override
-    public void save(RequireCo requireCo, CurrentUser currentUser) {
+    public void save(RequireAddCo requireCo, CurrentUser currentUser) {
         Require require = MapperUtils.mapperBean(requireCo, Require.class);
         require.setCreateTime(new Date());
         require.setCreateUserId(currentUser.getUserId());

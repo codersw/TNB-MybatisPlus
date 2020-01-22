@@ -1,11 +1,9 @@
 package com.mango.require.service.impl;
 
 import com.mango.require.mapper.UserRoleMapper;
-import com.mango.require.model.Role;
-import com.mango.require.model.User;
-import com.mango.require.model.UserRole;
-import com.mango.require.model.common.PageRequest;
-import com.mango.require.model.common.PageResponse;
+import com.mango.require.entity.pojo.Role;
+import com.mango.require.entity.pojo.User;
+import com.mango.require.entity.pojo.UserRole;
 import com.mango.require.mapper.UserMapper;
 import com.mango.require.service.IUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;

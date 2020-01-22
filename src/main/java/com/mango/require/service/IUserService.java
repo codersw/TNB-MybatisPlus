@@ -1,7 +1,7 @@
 package com.mango.require.service;
 
-import com.mango.require.model.Role;
-import com.mango.require.model.User;
+import com.mango.require.entity.pojo.Role;
+import com.mango.require.entity.pojo.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
