@@ -125,6 +125,6 @@ public class RequireController {
      @PreAuthorize("hasAuthority('require:view')")
      @GetMapping("/{id:\\d+}")
      public Result detail(@PathVariable Integer id) {
-          return ResultGenerator.genSuccessResult(requireService.getById(id));
+          return ResultGenerator.genSuccessResult(requireService.detail(id));
      }
 }

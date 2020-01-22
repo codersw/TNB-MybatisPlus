@@ -1,26 +1,33 @@
 package com.mango.require.entity.vo;
 
 import com.mango.require.entity.pojo.Require;
+import com.mango.require.entity.pojo.Tag;
+import com.mango.require.entity.pojo.UploadFile;
 import com.mango.require.enums.PriorityEnum;
 import com.mango.require.enums.RequireStatusEnum;
 import com.mango.require.enums.UrgentEnum;
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-public class RequireVo extends Require {
+public class RequireDetailVo extends Require {
 
-    private Integer tagId;
-
-    private String tagName;
-
-    private String tagDesc;
+    private List<Tag> tags;
 
     private String priorityName;
 
     private String urgentName;
 
     private String statusName;
+
+    private List<Require> branchs;
+
+    private Require master;
+
+    private List<UploadFile> files;
 
     public String getPriorityName() {
         return PriorityEnum.getNameByValue(this.getPriority());

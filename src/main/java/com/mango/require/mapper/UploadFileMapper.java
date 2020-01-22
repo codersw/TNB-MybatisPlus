@@ -2,6 +2,9 @@ package com.mango.require.mapper;
 
 import com.mango.require.entity.pojo.UploadFile;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  */
 public interface UploadFileMapper extends BaseMapper<UploadFile> {
 
+    List<UploadFile> selectByRequireId(@Param("requireId") Integer requireId);
 }

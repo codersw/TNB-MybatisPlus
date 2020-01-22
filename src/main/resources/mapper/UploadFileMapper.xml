@@ -19,4 +19,22 @@
         file_id, file_type, file_path, file_size, file_name, create_time, modify_time, is_del
     </sql>
 
+    <select id="selectByRequireId" resultMap="BaseResultMap">
+        SELECT
+            file.file_id as file_id,
+            file.file_type as file_type,
+            file.file_path as file_path,
+            file.file_size as file_size,
+            file.file_name as file_name,
+            file.create_time as create_time,
+            file.modify_time as modify_time,
+            file.is_del as is_del
+        FROM
+            t_upload_file file
+        INNER JOIN t_require_file rfile ON rfile.file_id = file.file_id
+            AND file.is_del = 0
+            AND rfile.require_id = #{requireId}
+        ORDER BY create_time
+    </select>
+
 </mapper>

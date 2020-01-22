@@ -10,6 +10,8 @@ import com.mango.require.entity.pojo.Require;
 import com.mango.require.entity.vo.RequireVo;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 /**
  * <p>
  * 需求信息 Mapper 接口
@@ -21,4 +23,8 @@ import org.apache.ibatis.annotations.Param;
 public interface RequireMapper extends BaseMapper<Require> {
 
     IPage<RequireVo> selectList(Page<RequireVo> page, @Param("requireListCo") RequireListCo requireListCo);
+
+    List<Require> selectBranchs(@Param("masterId") Integer masterId);
+
+    Require selectMaster(@Param("branchId") Integer branchId);
 }

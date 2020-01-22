@@ -67,4 +67,49 @@
         order by priority,urgent,status
     </select>
 
+    <select id="selectBranchs" resultMap="BaseResultMap">
+        SELECT
+            r.require_id as require_id,
+            r.require_title as require_title,
+            r.content as content,
+            r.priority as priority,
+            r.urgent as urgent,
+            r.status as status,
+            r.create_user_id as create_user_id,
+            r.create_time as create_time,
+            r.modify_user_id  as modify_user_id,
+            r.modify_time as modify_time,
+            r.parent_id as parent_id,
+            r.is_del as is_del,
+            tag.tag_id as tag_id,
+            tag.tag_name as tag_name,
+            tag.tag_desc as tag_desc
+        FROM
+            t_require_merge rme
+        INNER JOIN t_require r ON rme.require_branch_id =  r.require_id AND rme.require_master_id = #{masterId}
+        order by create_time
+    </select>
+
+    <select id="selectMaster" resultMap="BaseResultMap">
+         SELECT
+            r.require_id as require_id,
+            r.require_title as require_title,
+            r.content as content,
+            r.priority as priority,
+            r.urgent as urgent,
+            r.status as status,
+            r.create_user_id as create_user_id,
+            r.create_time as create_time,
+            r.modify_user_id  as modify_user_id,
+            r.modify_time as modify_time,
+            r.parent_id as parent_id,
+            r.is_del as is_del,
+            tag.tag_id as tag_id,
+            tag.tag_name as tag_name,
+            tag.tag_desc as tag_desc
+        FROM
+            t_require_merge rme
+        INNER JOIN  t_require r ON rme.require_master_id =  r.require_id AND rme.require_branch_id = #{branchId}
+    </select>
+
 </mapper>

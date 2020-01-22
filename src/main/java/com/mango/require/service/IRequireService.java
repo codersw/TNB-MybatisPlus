@@ -7,6 +7,7 @@ import com.mango.require.entity.common.CurrentUser;
 import com.mango.require.entity.common.PageResponse;
 import com.mango.require.entity.pojo.Require;
 import com.mango.require.entity.co.RequireAddCo;
+import com.mango.require.entity.vo.RequireDetailVo;
 
 /**
  * <p>
@@ -33,4 +34,6 @@ public interface IRequireService extends IService<Require> {
     void status(Integer requireId, Integer status);
 
     PageResponse list(RequireListCo requireListCo);
+
+    RequireDetailVo detail(Integer requireId);
 }

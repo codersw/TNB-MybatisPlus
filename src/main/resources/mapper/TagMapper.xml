@@ -19,4 +19,22 @@
         tag_id, tag_name, tag_desc, create_user_id, create_time, modify_user_id, modify_time, is_del
     </sql>
 
+    <select id="selectByRequireId" resultMap="BaseResultMap">
+        SELECT
+            tag.tag_id AS tag_id,
+            tag.tag_name AS tag_name,
+            tag.tag_desc AS tag_desc,
+            tag.create_user_id AS create_user_id,
+            tag.create_time AS create_time,
+            tag.modify_user_id AS modify_user_id,
+            tag.modify_time AS modify_time,
+            tag.is_del AS is_del
+        FROM
+            t_tag tag
+        INNER JOIN t_require_tag rtag ON rtag.tag_id = tag.tag_id
+            AND tag.is_del = 0
+            AND rtag.require_id = #{requireId}
+        ORDER BY create_time
+    </select>
+
 </mapper>

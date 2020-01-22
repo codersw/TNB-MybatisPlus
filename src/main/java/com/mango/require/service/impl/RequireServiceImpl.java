@@ -3,7 +3,6 @@ package com.mango.require.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.metadata.OrderItem;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -12,22 +11,16 @@ import com.mango.require.entity.co.RequireListCo;
 import com.mango.require.entity.co.RequireUpdateCo;
 import com.mango.require.entity.common.CurrentUser;
 import com.mango.require.entity.common.PageResponse;
-import com.mango.require.entity.pojo.Require;
-import com.mango.require.entity.pojo.RequireFile;
-import com.mango.require.entity.pojo.RequireMerge;
-import com.mango.require.entity.pojo.RequireTag;
+import com.mango.require.entity.pojo.*;
+import com.mango.require.entity.vo.RequireDetailVo;
 import com.mango.require.entity.vo.RequireVo;
 import com.mango.require.enums.IsDelEnum;
 import com.mango.require.enums.PriorityEnum;
 import com.mango.require.enums.RequireStatusEnum;
 import com.mango.require.enums.UrgentEnum;
 import com.mango.require.exception.RequireException;
-import com.mango.require.mapper.RequireFileMapper;
-import com.mango.require.mapper.RequireMapper;
-import com.mango.require.mapper.RequireMergeMapper;
-import com.mango.require.mapper.RequireTagMapper;
+import com.mango.require.mapper.*;
 import com.mango.require.service.IRequireService;
-import com.mango.require.utils.CommonUtils;
 import com.mango.require.utils.MapperUtils;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -35,9 +28,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * <p>
@@ -59,6 +50,12 @@ public class RequireServiceImpl extends ServiceImpl<RequireMapper, Require> impl
 
     @Resource
     private RequireTagMapper requireTagMapper;
+
+    @Resource
+    private UploadFileMapper uploadFileMapper;
+
+    @Resource
+    private TagMapper tagMapper;
 
     @Override
     public void save(RequireAddCo requireAddCo, CurrentUser currentUser) {
@@ -163,6 +160,18 @@ public class RequireServiceImpl extends ServiceImpl<RequireMapper, Require> impl
         Page<RequireVo> page = new Page<>(requireListCo.getPageIndex(), requireListCo.getPageSize());;
         IPage<RequireVo> requirePage = baseMapper.selectList(page, requireListCo);
         return PageResponse.<RequireVo>builder().list(requirePage.getRecords()).total(requirePage.getTotal()).build();
+    }
+
+    @Override
+    public RequireDetailVo detail(Integer requireId) {
+        Require require = baseMapper.selectById(requireId);
+        if(require == null) throw new RequireException("没有该需求信息");
+        RequireDetailVo requireDetailVo = MapperUtils.mapperBean(require, RequireDetailVo.class);
+        requireDetailVo.setFiles(uploadFileMapper.selectByRequireId(requireId));
+        requireDetailVo.setTags(tagMapper.selectByRequireId(requireId));
+        requireDetailVo.setBranchs(baseMapper.selectBranchs(requireId));
+        requireDetailVo.setMaster(baseMapper.selectMaster(requireId));
+        return requireDetailVo;
     }
 
 }
