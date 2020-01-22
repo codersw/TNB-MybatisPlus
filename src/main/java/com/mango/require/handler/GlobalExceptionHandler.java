@@ -98,7 +98,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * UnAuthorizedException
+     * UnAuthorizedException,AccessDeniedException异常处理
      * @param e
      * @return
      */
