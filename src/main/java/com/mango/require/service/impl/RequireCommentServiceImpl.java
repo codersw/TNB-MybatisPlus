@@ -1,13 +1,18 @@
 package com.mango.require.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.mango.require.entity.co.RequireCommentAddCo;
+import com.mango.require.entity.co.RequireCommentUpdateCo;
+import com.mango.require.entity.common.CurrentUser;
 import com.mango.require.entity.pojo.RequireComment;
+import com.mango.require.enums.IsDelEnum;
 import com.mango.require.mapper.RequireCommentMapper;
 import com.mango.require.service.IRequireCommentService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.mango.require.utils.MapperUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Date;
 
 /**
  * <p>
@@ -21,4 +26,22 @@ import java.util.List;
 @Transactional
 public class RequireCommentServiceImpl extends ServiceImpl<RequireCommentMapper, RequireComment> implements IRequireCommentService {
 
+    @Override
+    public void save(RequireCommentAddCo requireCommentAddCo, CurrentUser currentUser) {
+        RequireComment comment = MapperUtils.mapperBean(requireCommentAddCo, RequireComment.class);
+        comment.setCreateTime(new Date());
+        comment.setCreateUserId(currentUser.getUserId());
+        comment.setModifyTime(new Date());
+        comment.setModifyUserId(currentUser.getUserId());
+        comment.setIsDel(IsDelEnum.FALSE.getValue());
+        baseMapper.insert(comment);
+    }
+
+    @Override
+    public void update(RequireCommentUpdateCo requireCommentUpdateCo, CurrentUser currentUser) {
+        RequireComment comment = MapperUtils.mapperBean(requireCommentUpdateCo, RequireComment.class);
+        comment.setModifyUserId(currentUser.getUserId());
+        comment.setModifyTime(new Date());
+        baseMapper.updateById(comment);
+    }
 }

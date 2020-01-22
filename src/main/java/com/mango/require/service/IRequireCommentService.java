@@ -1,5 +1,8 @@
 package com.mango.require.service;
 
+import com.mango.require.entity.co.RequireCommentAddCo;
+import com.mango.require.entity.co.RequireCommentUpdateCo;
+import com.mango.require.entity.common.CurrentUser;
 import com.mango.require.entity.pojo.RequireComment;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -12,5 +15,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-01-22
  */
 public interface IRequireCommentService extends IService<RequireComment> {
+
+    void save(RequireCommentAddCo requireCommentAddCo, CurrentUser currentUser);
+
+    void update(RequireCommentUpdateCo requireCommentUpdateCo, CurrentUser currentUser);
 
 }
