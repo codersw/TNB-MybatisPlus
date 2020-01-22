@@ -30,8 +30,8 @@
             file.modify_time as modify_time,
             file.is_del as is_del
         FROM
-            t_upload_file file
-        INNER JOIN t_require_file rfile ON rfile.file_id = file.file_id
+            t_require_file rfile
+        INNER JOIN t_upload_file file ON rfile.file_id = file.file_id
             AND file.is_del = 0
             AND rfile.require_id = #{requireId}
         ORDER BY create_time

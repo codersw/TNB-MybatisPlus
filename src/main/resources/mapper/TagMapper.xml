@@ -30,8 +30,8 @@
             tag.modify_time AS modify_time,
             tag.is_del AS is_del
         FROM
-            t_tag tag
-        INNER JOIN t_require_tag rtag ON rtag.tag_id = tag.tag_id
+            t_require_tag rtag
+        INNER JOIN t_tag tag ON rtag.tag_id = tag.tag_id
             AND tag.is_del = 0
             AND rtag.require_id = #{requireId}
         ORDER BY create_time
