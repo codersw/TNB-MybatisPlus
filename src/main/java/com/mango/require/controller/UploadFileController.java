@@ -51,11 +51,6 @@ public class UploadFileController {
      public Result list(UploadFile uploadFile, PageRequest pageRequest) {
           QueryWrapper<UploadFile> queryWrapper = new QueryWrapper<>();
           //TODO 设置查询条件
-
-          //排序
-          if(StringUtils.isNotBlank(pageRequest.getSortColumn())) {
-               queryWrapper.orderBy(true, pageRequest.getSortAscend(), pageRequest.getSortColumn());
-          }
           Page<UploadFile> page = new Page<>(pageRequest.getPageIndex(), pageRequest.getPageSize());
           IPage<UploadFile> uploadFilePage = uploadFileService.page(page, queryWrapper);
           return ResultGenerator.genSuccessResult(PageResponse.<UploadFile>builder().list(uploadFilePage.getRecords()).total(uploadFilePage.getTotal()).build());

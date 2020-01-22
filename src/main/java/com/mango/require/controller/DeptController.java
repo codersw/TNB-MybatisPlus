@@ -54,11 +54,6 @@ public class DeptController {
      public Result list(Dept dept, PageRequest pageRequest) {
           QueryWrapper<Dept> queryWrapper = new QueryWrapper<>();
           //TODO 设置查询条件
-
-          //排序
-          if(StringUtils.isNotBlank(pageRequest.getSortColumn())) {
-               queryWrapper.orderBy(true, pageRequest.getSortAscend(), pageRequest.getSortColumn());
-          }
           Page<Dept> page = new Page<>(pageRequest.getPageIndex(), pageRequest.getPageSize());
           IPage<Dept> deptPage = deptService.page(page, queryWrapper);
           return ResultGenerator.genSuccessResult(PageResponse.<Dept>builder().list(deptPage.getRecords()).total(deptPage.getTotal()).build());

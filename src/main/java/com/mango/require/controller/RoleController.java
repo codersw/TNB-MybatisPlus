@@ -54,11 +54,6 @@ public class RoleController {
      public Result list(Role role, PageRequest pageRequest) {
           QueryWrapper<Role> queryWrapper = new QueryWrapper<>();
           //TODO 设置查询条件
-
-          //排序
-          if(StringUtils.isNotBlank(pageRequest.getSortColumn())) {
-               queryWrapper.orderBy(true, pageRequest.getSortAscend(), pageRequest.getSortColumn());
-          }
           Page<Role> page = new Page<>(pageRequest.getPageIndex(), pageRequest.getPageSize());
           IPage<Role> rolePage = roleService.page(page, queryWrapper);
           return ResultGenerator.genSuccessResult(PageResponse.<Role>builder().list(rolePage.getRecords()).total(rolePage.getTotal()).build());

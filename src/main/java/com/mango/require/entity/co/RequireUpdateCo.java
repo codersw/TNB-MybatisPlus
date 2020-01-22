@@ -12,9 +12,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @ApiModel(value="需求修改信息", description="需求修改信息")
-public class RequireEditCo {
+public class RequireUpdateCo {
 
-    @ApiModelProperty(value = "需求id", example = "1")
+    @ApiModelProperty(value = "需求id", required = true, example = "1")
     private Integer requireId;
 
     @ApiModelProperty(value = "需求标题", example = "需求标题")

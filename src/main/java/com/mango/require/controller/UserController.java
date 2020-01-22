@@ -61,11 +61,6 @@ public class UserController {
           log.info("{}", JSONObject.toJSONString(currentUser));
           QueryWrapper<User> queryWrapper = new QueryWrapper<>();
           //TODO 设置查询条件
-
-          //排序
-          if(StringUtils.isNotBlank(pageRequest.getSortColumn())) {
-               queryWrapper.orderBy(true, pageRequest.getSortAscend(), pageRequest.getSortColumn());
-          }
           Page<User> page = new Page<>(pageRequest.getPageIndex(), pageRequest.getPageSize());
           IPage<User> userPage = userService.page(page, queryWrapper);
           return ResultGenerator.genSuccessResult(PageResponse.<User>builder().list(userPage.getRecords()).total(userPage.getTotal()).build());

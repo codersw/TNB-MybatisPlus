@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mango.require.entity.co.RequireListCo;
+import com.mango.require.entity.co.RequireUpdateCo;
 import com.mango.require.entity.common.CurrentUser;
 import com.mango.require.entity.pojo.Require;
 import com.mango.require.entity.co.RequireAddCo;
@@ -42,37 +44,27 @@ public class RequireController {
 
      /**
       * 需求信息列表
-      * @param require 需求信息
-      * @param pageRequest 分页参数
+      * @param requireListCo 需求列表查询信息
       * @return Result
       */
      @ApiOperation(value = "需求信息列表", notes = "需求信息列表")
      @PreAuthorize("hasAuthority('require:view')")
      @GetMapping
-     public Result list(Require require, PageRequest pageRequest) {
-          QueryWrapper<Require> queryWrapper = new QueryWrapper<>();
-          //TODO 设置查询条件
-
-          //排序
-          if(StringUtils.isNotBlank(pageRequest.getSortColumn())) {
-               queryWrapper.orderBy(true, pageRequest.getSortAscend(), pageRequest.getSortColumn());
-          }
-          Page<Require> page = new Page<>(pageRequest.getPageIndex(), pageRequest.getPageSize());
-          IPage<Require> requirePage = requireService.page(page, queryWrapper);
-          return ResultGenerator.genSuccessResult(PageResponse.<Require>builder().list(requirePage.getRecords()).total(requirePage.getTotal()).build());
+     public Result list(RequireListCo requireListCo) {
+          return ResultGenerator.genSuccessResult(requireService.list(requireListCo));
      }
 
      /**
       * 需求信息新增
-      * @param requireCo 需求信息
+      * @param requireAddCo 需求新增信息
       * @param currentUser 当前登陆人
       * @return Result
       */
      @ApiOperation(value = "需求信息新增", notes = "需求信息新增")
      @PreAuthorize("hasAuthority('require:add')")
      @PostMapping
-     public Result add(RequireAddCo requireCo, @ApiIgnore CurrentUser currentUser) {
-          requireService.save(requireCo, currentUser);
+     public Result add(RequireAddCo requireAddCo, @ApiIgnore CurrentUser currentUser) {
+          requireService.save(requireAddCo, currentUser);
           return ResultGenerator.genSuccessResult();
      }
 
@@ -90,14 +82,15 @@ public class RequireController {
 
      /**
       * 需求信息修改
-      * @param require 需求信息
+      * @param requireUpdateCo 需求新增信息
+      * @param currentUser 当前登陆人
       * @return Result
       */
      @ApiOperation(value = "需求信息修改", notes = "需求信息修改")
      @PreAuthorize("hasAuthority('require:update')")
      @PutMapping
-     public Result update(Require require, String fileIds) {
-          requireService.update(require, fileIds.split(","));
+     public Result update(RequireUpdateCo requireUpdateCo, @ApiIgnore CurrentUser currentUser) {
+          requireService.update(requireUpdateCo, currentUser);
           return ResultGenerator.genSuccessResult();
      }
 

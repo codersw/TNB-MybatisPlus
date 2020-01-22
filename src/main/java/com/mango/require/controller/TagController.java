@@ -54,11 +54,6 @@ public class TagController {
      public Result list(Tag tag, PageRequest pageRequest) {
           QueryWrapper<Tag> queryWrapper = new QueryWrapper<>();
           //TODO 设置查询条件
-
-          //排序
-          if(StringUtils.isNotBlank(pageRequest.getSortColumn())) {
-               queryWrapper.orderBy(true, pageRequest.getSortAscend(), pageRequest.getSortColumn());
-          }
           Page<Tag> page = new Page<>(pageRequest.getPageIndex(), pageRequest.getPageSize());
           IPage<Tag> tagPage = tagService.page(page, queryWrapper);
           return ResultGenerator.genSuccessResult(PageResponse.<Tag>builder().list(tagPage.getRecords()).total(tagPage.getTotal()).build());

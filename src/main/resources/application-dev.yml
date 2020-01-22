@@ -46,6 +46,8 @@ logging:
       mango:
         require:
           mapper: debug
+mybatis-plus:
+  mapper-locations: classpath:/mapper/**.xml
 keycloak:
   auth-server-url: https://keycloaksso.517api.cn/auth/
   realm: test

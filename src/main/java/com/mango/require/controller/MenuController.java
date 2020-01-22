@@ -54,11 +54,6 @@ public class MenuController {
      public Result list(Menu menu, PageRequest pageRequest) {
           QueryWrapper<Menu> queryWrapper = new QueryWrapper<>();
           //TODO 设置查询条件
-
-          //排序
-          if(StringUtils.isNotBlank(pageRequest.getSortColumn())) {
-               queryWrapper.orderBy(true, pageRequest.getSortAscend(), pageRequest.getSortColumn());
-          }
           Page<Menu> page = new Page<>(pageRequest.getPageIndex(), pageRequest.getPageSize());
           IPage<Menu> menuPage = menuService.page(page, queryWrapper);
           return ResultGenerator.genSuccessResult(PageResponse.<Menu>builder().list(menuPage.getRecords()).total(menuPage.getTotal()).build());
