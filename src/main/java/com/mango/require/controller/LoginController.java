@@ -1,14 +1,11 @@
 package com.mango.require.controller;
 
-import com.mango.require.model.common.Result;
-import com.mango.require.model.common.ResultGenerator;
 import lombok.extern.slf4j.Slf4j;
 import org.keycloak.adapters.springboot.KeycloakSpringBootProperties;
 import org.keycloak.common.util.KeycloakUriBuilder;
 import org.keycloak.constants.ServiceUrlConstants;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;

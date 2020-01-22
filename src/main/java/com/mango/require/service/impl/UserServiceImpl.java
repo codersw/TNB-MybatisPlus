@@ -1,6 +1,9 @@
 package com.mango.require.service.impl;
 
+import com.mango.require.mapper.UserRoleMapper;
+import com.mango.require.model.Role;
 import com.mango.require.model.User;
+import com.mango.require.model.UserRole;
 import com.mango.require.model.common.PageRequest;
 import com.mango.require.model.common.PageResponse;
 import com.mango.require.mapper.UserMapper;
@@ -9,6 +12,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.Resource;
 import java.util.List;
 
 /**
@@ -23,4 +27,21 @@ import java.util.List;
 @Transactional
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
+
+    @Resource
+    private UserRoleMapper userRoleMapper;
+
+    @Override
+    public User findByUserName(String userName) {
+        return this.baseMapper.findByUserName(userName);
+    }
+
+    @Override
+    public void save(User user, List<Role> roles) {
+        this.baseMapper.insert(user);
+        roles.forEach(role -> this.userRoleMapper.insert(UserRole.builder()
+                .roleId(role.getRoleId())
+                .userId(user.getUserId())
+                .build()));
+    }
 }

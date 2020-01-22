@@ -1,46 +1,33 @@
 package com.mango.require.service.impl;
 
-import com.mango.require.mapper.MenuMapper;
-import com.mango.require.mapper.UserMapper;
-import com.mango.require.model.Menu;
 import com.mango.require.model.User;
-import com.mango.require.model.UserDetail;
+import com.mango.require.model.UserDetails;
+import com.mango.require.service.IMenuService;
+import com.mango.require.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.CollectionUtils;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 @Service
 @Slf4j
 public class SecurityUserService implements UserDetailsService {
 
     @Resource
-    private UserMapper userMapper;
+    private IUserService userService;
 
     @Resource
-    private MenuMapper menuMapper;
+    private IMenuService menuService;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userMapper.findByUserName(username);
-        UserDetail userDetail = (UserDetail) user;
+        User user = userService.findByUserName(username);
         if (user == null) throw new UsernameNotFoundException(username);
-        List<Menu> menus = menuMapper.getMenus(user.getUserId());
-        if (CollectionUtils.isNotEmpty(menus)){
-            Set<SimpleGrantedAuthority> sga = new HashSet<>();
-            menus.forEach(p->{
-                sga.add(new SimpleGrantedAuthority(p.getPerms()));
-            });
-            userDetail.setAuthorities(sga);
-        }
-        return userDetail;
+        String permissions = menuService.findUserPermissions(user.getUserId());
+        return new UserDetails(user.getUsername(), user.getPassword(), true, true, true, false,
+                AuthorityUtils.commaSeparatedStringToAuthorityList(permissions));
     }
 }

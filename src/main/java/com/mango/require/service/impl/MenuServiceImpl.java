@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -23,4 +24,9 @@ import java.util.List;
 @Transactional
 public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IMenuService {
 
+    @Override
+    public String findUserPermissions(Integer userId) {
+        List<Menu> menus = this.baseMapper.getMenus(userId);
+        return menus.stream().map(Menu::getPerms).collect(Collectors.joining(","));
+    }
 }

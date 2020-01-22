@@ -1,14 +1,10 @@
 package com.mango.require.handler;
 
-import com.alibaba.fastjson.JSON;
-import com.mango.require.mapper.MenuMapper;
-import com.mango.require.mapper.UserMapper;
-import com.mango.require.mapper.UserRoleMapper;
-import com.mango.require.model.Menu;
+import com.mango.require.model.Role;
 import com.mango.require.model.User;
-import com.mango.require.model.UserRole;
+import com.mango.require.service.IMenuService;
+import com.mango.require.service.IUserService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.collections4.CollectionUtils;
 import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.adapters.springsecurity.account.SimpleKeycloakAccount;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
@@ -17,29 +13,24 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 @Slf4j
 @Component
 public class SecurityAuthenticationProvider implements AuthenticationProvider {
 
     @Resource
-    private UserMapper userMapper;
+    private IUserService userService;
 
     @Resource
-    private MenuMapper menuMapper;
-
-    @Resource
-    private UserRoleMapper userRoleMapper;
+    private IMenuService menuService;
 
     private GrantedAuthoritiesMapper grantedAuthoritiesMapper;
 
@@ -52,33 +43,25 @@ public class SecurityAuthenticationProvider implements AuthenticationProvider {
      */
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
+        KeycloakAuthenticationToken token = (KeycloakAuthenticationToken)authentication;
+        List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
         //从token中获取用户信息
         SimpleKeycloakAccount account = (SimpleKeycloakAccount) authentication.getDetails();
-        Principal principal = account.getPrincipal();
-        log.info("principal username" + principal.getName());
         KeycloakSecurityContext context= account.getKeycloakSecurityContext();
         AccessToken accessToken = context.getToken();
         String userName = accessToken.getPreferredUsername();
-        User user = userMapper.findByUserName(userName);
+        User user = userService.findByUserName(userName);
+        //如何空插入用户信息 默认角色2普通用户
         if(user == null){
             user = User.builder()
                     .username(userName)
                     .build();
-            userMapper.insert(user);
-            UserRole userRole = UserRole.builder()
-                    .roleId(2)
-                    .userId(user.getUserId())
-                    .build();
-            userRoleMapper.insert(userRole);
+            userService.save(user, new ArrayList<Role>() {{
+                add(Role.builder().roleId(2).build());
+            }});
         }
-        List<Menu> menus = menuMapper.getMenus(user.getUserId());
-        Set<SimpleGrantedAuthority> grantedAuthorities = new HashSet<>();
-        if (CollectionUtils.isNotEmpty(menus)){
-            menus.forEach(p->{
-                grantedAuthorities.add(new SimpleGrantedAuthority(p.getPerms()));
-            });
-        }
-        return new KeycloakAuthenticationToken(account, accessToken.isActive(), mapAuthorities(grantedAuthorities));
+        String permissions = menuService.findUserPermissions(user.getUserId());
+        return new KeycloakAuthenticationToken(token.getAccount(), token.isInteractive(), mapAuthorities(AuthorityUtils.commaSeparatedStringToAuthorityList(permissions)));
     }
 
     @Override

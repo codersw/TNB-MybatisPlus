@@ -1,7 +1,10 @@
 package com.mango.require.service;
 
+import com.mango.require.model.Role;
 import com.mango.require.model.User;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface IUserService extends IService<User> {
 
+    User findByUserName(String userName);
+
+    void save(User user, List<Role> roles);
 }
