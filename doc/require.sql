@@ -33,19 +33,6 @@ CREATE TABLE `t_dept`  (
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Table structure for t_dict
--- ----------------------------
-DROP TABLE IF EXISTS `t_dict`;
-CREATE TABLE `t_dict`  (
-  `dict_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '字典id',
-  `key` int(11) NOT NULL DEFAULT 0 COMMENT '键',
-  `value` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '值',
-  `field_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '字段名称',
-  `table_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '表名',
-  PRIMARY KEY (`dict_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '字典信息' ROW_FORMAT = Dynamic;
-
--- ----------------------------
 -- Table structure for t_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `t_menu`;
