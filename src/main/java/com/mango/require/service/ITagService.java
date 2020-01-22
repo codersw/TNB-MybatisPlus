@@ -1,5 +1,8 @@
 package com.mango.require.service;
 
+import com.mango.require.entity.co.TagAddCo;
+import com.mango.require.entity.co.TagUpdateCo;
+import com.mango.require.entity.common.CurrentUser;
 import com.mango.require.entity.pojo.Tag;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +16,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ITagService extends IService<Tag> {
 
+    void save(TagAddCo tagAddCo, CurrentUser currentUser);
+
+    void update(TagUpdateCo tagUpdateCo, CurrentUser currentUser);
 }

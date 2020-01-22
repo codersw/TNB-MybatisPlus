@@ -1,6 +1,10 @@
 package com.mango.require.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.mango.require.entity.co.TagAddCo;
+import com.mango.require.entity.co.TagListCo;
+import com.mango.require.entity.co.TagUpdateCo;
+import com.mango.require.entity.common.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -18,10 +22,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.access.prepost.PreAuthorize;
 import com.mango.require.service.ITagService;
 import com.mango.require.entity.pojo.Tag;
-import com.mango.require.entity.common.PageRequest;
-import com.mango.require.entity.common.Result;
-import com.mango.require.entity.common.ResultGenerator;
-import com.mango.require.entity.common.PageResponse;
+
 import javax.annotation.Resource;
 import java.util.Arrays;
 
@@ -44,31 +45,32 @@ public class TagController {
 
      /**
       * 标签信息列表
-      * @param tag 标签信息
-      * @param pageRequest 分页参数
+      * @param tagListCo 标签列表查询信息
       * @return Result
       */
      @ApiOperation(value = "标签信息列表", notes = "标签信息列表")
      @PreAuthorize("hasAuthority('tag:view')")
      @GetMapping
-     public Result list(Tag tag, PageRequest pageRequest) {
+     public Result list(TagListCo tagListCo) {
           QueryWrapper<Tag> queryWrapper = new QueryWrapper<>();
-          //TODO 设置查询条件
-          Page<Tag> page = new Page<>(pageRequest.getPageIndex(), pageRequest.getPageSize());
+          queryWrapper.lambda().like(Tag::getTagName, tagListCo.getKeyword());
+          Page<Tag> page = new Page<>(tagListCo.getPageIndex(), tagListCo.getPageSize());
           IPage<Tag> tagPage = tagService.page(page, queryWrapper);
           return ResultGenerator.genSuccessResult(PageResponse.<Tag>builder().list(tagPage.getRecords()).total(tagPage.getTotal()).build());
      }
 
      /**
       * 标签信息新增
-      * @param tag 标签信息
+      * @param tagAddCo 标签新增信息
+      * @param currentUser 当前登陆人
       * @return Result
       */
      @ApiOperation(value = "标签信息新增", notes = "标签信息新增")
      @PreAuthorize("hasAuthority('tag:add')")
      @PostMapping
-     public Result add(Tag tag) {
-          return ResultGenerator.genSuccessResult(tagService.save(tag));
+     public Result add(TagAddCo tagAddCo, CurrentUser currentUser) {
+          tagService.save(tagAddCo, currentUser);
+          return ResultGenerator.genSuccessResult();
      }
 
      /**
@@ -85,14 +87,16 @@ public class TagController {
 
      /**
       * 标签信息修改
-      * @param tag 标签信息
+      * @param tagUpdateCo 标签修改信息
+      * @param currentUser 当前登陆人
       * @return Result
       */
      @ApiOperation(value = "标签信息修改", notes = "标签信息修改")
      @PreAuthorize("hasAuthority('tag:update')")
      @PutMapping
-     public Result update(Tag tag) {
-          return ResultGenerator.genSuccessResult(tagService.updateById(tag));
+     public Result update(TagUpdateCo tagUpdateCo, CurrentUser currentUser) {
+          tagService.update(tagUpdateCo, currentUser);
+          return ResultGenerator.genSuccessResult();
      }
 
      /**
