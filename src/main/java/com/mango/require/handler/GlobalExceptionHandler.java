@@ -13,6 +13,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.BindException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
@@ -105,7 +106,7 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler(value = { UnAuthorizedException.class,
-            AccessDeniedException.class})
+            AccessDeniedException.class, AuthenticationException.class})
     @ResponseBody
     @ResponseStatus(value = HttpStatus.OK)
     public Result applicationUnauthorizedException(Exception e, HttpServletResponse response) {

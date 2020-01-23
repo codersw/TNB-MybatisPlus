@@ -47,4 +47,7 @@
     <logger name="com.baomidou.mybatisplus.generator" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT" />
     </logger>
+    <logger name="org.keycloak.adapters.springsecurity" level="DEBUG" additivity="false">
+        <appender-ref ref="STDOUT" />
+    </logger>
 </configuration>
