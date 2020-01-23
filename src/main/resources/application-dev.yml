@@ -49,10 +49,11 @@ logging:
 mybatis-plus:
   mapper-locations: classpath:/mapper/**.xml
 keycloak:
+  enabled: true
   auth-server-url: https://keycloaksso.517api.cn/auth/
   realm: test
-  ssl-required: external
   resource: mvc-api
-  principal-attribute: preferred_username
-  use-resource-role-mappings: true
+  public-client: true
+  ssl-required: external
+  disable-trust-manager: true
   bearer-only: true

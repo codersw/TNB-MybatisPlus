@@ -1,6 +1,7 @@
 package com.mango.require;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
+import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -25,5 +26,10 @@ public class RequireApplication {
     @Bean
     public RestTemplate restTemplate(RestTemplateBuilder builder) {
         return builder.build();
+    }
+
+    @Bean
+    public KeycloakSpringBootConfigResolver KeycloakConfigResolver() {
+        return new KeycloakSpringBootConfigResolver();
     }
 }

@@ -12,7 +12,7 @@ spring:
     ansi:
       enabled: always
   application:
-    name: dms
+    name: require
 #开启actuator
 management:
   endpoints:
@@ -21,3 +21,7 @@ management:
   endpoint:
     health:
       show-details: always
+keycloak:
+  cors: true
+  cors-allowed-methods: GET,POST,DELETE,PUT,OPTIONS
+  cors-allowed-headers: Accept,Accept-Encoding,Accept-Language,Authorization,Connection,Content-Type,Host,Origin,Referer,User-Agent,X-Requested-With

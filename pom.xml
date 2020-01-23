@@ -24,7 +24,7 @@
         <commons-lang.version>3.9</commons-lang.version>
         <commons.io.version>2.5</commons.io.version>
         <orika.version>1.5.4</orika.version>
-        <keycloak.version>6.0.1</keycloak.version>
+        <keycloak.version>8.0.1</keycloak.version>
     </properties>
 
     <dependencies>
