@@ -11,7 +11,7 @@
  Target Server Version : 50727
  File Encoding         : 65001
 
- Date: 22/01/2020 17:09:40
+ Date: 23/01/2020 16:53:16
 */
 
 SET NAMES utf8mb4;
@@ -106,12 +106,14 @@ CREATE TABLE `t_require`  (
   `parent_id` int(11) NOT NULL DEFAULT 0 COMMENT '父级id',
   `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除 0未删除 1以删除',
   PRIMARY KEY (`require_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '需求信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '需求信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_require
 -- ----------------------------
 INSERT INTO `t_require` VALUES (1, '测试测试测试测试测试', '测试测试测试测试测试测试测试测试测试', 0, 0, 0, 1, '2020-01-22 11:21:04', 1, '2020-01-22 11:21:04', 0, 0);
+INSERT INTO `t_require` VALUES (2, '需求标题', '需求内容', 0, 0, 0, 1, '2020-01-23 16:20:32', 1, '2020-01-23 16:20:32', 0, 0);
+INSERT INTO `t_require` VALUES (3, '需求标题', '需求内容', 0, 0, 0, 1, '2020-01-23 16:20:53', 1, '2020-01-23 16:20:53', 0, 0);
 
 -- ----------------------------
 -- Table structure for t_require_comment
@@ -138,6 +140,11 @@ CREATE TABLE `t_require_file`  (
   `file_id` int(11) NOT NULL COMMENT '文件id',
   PRIMARY KEY (`file_id`, `require_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '需求附件信息' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_require_file
+-- ----------------------------
+INSERT INTO `t_require_file` VALUES (3, 1);
 
 -- ----------------------------
 -- Table structure for t_require_merge
@@ -251,16 +258,19 @@ CREATE TABLE `t_upload_file`  (
   `file_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '文件路径',
   `file_size` bigint(20) NOT NULL DEFAULT 0 COMMENT '文件大小',
   `file_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '文件名字',
+  `create_user_id` int(11) NOT NULL DEFAULT 0 COMMENT '创建人id',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `modify_user_id` int(11) NOT NULL DEFAULT 0 COMMENT '修改人id',
   `modify_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除 0未删除 1已删除',
   PRIMARY KEY (`file_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文件信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文件信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_upload_file
 -- ----------------------------
-INSERT INTO `t_upload_file` VALUES (1, '.gif', '64f86820956b4b5a931dc89701bd9780.gif', 875566, '6e3e5b9bgy1g9dlo7vkr9g205006m1g7.gif', '2020-01-20 16:48:15', '2020-01-20 16:48:15', 0);
+INSERT INTO `t_upload_file` VALUES (1, '.gif', '64f86820956b4b5a931dc89701bd9780.gif', 875566, '6e3e5b9bgy1g9dlo7vkr9g205006m1g7.gif', 0, '2020-01-20 16:48:15', 0, '2020-01-20 16:48:15', 0);
+INSERT INTO `t_upload_file` VALUES (2, '.jpg', '63c6998e5a9640ccbdb5b8a7c9ab6db4.jpg', 9487575, '10M之内图片.jpg', 0, '2020-01-23 16:27:25', 0, '2020-01-23 16:27:25', 0);
 
 -- ----------------------------
 -- Table structure for t_user
@@ -271,6 +281,7 @@ CREATE TABLE `t_user`  (
   `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '登录名',
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '用户密码',
   `mobile` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '手机号',
+  `real_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '真实姓名',
   `sex` tinyint(4) NOT NULL DEFAULT 0 COMMENT '性别 0 男 1 女',
   `dept_id` int(11) NOT NULL DEFAULT 0 COMMENT '部门id',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
@@ -278,12 +289,13 @@ CREATE TABLE `t_user`  (
   `status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '状态 0有效 1锁定',
   `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除 0 未删除 1 已删除',
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_user
 -- ----------------------------
-INSERT INTO `t_user` VALUES (1, 'shaowen', '', '', 0, 0, '2020-01-22 09:54:38', '2020-01-22 09:54:38', 0, 0);
+INSERT INTO `t_user` VALUES (1, 'shaowen', '', '', '邵文', 0, 0, '2020-01-23 15:48:13', '2020-01-23 15:48:13', 0, 0);
+INSERT INTO `t_user` VALUES (2, 'test', '', '', '测试用户', 0, 0, '2020-01-23 15:48:16', '2020-01-23 15:48:16', 0, 0);
 
 -- ----------------------------
 -- Table structure for t_user_role
@@ -299,5 +311,6 @@ CREATE TABLE `t_user_role`  (
 -- Records of t_user_role
 -- ----------------------------
 INSERT INTO `t_user_role` VALUES (1, 1);
+INSERT INTO `t_user_role` VALUES (2, 2);
 
 SET FOREIGN_KEY_CHECKS = 1;
