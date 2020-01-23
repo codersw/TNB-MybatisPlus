@@ -1,4 +1,4 @@
-package com.mango.require.entity.common;
+package com.mango.require.utils;
 
 import org.keycloak.KeycloakSecurityContext;
 import org.keycloak.adapters.springsecurity.token.KeycloakAuthenticationToken;
@@ -11,9 +11,13 @@ import java.util.Optional;
 import static java.util.Optional.empty;
 import static java.util.Optional.of;
 
-public class KeycloakContext {
+/**
+ * 获取keycloak登录信息
+ * @author swen
+ */
+public class KeycloakContextUtils {
 
-    private KeycloakContext() {
+    private KeycloakContextUtils() {
     }
 
     public static Optional<AccessToken> getAccessToken() {
