@@ -1,5 +1,6 @@
 package com.mango.require.config;
 
+import com.mango.require.handler.CustomAuthenticationFailureHandler;
 import com.mango.require.handler.SecurityAuthenticationProvider;
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.keycloak.adapters.springsecurity.KeycloakSecurityComponents;
@@ -19,10 +20,11 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.authority.mapping.SimpleAuthorityMapper;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 import org.springframework.security.web.authentication.session.NullAuthenticatedSessionStrategy;
 import org.springframework.security.web.authentication.session.SessionAuthenticationStrategy;
 
@@ -35,6 +37,7 @@ import javax.annotation.Resource;
 @KeycloakConfiguration
 @EnableWebSecurity
 @ComponentScan(basePackageClasses = KeycloakSecurityComponents.class)
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
 
     @Value("${web.anon-url}")
@@ -43,11 +46,11 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     @Resource
     private SecurityAuthenticationProvider authenticationProvider;
 
-    private final KeycloakClientRequestFactory keycloakClientRequestFactory;
+    @Resource
+    private CustomAuthenticationFailureHandler authenticationFailureHandler;
 
-    public SecurityConfig(KeycloakClientRequestFactory keycloakClientRequestFactory) {
-        this.keycloakClientRequestFactory = keycloakClientRequestFactory;
-    }
+    @Resource
+    private KeycloakClientRequestFactory keycloakClientRequestFactory;
 
     @Override
     public void configure(WebSecurity web) {
@@ -63,17 +66,25 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         super.configure(http);
         http
-            .csrf().disable()
-            .authorizeRequests()
-            .anyRequest().authenticated()
-            .and()
-            .headers().cacheControl();
+            .addFilterBefore(keycloakAuthenticationProcessingFilter(), LogoutFilter.class) //授权校验
+            .csrf().disable()//关闭跨域保护
+            .authorizeRequests()// 请求设置
+            .anyRequest().authenticated()// 所有请求需要认证
+            .and().headers().cacheControl();// 取消缓存header
     }
 
+    /**
+     * 注入filter
+     * @return filter
+     * @throws Exception
+     */
     @Bean
     @Override
-    protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
-        return new NullAuthenticatedSessionStrategy();
+    protected KeycloakAuthenticationProcessingFilter keycloakAuthenticationProcessingFilter() throws Exception {
+        KeycloakAuthenticationProcessingFilter filter = new KeycloakAuthenticationProcessingFilter(this.authenticationManagerBean());
+        filter.setAuthenticationFailureHandler(authenticationFailureHandler);
+        filter.setSessionAuthenticationStrategy(sessionAuthenticationStrategy());
+        return filter;
     }
 
     @Bean
@@ -81,6 +92,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     public KeycloakRestTemplate keycloakRestTemplate() {
         return new KeycloakRestTemplate(keycloakClientRequestFactory);
     }
+
     @Bean
     public FilterRegistrationBean<KeycloakAuthenticationProcessingFilter> keycloakAuthenticationProcessingFilterRegistrationBean(KeycloakAuthenticationProcessingFilter filter) {
         FilterRegistrationBean<KeycloakAuthenticationProcessingFilter> registrationBean = new FilterRegistrationBean<>(filter);
@@ -114,5 +126,11 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     @ConditionalOnMissingBean(HttpSessionManager.class)
     protected HttpSessionManager httpSessionManager() {
         return new HttpSessionManager();
+    }
+
+    @Bean
+    @Override
+    protected SessionAuthenticationStrategy sessionAuthenticationStrategy() {
+        return new NullAuthenticatedSessionStrategy();
     }
 }

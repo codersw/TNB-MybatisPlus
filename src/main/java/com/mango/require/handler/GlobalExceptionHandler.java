@@ -1,6 +1,7 @@
 package com.mango.require.handler;
 
 
+import com.mango.require.constant.CookieContsant;
 import com.mango.require.enums.ResultCodeEnum;
 import com.mango.require.exception.RequireException;
 import com.mango.require.exception.UnAuthorizedException;
@@ -101,7 +102,7 @@ public class GlobalExceptionHandler {
     }
 
     /**
-     * UnAuthorizedException,AccessDeniedException异常处理
+     * UnAuthorizedException,AccessDeniedException,AuthenticationException异常处理
      * @param e
      * @return
      */
@@ -110,7 +111,7 @@ public class GlobalExceptionHandler {
     @ResponseBody
     @ResponseStatus(value = HttpStatus.OK)
     public Result applicationUnauthorizedException(Exception e, HttpServletResponse response) {
-        CookieUtil.set(response, "JSESSIONID", "", 0);
+        CookieUtil.set(response, CookieContsant.SESSION_ID, "", 0);
         log.error(String.format(APPLICATION_EXCEPTION, e.getMessage()), e);
         return ResultGenerator.genResult(ResultCodeEnum.UNAUTHORIZED, e.getMessage());
     }

@@ -20,6 +20,10 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 
+/**
+ * 重写授权token赋值
+ * @author swen
+ */
 @Slf4j
 @Component
 public class SecurityAuthenticationProvider implements AuthenticationProvider {

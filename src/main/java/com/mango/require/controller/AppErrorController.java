@@ -1,6 +1,7 @@
 package com.mango.require.controller;
 
 
+import com.mango.require.constant.CookieContsant;
 import com.mango.require.enums.ResultCodeEnum;
 import com.mango.require.entity.common.Result;
 import com.mango.require.entity.common.ResultGenerator;
@@ -23,7 +24,7 @@ public class AppErrorController implements ErrorController {
         int status = response.getStatus();
         switch (status) {
             case 401:
-                CookieUtil.set(response, "JSESSIONID", "", 0);
+                CookieUtil.set(response, CookieContsant.SESSION_ID, "", 0);
                 return ResultGenerator.genResult(ResultCodeEnum.UNAUTHORIZED);
             case 404:
                 return ResultGenerator.genResult(ResultCodeEnum.NOT_FOUND);
