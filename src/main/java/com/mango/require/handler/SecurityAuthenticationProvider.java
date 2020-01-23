@@ -13,15 +13,12 @@ import org.keycloak.representations.AccessToken;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.authority.mapping.GrantedAuthoritiesMapper;
 import org.springframework.security.web.authentication.preauth.PreAuthenticatedAuthenticationToken;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
-import java.util.Collection;
 
 @Slf4j
 @Component
@@ -32,12 +29,6 @@ public class SecurityAuthenticationProvider implements AuthenticationProvider {
 
     @Resource
     private IMenuService menuService;
-
-    private GrantedAuthoritiesMapper grantedAuthoritiesMapper;
-
-    public void setGrantedAuthoritiesMapper(GrantedAuthoritiesMapper grantedAuthoritiesMapper) {
-        grantedAuthoritiesMapper = grantedAuthoritiesMapper;
-    }
 
     /**
      * 验证Authentication，建立系统使用者信息principal(token)
@@ -70,7 +61,7 @@ public class SecurityAuthenticationProvider implements AuthenticationProvider {
         //重写token 将当前登陆人信息塞入token中
         PreAuthenticatedAuthenticationToken preAuthenticatedAuthenticationToken =
                 new PreAuthenticatedAuthenticationToken(crrentUser, crrentUser.getPassword(),
-                        mapAuthorities(AuthorityUtils.commaSeparatedStringToAuthorityList(permissions)));
+                       AuthorityUtils.commaSeparatedStringToAuthorityList(permissions));
         preAuthenticatedAuthenticationToken.setDetails(crrentUser);
         return preAuthenticatedAuthenticationToken;
     }
@@ -78,12 +69,5 @@ public class SecurityAuthenticationProvider implements AuthenticationProvider {
     @Override
     public boolean supports(Class<?> aClass) {
         return KeycloakAuthenticationToken.class.isAssignableFrom(aClass);
-    }
-
-    private Collection<? extends GrantedAuthority> mapAuthorities(
-            Collection<? extends GrantedAuthority> authorities) {
-        return grantedAuthoritiesMapper != null
-                ? grantedAuthoritiesMapper.mapAuthorities(authorities)
-                : authorities;
     }
 }

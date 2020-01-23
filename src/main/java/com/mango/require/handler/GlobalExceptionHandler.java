@@ -6,6 +6,7 @@ import com.mango.require.exception.RequireException;
 import com.mango.require.exception.UnAuthorizedException;
 import com.mango.require.entity.common.Result;
 import com.mango.require.entity.common.ResultGenerator;
+import com.mango.require.utils.CookieUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.collections4.CollectionUtils;
 import org.springframework.core.Ordered;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -106,7 +108,8 @@ public class GlobalExceptionHandler {
             AccessDeniedException.class})
     @ResponseBody
     @ResponseStatus(value = HttpStatus.OK)
-    public Result applicationUnauthorizedException(Exception e) {
+    public Result applicationUnauthorizedException(Exception e, HttpServletResponse response) {
+        CookieUtil.set(response, "JSESSIONID", "", 0);
         log.error(String.format(APPLICATION_EXCEPTION, e.getMessage()), e);
         return ResultGenerator.genResult(ResultCodeEnum.UNAUTHORIZED, e.getMessage());
     }

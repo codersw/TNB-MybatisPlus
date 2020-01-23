@@ -4,6 +4,7 @@ package com.mango.require.controller;
 import com.mango.require.enums.ResultCodeEnum;
 import com.mango.require.entity.common.Result;
 import com.mango.require.entity.common.ResultGenerator;
+import com.mango.require.utils.CookieUtil;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +23,7 @@ public class AppErrorController implements ErrorController {
         int status = response.getStatus();
         switch (status) {
             case 401:
+                CookieUtil.set(response, "JSESSIONID", "", 0);
                 return ResultGenerator.genResult(ResultCodeEnum.UNAUTHORIZED);
             case 404:
                 return ResultGenerator.genResult(ResultCodeEnum.NOT_FOUND);
