@@ -8,4 +8,5 @@ import lombok.EqualsAndHashCode;
 @Data
 public class RequireCommentVo extends RequireComment {
 
+    private String createUserName;
 }

@@ -1,10 +1,15 @@
 package com.mango.require.service.impl;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mango.require.entity.co.RequireCommentAddCo;
+import com.mango.require.entity.co.RequireCommentListCo;
 import com.mango.require.entity.co.RequireCommentUpdateCo;
 import com.mango.require.entity.common.CurrentUser;
+import com.mango.require.entity.common.PageResponse;
 import com.mango.require.entity.pojo.RequireComment;
+import com.mango.require.entity.vo.RequireCommentVo;
 import com.mango.require.enums.IsDelEnum;
 import com.mango.require.mapper.RequireCommentMapper;
 import com.mango.require.service.IRequireCommentService;
@@ -25,6 +30,13 @@ import java.util.Date;
 @Service
 @Transactional
 public class RequireCommentServiceImpl extends ServiceImpl<RequireCommentMapper, RequireComment> implements IRequireCommentService {
+
+    @Override
+    public PageResponse list(RequireCommentListCo requireCommentListCo) {
+        Page<RequireCommentVo> page = new Page<>(requireCommentListCo.getPageIndex(), requireCommentListCo.getPageSize());;
+        IPage<RequireCommentVo> requirePage = baseMapper.selectList(page, requireCommentListCo);
+        return PageResponse.<RequireCommentVo>builder().list(requirePage.getRecords()).total(requirePage.getTotal()).build();
+    }
 
     @Override
     public void save(RequireCommentAddCo requireCommentAddCo, CurrentUser currentUser) {
