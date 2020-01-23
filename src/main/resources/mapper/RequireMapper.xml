@@ -23,6 +23,7 @@
         <result column="tag_id" property="tagId"/>
         <result column="tag_name" property="tagName"/>
         <result column="tag_desc" property="tagDesc"/>
+        <result column="create_user_name" property="createUserName"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -46,7 +47,8 @@
             r.is_del as is_del,
             tag.tag_id as tag_id,
             tag.tag_name as tag_name,
-            tag.tag_desc as tag_desc
+            tag.tag_desc as tag_desc,
+            u.real_name as create_user_name
         FROM
             t_require r
         LEFT JOIN ( SELECT any_value(tag_id) tag_id, require_id FROM t_require_tag  GROUP BY require_id ) a ON a.require_id = r.require_id
@@ -54,6 +56,7 @@
             AND r.require_id NOT IN ( SELECT require_branch_id FROM t_require_merge )
         LEFT JOIN t_tag tag ON a.tag_id = tag.tag_id
             AND tag.is_del =0
+        INNER JOIN t_user u ON u.user_id = r.create_user_id
         where 1 = 1
         <if test="requireListCo.requireTitle !=null and requireListCo.requireTitle != ''">
             and r.require_title LIKE CONCAT('%',#{requireListCo.requireTitle},'%')

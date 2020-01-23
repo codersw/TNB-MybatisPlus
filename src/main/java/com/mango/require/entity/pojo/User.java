@@ -48,9 +48,9 @@ public class User implements Serializable {
     @TableField("mobile")
     private String mobile;
 
-    @ApiModelProperty(value = "姓名")
-    @TableField("name")
-    private String name;
+    @ApiModelProperty(value = "真实姓名")
+    @TableField("real_name")
+    private String realName;
 
     @ApiModelProperty(value = "性别 0 男 1 女")
     @TableField("sex")
