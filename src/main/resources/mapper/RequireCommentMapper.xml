@@ -36,7 +36,8 @@
         FROM
             t_require_comment comment
         INNER JOIN t_user u  ON u.user_id = content.create_user_id
-        WHERE comment.require_id =#{requireCommentListCo.requireId}
+            WHERE comment.require_id =#{requireCommentListCo.requireId}
+            ORDER BY comment_id
     </select>
 
 </mapper>

@@ -1,5 +1,6 @@
 package com.mango.require.service;
 
+import com.mango.require.entity.common.CurrentUser;
 import com.mango.require.entity.pojo.UploadFile;
 import com.baomidou.mybatisplus.extension.service.IService;
 import org.springframework.web.multipart.MultipartFile;
@@ -14,5 +15,5 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public interface IUploadFileService extends IService<UploadFile> {
 
-    UploadFile save(MultipartFile file) throws Exception;
+    UploadFile save(MultipartFile file, CurrentUser currentUser) throws Exception;
 }

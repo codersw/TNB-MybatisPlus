@@ -1,6 +1,7 @@
 package com.mango.require.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.mango.require.entity.common.*;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -13,10 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.security.access.prepost.PreAuthorize;
 import com.mango.require.service.IUploadFileService;
 import com.mango.require.entity.pojo.UploadFile;
-import com.mango.require.entity.common.PageRequest;
-import com.mango.require.entity.common.Result;
-import com.mango.require.entity.common.ResultGenerator;
-import com.mango.require.entity.common.PageResponse;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
@@ -59,13 +56,14 @@ public class UploadFileController {
      /**
       * 文件信息新增
       * @param file 文件
+      * @param currentUser 当前登录人
       * @return Result
       */
      @ApiOperation(value = "文件信息新增", notes = "文件信息新增")
      @PreAuthorize("hasAuthority('upload:add')")
      @PostMapping(headers = "content-type=multipart/form-data")
-     public Result add(@ApiParam(value = "文件", required = true) @RequestParam MultipartFile file) throws Exception {
-          return ResultGenerator.genSuccessResult(uploadFileService.save(file));
+     public Result add(@ApiParam(value = "文件", required = true) @RequestParam MultipartFile file, CurrentUser currentUser) throws Exception {
+          return ResultGenerator.genSuccessResult(uploadFileService.save(file, currentUser));
      }
 
      /**

@@ -53,9 +53,17 @@ public class UploadFile implements Serializable {
     @TableField("create_time")
     private Date createTime;
 
+    @ApiModelProperty(value = "创建人id")
+    @TableField("create_user_id")
+    private Integer createUserId;
+
     @ApiModelProperty(value = "修改时间")
     @TableField("modify_time")
     private Date modifyTime;
+
+    @ApiModelProperty(value = "修改人id")
+    @TableField("modify_user_id")
+    private Integer modifyUserId;
 
     @ApiModelProperty(value = "是否删除 0未删除 1已删除")
     @TableField("is_del")

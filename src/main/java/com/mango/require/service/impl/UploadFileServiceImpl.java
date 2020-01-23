@@ -1,5 +1,6 @@
 package com.mango.require.service.impl;
 
+import com.mango.require.entity.common.CurrentUser;
 import com.mango.require.enums.IsDelEnum;
 import com.mango.require.entity.pojo.UploadFile;
 import com.mango.require.mapper.UploadFileMapper;
@@ -32,14 +33,16 @@ public class UploadFileServiceImpl extends ServiceImpl<UploadFileMapper, UploadF
     public String path ;
 
     @Override
-    public UploadFile save(MultipartFile file) throws Exception {
+    public UploadFile save(MultipartFile file, CurrentUser currentUser) throws Exception {
         UploadFile uploadFile = UploadFile.builder()
                 .fileName(file.getOriginalFilename())
                 .filePath(FileUtils.uploadFile(file, path))
                 .fileSize(file.getSize())
                 .fileType(FileUtils.getFileType(file.getOriginalFilename()))
+                .createUserId(currentUser.getUserId())
                 .createTime(new Date())
                 .isDel(IsDelEnum.FALSE.getValue())
+                .modifyUserId(currentUser.getUserId())
                 .modifyTime(new Date())
                 .build();
         baseMapper.insert(uploadFile);
