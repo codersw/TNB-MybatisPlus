@@ -44,7 +44,6 @@ public class SecurityAuthenticationProvider implements AuthenticationProvider {
      */
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        KeycloakAuthenticationToken token = (KeycloakAuthenticationToken) authentication;
         //从token中获取用户信息
         SimpleKeycloakAccount account = (SimpleKeycloakAccount) authentication.getDetails();
         KeycloakSecurityContext context= account.getKeycloakSecurityContext();
