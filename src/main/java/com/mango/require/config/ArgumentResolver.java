@@ -10,7 +10,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
 /**
- *  当前登陆人设为方法入参
+ * 当前登陆人设为方法入参
  * @Author: swen
  */
 @Component

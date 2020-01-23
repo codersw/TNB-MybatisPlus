@@ -24,7 +24,7 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements IM
 
     @Override
     public String findUserPermissions(Integer userId) {
-        List<Menu> menus = this.baseMapper.getMenus(userId);
+        List<Menu> menus = baseMapper.getMenus(userId);
         return menus.stream().map(Menu::getPerms).collect(Collectors.joining(","));
     }
 }

@@ -36,7 +36,7 @@ public class SecurityAuthenticationProvider implements AuthenticationProvider {
     private GrantedAuthoritiesMapper grantedAuthoritiesMapper;
 
     public void setGrantedAuthoritiesMapper(GrantedAuthoritiesMapper grantedAuthoritiesMapper) {
-        this.grantedAuthoritiesMapper = grantedAuthoritiesMapper;
+        grantedAuthoritiesMapper = grantedAuthoritiesMapper;
     }
 
     /**

@@ -1,14 +1,18 @@
 package com.mango.require.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.mango.require.entity.co.RequireAddCo;
 import com.mango.require.entity.co.RequireListCo;
 import com.mango.require.entity.co.RequireUpdateCo;
 import com.mango.require.entity.common.CurrentUser;
-import com.mango.require.entity.co.RequireAddCo;
 import com.mango.require.entity.common.Result;
 import com.mango.require.entity.common.ResultGenerator;
+import com.mango.require.enums.PriorityEnum;
 import com.mango.require.enums.RequireHandleTypeEnum;
+import com.mango.require.enums.RequireStatusEnum;
+import com.mango.require.enums.UrgentEnum;
 import com.mango.require.service.IRequireService;
+import com.mango.require.service.ITagService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -19,7 +23,8 @@ import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
-import java.util.Objects;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * <p>
@@ -38,6 +43,9 @@ public class RequireController {
      @Resource
      private IRequireService requireService;
 
+     @Resource
+     private ITagService tagService;
+
      /**
       * 需求信息列表
       * @param requireListCo 需求列表查询信息
@@ -48,6 +56,22 @@ public class RequireController {
      @GetMapping
      public Result list(RequireListCo requireListCo) {
           return ResultGenerator.genSuccessResult(requireService.list(requireListCo));
+     }
+
+     /**
+      * 需求信息字典
+      * @return Result
+      */
+     @ApiOperation(value = "需求信息字典", notes = "需求信息字典")
+     @PreAuthorize("hasAuthority('require:view')")
+     @GetMapping("/base")
+     public Result base() {
+          Map<String, Object> result = new HashMap<>();
+          result.put("priority", PriorityEnum.toList());
+          result.put("urgent", UrgentEnum.toList());
+          result.put("status", RequireStatusEnum.toList());
+          result.put("tag", tagService.list());
+          return ResultGenerator.genSuccessResult(result);
      }
 
      /**

@@ -21,6 +21,10 @@ import org.springframework.security.web.authentication.session.SessionAuthentica
 
 import javax.annotation.Resource;
 
+/**
+ * Keycloak SpringSecurity 配置
+ * @author swen
+ */
 @KeycloakConfiguration
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {

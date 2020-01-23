@@ -36,7 +36,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public void save(User user, List<Role> roles) {
-        this.baseMapper.insert(user);
+        baseMapper.insert(user);
         roles.forEach(role -> this.userRoleMapper.insert(UserRole.builder()
                 .roleId(role.getRoleId())
                 .userId(user.getUserId())

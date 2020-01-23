@@ -42,7 +42,7 @@ public class UploadFileServiceImpl extends ServiceImpl<UploadFileMapper, UploadF
                 .isDel(IsDelEnum.FALSE.getValue())
                 .modifyTime(new Date())
                 .build();
-        this.baseMapper.insert(uploadFile);
+        baseMapper.insert(uploadFile);
         return uploadFile;
     }
 }
