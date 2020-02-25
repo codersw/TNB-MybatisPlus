@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.access.prepost.PreAuthorize;
 import com.mango.require.service.IRequireCommentService;
 import com.mango.require.entity.pojo.RequireComment;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
@@ -66,7 +67,7 @@ public class CommentController {
      @ApiOperation(value = "需求评论新增", notes = "需求评论新增")
      @PreAuthorize("hasAuthority('comment:add')")
      @PostMapping
-     public Result add(RequireCommentAddCo requireCommentAddCo, CurrentUser currentUser) {
+     public Result add(RequireCommentAddCo requireCommentAddCo, @ApiIgnore CurrentUser currentUser) {
           requireCommentService.save(requireCommentAddCo, currentUser);
           return ResultGenerator.genSuccessResult();
      }
@@ -91,7 +92,7 @@ public class CommentController {
      @ApiOperation(value = "需求评论修改", notes = "需求评论修改")
      @PreAuthorize("hasAuthority('comment:update')")
      @PutMapping
-     public Result update(RequireCommentUpdateCo requireCommentUpdateCo, CurrentUser currentUser) {
+     public Result update(RequireCommentUpdateCo requireCommentUpdateCo, @ApiIgnore CurrentUser currentUser) {
           requireCommentService.update(requireCommentUpdateCo, currentUser);
           return ResultGenerator.genSuccessResult();
      }

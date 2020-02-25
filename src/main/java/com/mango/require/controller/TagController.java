@@ -1,27 +1,24 @@
 package com.mango.require.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mango.require.entity.co.TagAddCo;
 import com.mango.require.entity.co.TagListCo;
 import com.mango.require.entity.co.TagUpdateCo;
-import com.mango.require.entity.common.*;
+import com.mango.require.entity.common.CurrentUser;
+import com.mango.require.entity.common.PageResponse;
+import com.mango.require.entity.common.Result;
+import com.mango.require.entity.common.ResultGenerator;
+import com.mango.require.entity.pojo.Tag;
+import com.mango.require.service.ITagService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.access.prepost.PreAuthorize;
-import com.mango.require.service.ITagService;
-import com.mango.require.entity.pojo.Tag;
+import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
@@ -68,7 +65,7 @@ public class TagController {
      @ApiOperation(value = "标签信息新增", notes = "标签信息新增")
      @PreAuthorize("hasAuthority('tag:add')")
      @PostMapping
-     public Result add(TagAddCo tagAddCo, CurrentUser currentUser) {
+     public Result add(TagAddCo tagAddCo, @ApiIgnore CurrentUser currentUser) {
           tagService.save(tagAddCo, currentUser);
           return ResultGenerator.genSuccessResult();
      }
@@ -94,7 +91,7 @@ public class TagController {
      @ApiOperation(value = "标签信息修改", notes = "标签信息修改")
      @PreAuthorize("hasAuthority('tag:update')")
      @PutMapping
-     public Result update(TagUpdateCo tagUpdateCo, CurrentUser currentUser) {
+     public Result update(TagUpdateCo tagUpdateCo, @ApiIgnore CurrentUser currentUser) {
           tagService.update(tagUpdateCo, currentUser);
           return ResultGenerator.genSuccessResult();
      }

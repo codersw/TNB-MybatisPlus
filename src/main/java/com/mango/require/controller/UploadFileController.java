@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
+import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
 import java.util.Arrays;
@@ -61,7 +62,7 @@ public class UploadFileController {
      @ApiOperation(value = "文件信息新增", notes = "文件信息新增")
      @PreAuthorize("hasAuthority('upload:add')")
      @PostMapping(headers = "content-type=multipart/form-data")
-     public Result add(@ApiParam(value = "文件", required = true) @RequestParam MultipartFile file, CurrentUser currentUser) throws Exception {
+     public Result add(@ApiParam(value = "文件", required = true) @RequestParam MultipartFile file, @ApiIgnore CurrentUser currentUser) throws Exception {
           return ResultGenerator.genSuccessResult(uploadFileService.save(file, currentUser));
      }
 
@@ -75,18 +76,6 @@ public class UploadFileController {
      @DeleteMapping("/{ids}")
      public Result delete(@PathVariable String ids) {
           return ResultGenerator.genSuccessResult(uploadFileService.removeByIds(Arrays.asList(ids.split(StringPool.COMMA))));
-     }
-
-     /**
-      * 文件信息修改
-      * @param uploadFile 文件信息
-      * @return Result
-      */
-     @ApiOperation(value = "文件信息修改", notes = "文件信息修改")
-     @PreAuthorize("hasAuthority('upload:update')")
-     @PutMapping
-     public Result update(UploadFile uploadFile) {
-          return ResultGenerator.genSuccessResult(uploadFileService.updateById(uploadFile));
      }
 
      /**
