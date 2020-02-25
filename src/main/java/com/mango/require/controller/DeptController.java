@@ -1,27 +1,21 @@
 package com.mango.require.controller;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.mango.require.entity.common.PageRequest;
+import com.mango.require.entity.common.PageResponse;
+import com.mango.require.entity.common.Result;
+import com.mango.require.entity.common.ResultGenerator;
+import com.mango.require.entity.pojo.Dept;
+import com.mango.require.service.IDeptService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.security.access.prepost.PreAuthorize;
-import com.mango.require.service.IDeptService;
-import com.mango.require.entity.pojo.Dept;
-import com.mango.require.entity.common.PageRequest;
-import com.mango.require.entity.common.Result;
-import com.mango.require.entity.common.ResultGenerator;
-import com.mango.require.entity.common.PageResponse;
+import org.springframework.web.bind.annotation.*;
+
 import javax.annotation.Resource;
 import java.util.Arrays;
 
