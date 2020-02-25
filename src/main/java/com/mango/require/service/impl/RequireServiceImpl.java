@@ -194,8 +194,8 @@ public class RequireServiceImpl extends ServiceImpl<RequireMapper, Require> impl
         RequireDetailVo requireDetailVo = MapperUtils.mapperBean(require, RequireDetailVo.class);
         requireDetailVo.setFiles(uploadFileMapper.selectByRequireId(requireId));
         requireDetailVo.setTags(tagMapper.selectByRequireId(requireId));
-        requireDetailVo.setBranchs(baseMapper.selectBranchs(requireId));
-        requireDetailVo.setMaster(baseMapper.selectMaster(requireId));
+        requireDetailVo.setBranchs(requireMergeMapper.selectBranchs(requireId));
+        requireDetailVo.setMaster(requireMergeMapper.selectMaster(requireId));
         return requireDetailVo;
     }
 

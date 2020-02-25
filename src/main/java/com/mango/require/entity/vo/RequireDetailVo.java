@@ -23,9 +23,9 @@ public class RequireDetailVo extends Require {
 
     private String statusName;
 
-    private List<Require> branchs;
+    private List<RequireMergeVo> branchs;
 
-    private Require master;
+    private RequireMergeVo master;
 
     private List<UploadFile> files;
 

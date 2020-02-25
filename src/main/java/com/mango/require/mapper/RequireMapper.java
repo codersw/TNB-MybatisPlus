@@ -1,16 +1,12 @@
 package com.mango.require.mapper;
 
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.core.toolkit.Constants;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mango.require.entity.co.RequireListCo;
 import com.mango.require.entity.pojo.Require;
 import com.mango.require.entity.vo.RequireVo;
 import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
 
 /**
  * <p>
@@ -24,7 +20,4 @@ public interface RequireMapper extends BaseMapper<Require> {
 
     IPage<RequireVo> selectList(Page<RequireVo> page, @Param("requireListCo") RequireListCo requireListCo);
 
-    List<Require> selectBranchs(@Param("masterId") Integer masterId);
-
-    Require selectMaster(@Param("branchId") Integer branchId);
 }
