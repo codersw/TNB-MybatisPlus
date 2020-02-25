@@ -125,17 +125,17 @@ public class RequireController {
      @PreAuthorize("hasAuthority('require:update')")
      @GetMapping("/{type}/{requireId:\\d+}/{param}")
      public Result handle(@ApiParam("操作类型") @PathVariable @RequestParam String type, @ApiParam("主需求id") @PathVariable @RequestParam Integer requireId,
-                          @ApiParam(value = "参数") @RequestParam @PathVariable String param) {
+                          @ApiParam(value = "参数") @RequestParam @PathVariable String param, @ApiIgnore CurrentUser currentUser) {
           if(type.equals(RequireHandleTypeEnum.MERGE.getValue())) {
-               requireService.merge(requireId, param);
+               requireService.merge(requireId, param, currentUser);
           } else if(type.equals(RequireHandleTypeEnum.TAG.getValue())) {
                requireService.tag(requireId, param);
           } else if(type.equals(RequireHandleTypeEnum.PRIORITY.getValue())) {
-               requireService.priority(requireId, Integer.valueOf(param));
+               requireService.priority(requireId, Integer.valueOf(param), currentUser);
           } else if(type.equals(RequireHandleTypeEnum.URGENT.getValue())) {
-               requireService.urgent(requireId, Integer.valueOf(param));
+               requireService.urgent(requireId, Integer.valueOf(param), currentUser);
           } else if(type.equals(RequireHandleTypeEnum.STATUS.getValue())) {
-               requireService.status(requireId, Integer.valueOf(param));
+               requireService.status(requireId, Integer.valueOf(param), currentUser);
           }
           return ResultGenerator.genSuccessResult();
      }

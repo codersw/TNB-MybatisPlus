@@ -106,7 +106,7 @@ public class RequireServiceImpl extends ServiceImpl<RequireMapper, Require> impl
     }
 
     @Override
-    public void merge(Integer masterId, String branchIds) {
+    public void merge(Integer masterId, String branchIds, CurrentUser currentUser) {
         if(StringUtils.isNotEmpty(branchIds)) {
             UpdateWrapper<RequireMerge> updateWrapper = new UpdateWrapper<>();
             updateWrapper.lambda().eq(RequireMerge::getRequireMasterId, masterId);
@@ -116,6 +116,10 @@ public class RequireServiceImpl extends ServiceImpl<RequireMapper, Require> impl
                 requireMergeMapper.insert(RequireMerge.builder()
                         .requireMasterId(masterId)
                         .requireBranchId(Integer.valueOf(id))
+                        .modifyTime(new Date())
+                        .createTime(new Date())
+                        .createUserId(currentUser.getUserId())
+                        .modifyUserId(currentUser.getUserId())
                         .build());
             }
         }
@@ -138,21 +142,42 @@ public class RequireServiceImpl extends ServiceImpl<RequireMapper, Require> impl
     }
 
     @Override
-    public void priority(Integer requireId, Integer priority) {
+    public void priority(Integer requireId, Integer priority, CurrentUser currentUser) {
         if(StringUtils.isEmpty(PriorityEnum.toMap().get(priority))) throw new RequireException("参数错误");
-        baseMapper.updateById(Require.builder().requireId(requireId).priority(priority).build());
+        baseMapper.updateById(Require.builder()
+                .requireId(requireId)
+                .priority(priority)
+                .modifyTime(new Date())
+                .createTime(new Date())
+                .createUserId(currentUser.getUserId())
+                .modifyUserId(currentUser.getUserId())
+                .build());
     }
 
     @Override
-    public void urgent(Integer requireId, Integer urgent) {
+    public void urgent(Integer requireId, Integer urgent, CurrentUser currentUser) {
         if(StringUtils.isEmpty(UrgentEnum.toMap().get(urgent))) throw new RequireException("参数错误");
-        baseMapper.updateById(Require.builder().requireId(requireId).urgent(urgent).build());
+        baseMapper.updateById(Require.builder()
+                .requireId(requireId)
+                .urgent(urgent)
+                .modifyTime(new Date())
+                .createTime(new Date())
+                .createUserId(currentUser.getUserId())
+                .modifyUserId(currentUser.getUserId())
+                .build());
     }
 
     @Override
-    public void status(Integer requireId, Integer status) {
+    public void status(Integer requireId, Integer status, CurrentUser currentUser) {
         if(StringUtils.isEmpty(RequireStatusEnum.toMap().get(status))) throw new RequireException("参数错误");
-        baseMapper.updateById(Require.builder().requireId(requireId).status(status).build());
+        baseMapper.updateById(Require.builder()
+                .requireId(requireId)
+                .status(status)
+                .modifyTime(new Date())
+                .createTime(new Date())
+                .createUserId(currentUser.getUserId())
+                .modifyUserId(currentUser.getUserId())
+                .build());
     }
 
     @Override

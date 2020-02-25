@@ -1,15 +1,17 @@
 package com.mango.require.entity.pojo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -37,5 +39,19 @@ public class RequireMerge implements Serializable {
     @TableField("require_branch_id")
     private Integer requireBranchId;
 
+    @ApiModelProperty(value = "创建人")
+    @TableField("create_user_id")
+    private Integer createUserId;
 
+    @ApiModelProperty(value = "创建时间")
+    @TableField("create_time")
+    private Date createTime;
+
+    @ApiModelProperty(value = "修改人")
+    @TableField("modify_user_id")
+    private Integer modifyUserId;
+
+    @ApiModelProperty(value = "修改时间")
+    @TableField("modify_time")
+    private Date modifyTime;
 }
