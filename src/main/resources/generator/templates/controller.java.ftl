@@ -127,7 +127,7 @@ public class ${table.controllerName} {
       */
      @ApiOperation(value = "${table.comment!}详情", notes = "${table.comment!}详情")
      @PreAuthorize("hasAuthority('${entity?uncap_first}:view')")
-     @GetMapping("/{id: \\d+}")
+     @GetMapping("/{id:\\d+}")
      public Result detail(@PathVariable Integer id) {
           return ResultGenerator.genSuccessResult(${table.serviceName?replace("I","")?uncap_first}.getById(id));
      }

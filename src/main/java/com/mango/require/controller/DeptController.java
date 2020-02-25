@@ -96,7 +96,7 @@ public class DeptController {
       */
      @ApiOperation(value = "部门信息详情", notes = "部门信息详情")
      @PreAuthorize("hasAuthority('dept:view')")
-     @GetMapping("/{id: \\d+}")
+     @GetMapping("/{id:\\d+}")
      public Result detail(@PathVariable Integer id) {
           return ResultGenerator.genSuccessResult(deptService.getById(id));
      }

@@ -16,6 +16,7 @@ import com.mango.require.service.ITagService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
@@ -50,7 +51,9 @@ public class TagController {
      @GetMapping
      public Result list(TagListCo tagListCo) {
           QueryWrapper<Tag> queryWrapper = new QueryWrapper<>();
-          queryWrapper.lambda().like(Tag::getTagName, tagListCo.getKeyword());
+          if(StringUtils.isNotEmpty(tagListCo.getKeyword())) {
+              queryWrapper.lambda().like(Tag::getTagName, tagListCo.getKeyword()).like(Tag::getTagDesc, tagListCo.getKeyword());
+          }
           Page<Tag> page = new Page<>(tagListCo.getPageIndex(), tagListCo.getPageSize());
           IPage<Tag> tagPage = tagService.page(page, queryWrapper);
           return ResultGenerator.genSuccessResult(PageResponse.<Tag>builder().list(tagPage.getRecords()).total(tagPage.getTotal()).build());
@@ -103,7 +106,7 @@ public class TagController {
       */
      @ApiOperation(value = "标签信息详情", notes = "标签信息详情")
      @PreAuthorize("hasAuthority('tag:view')")
-     @GetMapping("/{id: \\d+}")
+     @GetMapping("/{id:\\d+}")
      public Result detail(@PathVariable Integer id) {
           return ResultGenerator.genSuccessResult(tagService.getById(id));
      }

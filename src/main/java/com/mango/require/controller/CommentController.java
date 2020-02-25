@@ -104,7 +104,7 @@ public class CommentController {
       */
      @ApiOperation(value = "需求评论详情", notes = "需求评论详情")
      @PreAuthorize("hasAuthority('comment:view')")
-     @GetMapping("/{id: \\d+}")
+     @GetMapping("/{id:\\d+}")
      public Result detail(@PathVariable Integer id) {
           return ResultGenerator.genSuccessResult(requireCommentService.getById(id));
      }

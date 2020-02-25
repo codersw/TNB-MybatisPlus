@@ -85,7 +85,7 @@ public class UploadFileController {
       */
      @ApiOperation(value = "文件信息详情", notes = "文件信息详情")
      @PreAuthorize("hasAuthority('upload:view')")
-     @GetMapping("/{id: \\d+}")
+     @GetMapping("/{id:\\d+}")
      public Result detail(@PathVariable Integer id) {
           return ResultGenerator.genSuccessResult(uploadFileService.getById(id));
      }
