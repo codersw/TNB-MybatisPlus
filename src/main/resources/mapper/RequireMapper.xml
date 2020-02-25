@@ -31,7 +31,7 @@
         require_id, require_title, content, priority, urgent, status, create_user_id, create_time, modify_user_id, modify_time, parent_id, is_del
     </sql>
 
-    <select id="selectList" resultMap="BaseResultMapVo">
+    <select id="selectAdminList" resultMap="BaseResultMapVo">
         SELECT
             r.require_id as require_id,
             r.require_title as require_title,
@@ -58,16 +58,52 @@
             AND tag.is_del =0
         INNER JOIN t_user u ON u.user_id = r.create_user_id
         where 1 = 1
-        <if test="requireListCo.requireTitle !=null and requireListCo.requireTitle != ''">
-            and r.require_title LIKE CONCAT('%',#{requireListCo.requireTitle},'%')
+        <if test="requireAdminListCo.requireTitle !=null and requireAdminListCo.requireTitle != ''">
+            and r.require_title LIKE CONCAT('%',#{requireAdminListCo.requireTitle},'%')
         </if>
-        <if test="requireListCo.status !=null">
+        <if test="requireAdminListCo.status !=null">
+            and r.status = #{requireAdminListCo.status}
+        </if>
+        <if test="requireAdminListCo.tagId !=null">
+            and tag.tag_id = #{requireAdminListCo.tagId}
+        </if>
+        order by create_time desc
+    </select>
+
+    <select id="selectList" resultMap="BaseResultMapVo">
+        SELECT
+        r.require_id as require_id,
+        r.require_title as require_title,
+        r.content as content,
+        r.priority as priority,
+        r.urgent as urgent,
+        r.status as status,
+        r.create_user_id as create_user_id,
+        r.create_time as create_time,
+        r.modify_user_id  as modify_user_id,
+        r.modify_time as modify_time,
+        r.parent_id as parent_id,
+        r.is_del as is_del,
+        tag.tag_id as tag_id,
+        tag.tag_name as tag_name,
+        tag.tag_desc as tag_desc,
+        u.real_name as create_user_name
+        FROM
+        t_require r
+        LEFT JOIN ( SELECT any_value(tag_id) tag_id, require_id FROM t_require_tag  GROUP BY require_id ) a ON a.require_id = r.require_id
+        AND r.is_del = 0
+        AND r.require_id NOT IN ( SELECT require_branch_id FROM t_require_merge )
+        LEFT JOIN t_tag tag ON a.tag_id = tag.tag_id
+        AND tag.is_del =0
+        INNER JOIN t_user u ON u.user_id = r.create_user_id
+        where 1 = 1
+        <if test="requireListCo.priority !=null">
             and r.status = #{requireListCo.status}
         </if>
-        <if test="requireListCo.tagId !=null">
-            and tag.tag_id = #{requireListCo.tagId}
+        <if test="requireListCo.urgent !=null">
+            and r.urgent = #{requireListCo.urgent}
         </if>
-        order by priority,urgent,status
+        order by create_time desc
     </select>
 
 </mapper>

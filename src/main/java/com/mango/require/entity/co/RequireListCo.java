@@ -11,12 +11,9 @@ import lombok.EqualsAndHashCode;
 @ApiModel(value="需求列表查询信息", description="需求列表查询信息")
 public class RequireListCo extends PageRequest {
 
-    @ApiModelProperty(value = "需求标题", example = "需求标题")
-    private String requireTitle;
+    @ApiModelProperty(value = "重要程度")
+    private Integer priority;
 
-    @ApiModelProperty(value = "需求状态")
-    private Integer status;
-
-    @ApiModelProperty(value = "标签id")
-    private Integer tagId;
+    @ApiModelProperty(value = "紧急程度")
+    private Integer urgent;
 }

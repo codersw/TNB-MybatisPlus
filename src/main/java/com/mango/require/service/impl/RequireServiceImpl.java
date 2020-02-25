@@ -184,13 +184,15 @@ public class RequireServiceImpl extends ServiceImpl<RequireMapper, Require> impl
     @Override
     public PageResponse adminList(RequireAdminListCo requireAdminListCo) {
         Page<RequireVo> page = new Page<>(requireAdminListCo.getPageIndex(), requireAdminListCo.getPageSize());;
-        IPage<RequireVo> requirePage = baseMapper.selectList(page, requireAdminListCo);
+        IPage<RequireVo> requirePage = baseMapper.selectAdminList(page, requireAdminListCo);
         return PageResponse.<RequireVo>builder().list(requirePage.getRecords()).total(requirePage.getTotal()).build();
     }
 
     @Override
     public PageResponse list(RequireListCo requireListCo) {
-        return null;
+        Page<RequireVo> page = new Page<>(requireListCo.getPageIndex(), requireListCo.getPageSize());;
+        IPage<RequireVo> requirePage = baseMapper.selectList(page, requireListCo);
+        return PageResponse.<RequireVo>builder().list(requirePage.getRecords()).total(requirePage.getTotal()).build();
     }
 
     @Override
