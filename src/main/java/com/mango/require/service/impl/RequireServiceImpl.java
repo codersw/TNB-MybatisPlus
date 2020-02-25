@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mango.require.entity.co.RequireAddCo;
+import com.mango.require.entity.co.RequireAdminListCo;
 import com.mango.require.entity.co.RequireListCo;
 import com.mango.require.entity.co.RequireUpdateCo;
 import com.mango.require.entity.common.CurrentUser;
@@ -181,10 +182,15 @@ public class RequireServiceImpl extends ServiceImpl<RequireMapper, Require> impl
     }
 
     @Override
-    public PageResponse list(RequireListCo requireListCo) {
-        Page<RequireVo> page = new Page<>(requireListCo.getPageIndex(), requireListCo.getPageSize());;
-        IPage<RequireVo> requirePage = baseMapper.selectList(page, requireListCo);
+    public PageResponse adminList(RequireAdminListCo requireAdminListCo) {
+        Page<RequireVo> page = new Page<>(requireAdminListCo.getPageIndex(), requireAdminListCo.getPageSize());;
+        IPage<RequireVo> requirePage = baseMapper.selectList(page, requireAdminListCo);
         return PageResponse.<RequireVo>builder().list(requirePage.getRecords()).total(requirePage.getTotal()).build();
+    }
+
+    @Override
+    public PageResponse list(RequireListCo requireListCo) {
+        return null;
     }
 
     @Override

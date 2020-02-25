@@ -1,12 +1,13 @@
 package com.mango.require.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.mango.require.entity.co.RequireAddCo;
+import com.mango.require.entity.co.RequireAdminListCo;
 import com.mango.require.entity.co.RequireListCo;
 import com.mango.require.entity.co.RequireUpdateCo;
 import com.mango.require.entity.common.CurrentUser;
 import com.mango.require.entity.common.PageResponse;
 import com.mango.require.entity.pojo.Require;
-import com.mango.require.entity.co.RequireAddCo;
 import com.mango.require.entity.vo.RequireDetailVo;
 
 /**
@@ -32,6 +33,8 @@ public interface IRequireService extends IService<Require> {
     void urgent(Integer requireId, Integer urgent, CurrentUser currentUser);
 
     void status(Integer requireId, Integer status, CurrentUser currentUser);
+
+    PageResponse adminList(RequireAdminListCo requireAdminListCo);
 
     PageResponse list(RequireListCo requireListCo);
 

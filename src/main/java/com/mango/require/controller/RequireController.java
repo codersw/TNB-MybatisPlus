@@ -2,6 +2,7 @@ package com.mango.require.controller;
 
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.mango.require.entity.co.RequireAddCo;
+import com.mango.require.entity.co.RequireAdminListCo;
 import com.mango.require.entity.co.RequireListCo;
 import com.mango.require.entity.co.RequireUpdateCo;
 import com.mango.require.entity.common.CurrentUser;
@@ -48,14 +49,25 @@ public class RequireController {
 
      /**
       * 需求信息列表
-      * @param requireListCo 需求列表查询信息
+      * @param requireAdminListCo 需求列表查询信息
       * @return Result
       */
      @ApiOperation(value = "需求信息列表", notes = "需求信息列表")
      @PreAuthorize("hasAuthority('require:view')")
-     @GetMapping
+     @GetMapping("/admin/list")
+     public Result adminList(RequireAdminListCo requireAdminListCo) {
+          return ResultGenerator.genSuccessResult(requireService.adminList(requireAdminListCo));
+     }
+
+     /**
+      * 需求信息列表
+      * @param requireListCo 需求列表查询信息
+      * @return Result
+      */
+     @ApiOperation(value = "需求信息列表", notes = "需求信息列表")
+     @GetMapping("/list")
      public Result list(RequireListCo requireListCo) {
-          return ResultGenerator.genSuccessResult(requireService.list(requireListCo));
+         return ResultGenerator.genSuccessResult(requireService.list(requireListCo));
      }
 
      /**
@@ -124,8 +136,9 @@ public class RequireController {
      @ApiOperation(value = "需求信息操作", notes = "需求信息操作")
      @PreAuthorize("hasAuthority('require:update')")
      @GetMapping("/{type}/{requireId:\\d+}/{param}")
-     public Result handle(@ApiParam("操作类型") @PathVariable @RequestParam String type, @ApiParam("主需求id") @PathVariable @RequestParam Integer requireId,
-                          @ApiParam(value = "参数") @RequestParam @PathVariable String param, @ApiIgnore CurrentUser currentUser) {
+     public Result handle(@ApiParam(value = "操作类型 (需求合并: merge 打标签: tag 重要程度: priority 紧急程度: urgent 状态: status)" , example = "merge") @PathVariable @RequestParam String type,
+                          @ApiParam(value = "需求id", example = "1") @PathVariable @RequestParam Integer requireId,
+                          @ApiParam(value = "参数", example = "2,3") @RequestParam @PathVariable String param, @ApiIgnore CurrentUser currentUser) {
           if(type.equals(RequireHandleTypeEnum.MERGE.getValue())) {
                requireService.merge(requireId, param, currentUser);
           } else if(type.equals(RequireHandleTypeEnum.TAG.getValue())) {
