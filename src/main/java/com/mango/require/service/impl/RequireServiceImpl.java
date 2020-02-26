@@ -1,6 +1,5 @@
 package com.mango.require.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
@@ -12,7 +11,10 @@ import com.mango.require.entity.co.RequireListCo;
 import com.mango.require.entity.co.RequireUpdateCo;
 import com.mango.require.entity.common.CurrentUser;
 import com.mango.require.entity.common.PageResponse;
-import com.mango.require.entity.pojo.*;
+import com.mango.require.entity.pojo.Require;
+import com.mango.require.entity.pojo.RequireFile;
+import com.mango.require.entity.pojo.RequireMerge;
+import com.mango.require.entity.pojo.RequireTag;
 import com.mango.require.entity.vo.RequireDetailVo;
 import com.mango.require.entity.vo.RequireVo;
 import com.mango.require.enums.IsDelEnum;
@@ -22,8 +24,8 @@ import com.mango.require.enums.UrgentEnum;
 import com.mango.require.exception.RequireException;
 import com.mango.require.mapper.*;
 import com.mango.require.service.IRequireService;
+import com.mango.require.utils.CommonUtils;
 import com.mango.require.utils.MapperUtils;
-import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -83,10 +85,7 @@ public class RequireServiceImpl extends ServiceImpl<RequireMapper, Require> impl
 
     @Override
     public void update(RequireUpdateCo requireUpdateCo, CurrentUser currentUser) {
-        QueryWrapper<Require> requireQueryWrapper = new QueryWrapper<>();
-        requireQueryWrapper.lambda().eq(Require::getRequireId, requireUpdateCo.getRequireId())
-                .eq(Require::getIsDel, IsDelEnum.FALSE.getValue());
-        if(CollectionUtils.isNotEmpty(this.baseMapper.selectList(requireQueryWrapper))) {
+        if(!CommonUtils.isNullOrEmpty(baseMapper.selectById(requireUpdateCo.getRequireId()))) {
             Require require = MapperUtils.mapperBean(requireUpdateCo, Require.class);
             require.setModifyTime(new Date());
             require.setModifyUserId(currentUser.getUserId());
