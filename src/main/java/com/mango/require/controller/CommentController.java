@@ -4,6 +4,7 @@ import com.mango.require.entity.co.RequireCommentAddCo;
 import com.mango.require.entity.co.RequireCommentListCo;
 import com.mango.require.entity.co.RequireCommentUpdateCo;
 import com.mango.require.entity.common.*;
+import com.mango.require.enums.IsDelEnum;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
@@ -52,7 +53,8 @@ public class CommentController {
      @GetMapping
      public Result list(RequireCommentListCo requireCommentListCo) {
           QueryWrapper<RequireComment> queryWrapper = new QueryWrapper<>();
-          queryWrapper.lambda().eq(RequireComment::getRequireId, requireCommentListCo.getRequireId());
+          queryWrapper.lambda().eq(RequireComment::getRequireId, requireCommentListCo.getRequireId())
+                  .eq(RequireComment::getIsDel, IsDelEnum.FALSE.getValue());
           Page<RequireComment> page = new Page<>(requireCommentListCo.getPageIndex(), requireCommentListCo.getPageSize());
           IPage<RequireComment> requireCommentPage = requireCommentService.page(page, queryWrapper);
           return ResultGenerator.genSuccessResult(PageResponse.<RequireComment>builder().list(requireCommentPage.getRecords()).total(requireCommentPage.getTotal()).build());
