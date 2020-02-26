@@ -11,7 +11,7 @@
  Target Server Version : 50727
  File Encoding         : 65001
 
- Date: 23/01/2020 16:53:16
+ Date: 26/02/2020 11:04:28
 */
 
 SET NAMES utf8mb4;
@@ -50,7 +50,7 @@ CREATE TABLE `t_menu`  (
   `modify_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除 0未删除 1已删除',
   PRIMARY KEY (`menu_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_menu
@@ -75,7 +75,7 @@ INSERT INTO `t_menu` VALUES (17, 0, '文件管理', '', '', 'upload:view', '', 0
 INSERT INTO `t_menu` VALUES (18, 17, '新增文件', '', '', 'upload:add', '', 1, 1, '2020-01-22 17:05:19', '2020-01-22 17:05:19', 0);
 INSERT INTO `t_menu` VALUES (19, 17, '修改文件', '', '', 'upload:update', '', 1, 1, '2020-01-22 17:05:21', '2020-01-22 17:05:21', 0);
 INSERT INTO `t_menu` VALUES (20, 17, '删除文件', '', '', 'upload:delete', '', 1, 1, '2020-01-22 17:05:24', '2020-01-22 17:05:24', 0);
-INSERT INTO `t_menu` VALUES (21, 0, '需求管理', '', '', 'require:view', '', 0, 6, '2020-01-22 11:19:10', '2020-01-22 11:19:10', 0);
+INSERT INTO `t_menu` VALUES (21, 0, '需求管理', '', '', 'require:view', '', 0, 6, '2020-02-25 15:56:38', '2020-02-25 15:56:38', 0);
 INSERT INTO `t_menu` VALUES (22, 21, '新增需求', '', '', 'require:add', '', 1, 1, '2020-01-22 17:05:29', '2020-01-22 17:05:29', 0);
 INSERT INTO `t_menu` VALUES (23, 21, '修改需求', '', '', 'require:update', '', 1, 1, '2020-01-22 17:05:30', '2020-01-22 17:05:30', 0);
 INSERT INTO `t_menu` VALUES (24, 21, '删除需求', '', '', 'require:delete', '', 1, 1, '2020-01-22 17:05:32', '2020-01-22 17:05:32', 0);
@@ -111,7 +111,7 @@ CREATE TABLE `t_require`  (
 -- ----------------------------
 -- Records of t_require
 -- ----------------------------
-INSERT INTO `t_require` VALUES (1, '测试测试测试测试测试', '测试测试测试测试测试测试测试测试测试', 0, 0, 0, 1, '2020-01-22 11:21:04', 1, '2020-01-22 11:21:04', 0, 0);
+INSERT INTO `t_require` VALUES (1, '测试测试测试测试测试', '测试测试测试测试测试测试测试测试测试', 0, 0, 0, 1, '2020-02-26 10:53:11', 1, '2020-02-26 10:53:11', 0, 0);
 INSERT INTO `t_require` VALUES (2, '需求标题', '需求内容', 0, 0, 0, 1, '2020-01-23 16:20:32', 1, '2020-01-23 16:20:32', 0, 0);
 INSERT INTO `t_require` VALUES (3, '需求标题', '需求内容', 0, 0, 0, 1, '2020-01-23 16:20:53', 1, '2020-01-23 16:20:53', 0, 0);
 
@@ -120,7 +120,7 @@ INSERT INTO `t_require` VALUES (3, '需求标题', '需求内容', 0, 0, 0, 1, '
 -- ----------------------------
 DROP TABLE IF EXISTS `t_require_comment`;
 CREATE TABLE `t_require_comment`  (
-  `comment_id` int(11) NOT NULL COMMENT '评论信息',
+  `comment_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '评论信息',
   `content` text CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '内容',
   `create_user_id` int(11) NOT NULL DEFAULT 0 COMMENT '创建人id',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
@@ -129,7 +129,12 @@ CREATE TABLE `t_require_comment`  (
   `require_id` int(11) NOT NULL COMMENT '需求id',
   `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除 0未删除 1以删除',
   PRIMARY KEY (`comment_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '需求评论' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '需求评论' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_require_comment
+-- ----------------------------
+INSERT INTO `t_require_comment` VALUES (1, '<html><body>hjahahaha</body></html>', 1, '2020-02-26 11:00:08', 1, '2020-02-26 11:00:08', 1, 0);
 
 -- ----------------------------
 -- Table structure for t_require_file
@@ -144,7 +149,10 @@ CREATE TABLE `t_require_file`  (
 -- ----------------------------
 -- Records of t_require_file
 -- ----------------------------
+INSERT INTO `t_require_file` VALUES (1, 1);
 INSERT INTO `t_require_file` VALUES (3, 1);
+INSERT INTO `t_require_file` VALUES (1, 2);
+INSERT INTO `t_require_file` VALUES (1, 3);
 
 -- ----------------------------
 -- Table structure for t_require_merge
@@ -153,8 +161,18 @@ DROP TABLE IF EXISTS `t_require_merge`;
 CREATE TABLE `t_require_merge`  (
   `require_master_id` int(11) NOT NULL COMMENT '主需求id',
   `require_branch_id` int(11) NOT NULL COMMENT '分支需求id',
+  `create_user_id` int(11) NOT NULL DEFAULT 0 COMMENT '创建人id',
+  `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
+  `modify_user_id` int(11) NOT NULL DEFAULT 0 COMMENT '修改人',
+  `modify_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   PRIMARY KEY (`require_master_id`, `require_branch_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '需求合并' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_require_merge
+-- ----------------------------
+INSERT INTO `t_require_merge` VALUES (1, 2, 1, '2020-02-26 10:43:56', 1, '2020-02-26 10:43:56');
+INSERT INTO `t_require_merge` VALUES (1, 3, 1, '2020-02-26 10:43:56', 1, '2020-02-26 10:43:56');
 
 -- ----------------------------
 -- Table structure for t_require_tag
@@ -165,6 +183,12 @@ CREATE TABLE `t_require_tag`  (
   `tag_id` int(11) NOT NULL COMMENT '标签id',
   PRIMARY KEY (`tag_id`, `require_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '需求标签信息' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_require_tag
+-- ----------------------------
+INSERT INTO `t_require_tag` VALUES (1, 1);
+INSERT INTO `t_require_tag` VALUES (1, 2);
 
 -- ----------------------------
 -- Table structure for t_role
@@ -246,7 +270,13 @@ CREATE TABLE `t_tag`  (
   `modify_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除 0未删除 1 以删除',
   PRIMARY KEY (`tag_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '标签信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '标签信息' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of t_tag
+-- ----------------------------
+INSERT INTO `t_tag` VALUES (1, '标签名字', '标签描述', 1, '2020-02-25 16:44:09', 1, '2020-02-25 16:44:09', 0);
+INSERT INTO `t_tag` VALUES (2, '我好', '标签描述', 1, '2020-02-25 16:44:09', 1, '2020-02-25 16:44:09', 0);
 
 -- ----------------------------
 -- Table structure for t_upload_file
@@ -264,13 +294,16 @@ CREATE TABLE `t_upload_file`  (
   `modify_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除 0未删除 1已删除',
   PRIMARY KEY (`file_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文件信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文件信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of t_upload_file
 -- ----------------------------
-INSERT INTO `t_upload_file` VALUES (1, '.gif', '64f86820956b4b5a931dc89701bd9780.gif', 875566, '6e3e5b9bgy1g9dlo7vkr9g205006m1g7.gif', 0, '2020-01-20 16:48:15', 0, '2020-01-20 16:48:15', 0);
-INSERT INTO `t_upload_file` VALUES (2, '.jpg', '63c6998e5a9640ccbdb5b8a7c9ab6db4.jpg', 9487575, '10M之内图片.jpg', 0, '2020-01-23 16:27:25', 0, '2020-01-23 16:27:25', 0);
+INSERT INTO `t_upload_file` VALUES (1, '.gif', '64f86820956b4b5a931dc89701bd9780.gif', 875566, '6e3e5b9bgy1g9dlo7vkr9g205006m1g7.gif', 1, '2020-02-26 10:15:32', 1, '2020-02-26 10:15:32', 0);
+INSERT INTO `t_upload_file` VALUES (2, '.jpg', '63c6998e5a9640ccbdb5b8a7c9ab6db4.jpg', 9487575, '10M之内图片.jpg', 1, '2020-02-26 10:15:30', 1, '2020-02-26 10:15:30', 0);
+INSERT INTO `t_upload_file` VALUES (3, '.gif', 'be75d909b59747288ecb9dc94ab2499f.gif', 1036241, '3801213fb80e7beca7da490d222eb9389a506bde.gif', 1, '2020-02-25 16:44:41', 1, '2020-02-25 16:44:41', 0);
+INSERT INTO `t_upload_file` VALUES (4, '.jpg', 'a1cee8a8427e47b68c09d27e1be69466.jpg', 9487575, '10M之内图片.jpg', 1, '2020-02-26 09:13:55', 1, '2020-02-26 09:13:55', 0);
+INSERT INTO `t_upload_file` VALUES (5, '.jpg', '75267b0bfefb4a3c810f6624eaed9bba.jpg', 9487575, '10M之内图片.jpg', 1, '2020-02-26 09:33:23', 1, '2020-02-26 09:33:23', 0);
 
 -- ----------------------------
 -- Table structure for t_user
