@@ -22,8 +22,6 @@ public class RequireVo extends Require {
 
     private String statusName;
 
-    private String createUserName;
-
     public String getPriorityName() {
         return PriorityEnum.getNameByValue(this.getPriority());
     }

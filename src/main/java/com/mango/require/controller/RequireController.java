@@ -12,6 +12,7 @@ import com.mango.require.enums.PriorityEnum;
 import com.mango.require.enums.RequireHandleTypeEnum;
 import com.mango.require.enums.RequireStatusEnum;
 import com.mango.require.enums.UrgentEnum;
+import com.mango.require.exception.RequireException;
 import com.mango.require.service.IRequireService;
 import com.mango.require.service.ITagService;
 import io.swagger.annotations.Api;
@@ -135,9 +136,9 @@ public class RequireController {
      @ApiOperation(value = "需求信息操作", notes = "需求信息操作")
      @PreAuthorize("hasAuthority('require:update')")
      @GetMapping("/{type}/{requireId:\\d+}/{param}")
-     public Result handle(@ApiParam(value = "操作类型 (需求合并: merge 打标签: tag 重要程度: priority 紧急程度: urgent 状态: status)" , example = "merge") @PathVariable @RequestParam String type,
-                          @ApiParam(value = "需求id", example = "1") @PathVariable @RequestParam Integer requireId,
-                          @ApiParam(value = "参数", example = "2,3") @RequestParam @PathVariable String param, @ApiIgnore CurrentUser currentUser) {
+     public Result handle(@ApiParam(value = "操作类型 (需求合并: merge 打标签: tag 重要程度: priority 紧急程度: urgent 状态: status)" , example = "merge") @PathVariable String type,
+                          @ApiParam(value = "需求id", example = "1") @PathVariable Integer requireId,
+                          @ApiParam(value = "参数", example = "2,3") @PathVariable String param, @ApiIgnore CurrentUser currentUser) {
           if(type.equals(RequireHandleTypeEnum.MERGE.getValue())) {
                requireService.merge(requireId, param, currentUser);
           } else if(type.equals(RequireHandleTypeEnum.TAG.getValue())) {
@@ -148,6 +149,8 @@ public class RequireController {
                requireService.urgent(requireId, Integer.valueOf(param), currentUser);
           } else if(type.equals(RequireHandleTypeEnum.STATUS.getValue())) {
                requireService.status(requireId, Integer.valueOf(param), currentUser);
+          } else {
+              throw new RequireException("type参数错误");
           }
           return ResultGenerator.genSuccessResult();
      }

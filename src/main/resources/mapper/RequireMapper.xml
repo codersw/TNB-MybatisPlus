@@ -23,7 +23,6 @@
         <result column="tag_id" property="tagId"/>
         <result column="tag_name" property="tagName"/>
         <result column="tag_desc" property="tagDesc"/>
-        <result column="create_user_name" property="createUserName"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -45,13 +44,18 @@
             r.modify_time as modify_time,
             r.parent_id as parent_id,
             r.is_del as is_del,
-            tag.tag_id as tag_id,
-            tag.tag_name as tag_name,
-            tag.tag_desc as tag_desc,
-            u.real_name as create_user_name
+            IFNULL(tag.tag_id,0) as tag_id,
+            IFNULL(tag.tag_name,"") as tag_name,
+            IFNULL(tag.tag_desc,"") as tag_desc
         FROM
             t_require r
-        LEFT JOIN ( SELECT any_value(tag_id) tag_id, require_id FROM t_require_tag  GROUP BY require_id ) a ON a.require_id = r.require_id
+        LEFT JOIN
+        (SELECT any_value(tag_id) tag_id, require_id FROM t_require_tag
+            WHERE 1=1
+         <if test="requireAdminListCo.tagId !=null">
+            and tag_id = #{requireAdminListCo.tagId}
+         </if>
+         GROUP BY require_id) a ON a.require_id = r.require_id
             AND r.is_del = 0
             AND r.require_id NOT IN ( SELECT require_branch_id FROM t_require_merge )
         LEFT JOIN t_tag tag ON a.tag_id = tag.tag_id
@@ -98,7 +102,7 @@
         INNER JOIN t_user u ON u.user_id = r.create_user_id
         where 1 = 1
         <if test="requireListCo.priority !=null">
-            and r.status = #{requireListCo.status}
+            and r.priority = #{requireListCo.priority}
         </if>
         <if test="requireListCo.urgent !=null">
             and r.urgent = #{requireListCo.urgent}
