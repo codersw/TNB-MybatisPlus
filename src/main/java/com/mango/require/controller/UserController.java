@@ -64,7 +64,7 @@ public class UserController {
      @ApiOperation(value = "用户信息新增", notes = "用户信息新增")
      @PreAuthorize("hasAuthority('user:add')")
      @PostMapping
-     public Result add(User user) {
+     public Result add(@RequestBody User user) {
           return ResultGenerator.genSuccessResult(userService.save(user));
      }
 
@@ -88,7 +88,7 @@ public class UserController {
      @ApiOperation(value = "用户信息修改", notes = "用户信息修改")
      @PreAuthorize("hasAuthority('user:update')")
      @PutMapping
-     public Result update(User user) {
+     public Result update(@RequestBody User user) {
           return ResultGenerator.genSuccessResult(userService.updateById(user));
      }
 

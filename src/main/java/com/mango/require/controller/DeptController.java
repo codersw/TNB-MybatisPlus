@@ -61,7 +61,7 @@ public class DeptController {
      @ApiOperation(value = "部门信息新增", notes = "部门信息新增")
      @PreAuthorize("hasAuthority('dept:add')")
      @PostMapping
-     public Result add(Dept dept) {
+     public Result add(@RequestBody Dept dept) {
           return ResultGenerator.genSuccessResult(deptService.save(dept));
      }
 
@@ -85,7 +85,7 @@ public class DeptController {
      @ApiOperation(value = "部门信息修改", notes = "部门信息修改")
      @PreAuthorize("hasAuthority('dept:update')")
      @PutMapping
-     public Result update(Dept dept) {
+     public Result update(@RequestBody Dept dept) {
           return ResultGenerator.genSuccessResult(deptService.updateById(dept));
      }
 

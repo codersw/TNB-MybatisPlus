@@ -61,7 +61,7 @@ public class MenuController {
      @ApiOperation(value = "菜单新增", notes = "菜单新增")
      @PreAuthorize("hasAuthority('menu:add')")
      @PostMapping
-     public Result add(Menu menu) {
+     public Result add(@RequestBody Menu menu) {
           return ResultGenerator.genSuccessResult(menuService.save(menu));
      }
 
@@ -85,7 +85,7 @@ public class MenuController {
      @ApiOperation(value = "菜单修改", notes = "菜单修改")
      @PreAuthorize("hasAuthority('menu:update')")
      @PutMapping
-     public Result update(Menu menu) {
+     public Result update(@RequestBody Menu menu) {
           return ResultGenerator.genSuccessResult(menuService.updateById(menu));
      }
 

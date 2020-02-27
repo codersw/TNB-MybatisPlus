@@ -95,7 +95,7 @@ public class RequireController {
      @ApiOperation(value = "需求信息新增", notes = "需求信息新增")
      @PreAuthorize("hasAuthority('require:add')")
      @PostMapping
-     public Result add(RequireAddCo requireAddCo, @ApiIgnore CurrentUser currentUser) {
+     public Result add(@RequestBody RequireAddCo requireAddCo, @ApiIgnore CurrentUser currentUser) {
           requireService.save(requireAddCo, currentUser);
           return ResultGenerator.genSuccessResult();
      }
@@ -121,7 +121,7 @@ public class RequireController {
      @ApiOperation(value = "需求信息修改", notes = "需求信息修改")
      @PreAuthorize("hasAuthority('require:update')")
      @PutMapping
-     public Result update(RequireUpdateCo requireUpdateCo, @ApiIgnore CurrentUser currentUser) {
+     public Result update(@RequestBody RequireUpdateCo requireUpdateCo, @ApiIgnore CurrentUser currentUser) {
           requireService.update(requireUpdateCo, currentUser);
           return ResultGenerator.genSuccessResult();
      }

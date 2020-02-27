@@ -61,7 +61,7 @@ public class RoleController {
      @ApiOperation(value = "角色信息新增", notes = "角色信息新增")
      @PreAuthorize("hasAuthority('role:add')")
      @PostMapping
-     public Result add(Role role) {
+     public Result add(@RequestBody Role role) {
           return ResultGenerator.genSuccessResult(roleService.save(role));
      }
 
@@ -85,7 +85,7 @@ public class RoleController {
      @ApiOperation(value = "角色信息修改", notes = "角色信息修改")
      @PreAuthorize("hasAuthority('role:update')")
      @PutMapping
-     public Result update(Role role) {
+     public Result update(@RequestBody Role role) {
           return ResultGenerator.genSuccessResult(roleService.updateById(role));
      }
 

@@ -68,7 +68,7 @@ public class TagController {
      @ApiOperation(value = "标签信息新增", notes = "标签信息新增")
      @PreAuthorize("hasAuthority('tag:add')")
      @PostMapping
-     public Result add(TagAddCo tagAddCo, @ApiIgnore CurrentUser currentUser) {
+     public Result add(@RequestBody TagAddCo tagAddCo, @ApiIgnore CurrentUser currentUser) {
           tagService.save(tagAddCo, currentUser);
           return ResultGenerator.genSuccessResult();
      }
@@ -94,7 +94,7 @@ public class TagController {
      @ApiOperation(value = "标签信息修改", notes = "标签信息修改")
      @PreAuthorize("hasAuthority('tag:update')")
      @PutMapping
-     public Result update(TagUpdateCo tagUpdateCo, @ApiIgnore CurrentUser currentUser) {
+     public Result update(@RequestBody TagUpdateCo tagUpdateCo, @ApiIgnore CurrentUser currentUser) {
           tagService.update(tagUpdateCo, currentUser);
           return ResultGenerator.genSuccessResult();
      }

@@ -1,27 +1,24 @@
 package com.mango.require.controller;
 
-import com.mango.require.entity.co.RequireCommentAddCo;
-import com.mango.require.entity.co.RequireCommentListCo;
-import com.mango.require.entity.co.RequireCommentUpdateCo;
-import com.mango.require.entity.common.*;
-import com.mango.require.enums.IsDelEnum;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
-import lombok.extern.slf4j.Slf4j;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.security.access.prepost.PreAuthorize;
-import com.mango.require.service.IRequireCommentService;
+import com.mango.require.entity.co.RequireCommentAddCo;
+import com.mango.require.entity.co.RequireCommentListCo;
+import com.mango.require.entity.co.RequireCommentUpdateCo;
+import com.mango.require.entity.common.CurrentUser;
+import com.mango.require.entity.common.PageResponse;
+import com.mango.require.entity.common.Result;
+import com.mango.require.entity.common.ResultGenerator;
 import com.mango.require.entity.pojo.RequireComment;
+import com.mango.require.enums.IsDelEnum;
+import com.mango.require.service.IRequireCommentService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.web.bind.annotation.*;
 import springfox.documentation.annotations.ApiIgnore;
 
 import javax.annotation.Resource;
@@ -69,7 +66,7 @@ public class CommentController {
      @ApiOperation(value = "需求评论新增", notes = "需求评论新增")
      @PreAuthorize("hasAuthority('comment:add')")
      @PostMapping
-     public Result add(RequireCommentAddCo requireCommentAddCo, @ApiIgnore CurrentUser currentUser) {
+     public Result add(@RequestBody RequireCommentAddCo requireCommentAddCo, @ApiIgnore CurrentUser currentUser) {
           requireCommentService.save(requireCommentAddCo, currentUser);
           return ResultGenerator.genSuccessResult();
      }
@@ -94,7 +91,7 @@ public class CommentController {
      @ApiOperation(value = "需求评论修改", notes = "需求评论修改")
      @PreAuthorize("hasAuthority('comment:update')")
      @PutMapping
-     public Result update(RequireCommentUpdateCo requireCommentUpdateCo, @ApiIgnore CurrentUser currentUser) {
+     public Result update(@RequestBody RequireCommentUpdateCo requireCommentUpdateCo, @ApiIgnore CurrentUser currentUser) {
           requireCommentService.update(requireCommentUpdateCo, currentUser);
           return ResultGenerator.genSuccessResult();
      }
