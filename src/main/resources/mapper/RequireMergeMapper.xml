@@ -29,10 +29,11 @@
             m.create_time as create_time,
             m.modify_user_id as modify_user_id,
             m.modify_time as modify_time,
-            r.require_title as require_title
+            r.require_title as require_title,
+            r.require_id as require_id
         from
             t_require_merge m
-        inner join t_require r on m.require_master_id =r.require_id
+        inner join t_require r on m.require_branch_id =r.require_id and r.is_del=0
         where
             m.require_master_id = #{requireId}
     </select>
@@ -44,10 +45,11 @@
             m.create_time as create_time,
             m.modify_user_id as modify_user_id,
             m.modify_time as modify_time,
-            r.require_title as require_title
+            r.require_title as require_title,
+            r.require_id as require_id
         from
             t_require_merge m
-        inner join t_require r on m.require_master_id =r.require_id
+        inner join t_require r on m.require_master_id =r.require_id and r.is_del=0
         where
             m.require_branch_id = #{requireId}
     </select>
