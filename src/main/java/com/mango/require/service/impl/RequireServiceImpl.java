@@ -16,7 +16,7 @@ import com.mango.require.entity.pojo.RequireFile;
 import com.mango.require.entity.pojo.RequireMerge;
 import com.mango.require.entity.pojo.RequireTag;
 import com.mango.require.entity.vo.RequireDetailVo;
-import com.mango.require.entity.vo.RequireVo;
+import com.mango.require.entity.vo.RequireListVo;
 import com.mango.require.enums.IsDelEnum;
 import com.mango.require.enums.PriorityEnum;
 import com.mango.require.enums.RequireStatusEnum;
@@ -96,6 +96,16 @@ public class RequireServiceImpl extends ServiceImpl<RequireMapper, Require> impl
                 for(String fileId : fileIds) {
                     requireFileMapper.insert(RequireFile.builder()
                             .fileId(Integer.valueOf(fileId))
+                            .requireId(require.getRequireId())
+                            .build());
+                }
+            }
+            if(StringUtils.isNotEmpty(requireUpdateCo.getTagIds())) {
+                requireTagMapper.deleteById(require.getRequireId());
+                String[] tagIds = requireUpdateCo.getTagIds().split(StringPool.COMMA);
+                for(String tagId : tagIds) {
+                    requireTagMapper.insert(RequireTag.builder()
+                            .tagId(Integer.valueOf(tagId))
                             .requireId(require.getRequireId())
                             .build());
                 }
@@ -182,16 +192,16 @@ public class RequireServiceImpl extends ServiceImpl<RequireMapper, Require> impl
 
     @Override
     public PageResponse adminList(RequireAdminListCo requireAdminListCo) {
-        Page<RequireVo> page = new Page<>(requireAdminListCo.getPageIndex(), requireAdminListCo.getPageSize());;
-        IPage<RequireVo> requirePage = baseMapper.selectAdminList(page, requireAdminListCo);
-        return PageResponse.<RequireVo>builder().list(requirePage.getRecords()).total(requirePage.getTotal()).build();
+        Page<RequireListVo> page = new Page<>(requireAdminListCo.getPageIndex(), requireAdminListCo.getPageSize());;
+        IPage<RequireListVo> requirePage = baseMapper.selectAdminList(page, requireAdminListCo);
+        return PageResponse.<RequireListVo>builder().list(requirePage.getRecords()).total(requirePage.getTotal()).build();
     }
 
     @Override
     public PageResponse list(RequireListCo requireListCo) {
-        Page<RequireVo> page = new Page<>(requireListCo.getPageIndex(), requireListCo.getPageSize());;
-        IPage<RequireVo> requirePage = baseMapper.selectList(page, requireListCo);
-        return PageResponse.<RequireVo>builder().list(requirePage.getRecords()).total(requirePage.getTotal()).build();
+        Page<RequireListVo> page = new Page<>(requireListCo.getPageIndex(), requireListCo.getPageSize());;
+        IPage<RequireListVo> requirePage = baseMapper.selectList(page, requireListCo);
+        return PageResponse.<RequireListVo>builder().list(requirePage.getRecords()).total(requirePage.getTotal()).build();
     }
 
     @Override

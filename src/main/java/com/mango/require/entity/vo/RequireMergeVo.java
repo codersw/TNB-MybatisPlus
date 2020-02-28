@@ -8,4 +8,9 @@ import lombok.EqualsAndHashCode;
 @Data
 public class RequireMergeVo extends RequireMerge {
 
+    private String requireTitle;
+
+    private String userName;
+
+    private String deptName;
 }

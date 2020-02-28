@@ -19,10 +19,8 @@
     </resultMap>
 
     <!--重组映射结果-->
-    <resultMap id="BaseResultMapVo" type="com.mango.require.entity.vo.RequireVo" extends="BaseResultMap">
-        <result column="tag_id" property="tagId"/>
-        <result column="tag_name" property="tagName"/>
-        <result column="tag_desc" property="tagDesc"/>
+    <resultMap id="BaseResultMapVo" type="com.mango.require.entity.vo.RequireListVo" extends="BaseResultMap">
+        <result column="tag_names" property="tagNames"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -32,33 +30,34 @@
 
     <select id="selectAdminList" resultMap="BaseResultMapVo">
         SELECT
-            r.require_id as require_id,
-            r.require_title as require_title,
-            r.content as content,
-            r.priority as priority,
-            r.urgent as urgent,
-            r.status as status,
-            r.create_user_id as create_user_id,
-            r.create_time as create_time,
-            r.modify_user_id  as modify_user_id,
-            r.modify_time as modify_time,
-            r.parent_id as parent_id,
-            r.is_del as is_del,
-            IFNULL(tag.tag_id,0) as tag_id,
-            IFNULL(tag.tag_name,"") as tag_name,
-            IFNULL(tag.tag_desc,"") as tag_desc
+        r.require_id as require_id,
+        r.require_title as require_title,
+        r.content as content,
+        r.priority as priority,
+        r.urgent as urgent,
+        r.status as status,
+        r.create_user_id as create_user_id,
+        r.create_time as create_time,
+        r.modify_user_id  as modify_user_id,
+        r.modify_time as modify_time,
+        r.parent_id as parent_id,
+        r.is_del as is_del,
+        IFNULL(tag.tag_names,"") as tag_names
         FROM
-            t_require r
+        t_require r
         LEFT JOIN
-        (SELECT any_value(tag_id) tag_id, require_id FROM t_require_tag
-            WHERE 1=1
-         <if test="requireAdminListCo.tagId !=null">
-            and tag_id = #{requireAdminListCo.tagId}
-         </if>
-         GROUP BY require_id) a ON a.require_id = r.require_id
-            AND r.is_del = 0
-        LEFT JOIN t_tag tag ON a.tag_id = tag.tag_id
-            AND tag.is_del =0
+        (SELECT
+            GROUP_CONCAT(t.tag_name) tag_names,
+            ANY_value(t.tag_id) tag_id,
+            rt.require_id require_id
+        FROM t_require_tag rt
+        INNER JOIN t_tag t ON rt.tag_id=t.tag_id
+        <if test="requireAdminListCo.tagId !=null">
+            and t.tag_id = #{requireAdminListCo.tagId}
+        </if>
+         GROUP BY rt.require_id) tag
+        ON tag.require_id = r.require_id
+        AND r.is_del = 0
         INNER JOIN t_user u ON u.user_id = r.create_user_id
         where 1 = 1
         <if test="requireAdminListCo.requireTitle !=null and requireAdminListCo.requireTitle != ''">
@@ -88,18 +87,20 @@
         r.modify_time as modify_time,
         r.parent_id as parent_id,
         r.is_del as is_del,
-        tag.tag_id as tag_id,
-        tag.tag_name as tag_name,
-        tag.tag_desc as tag_desc,
-        u.real_name as create_user_name
+        IFNULL(tag.tag_names,"") as tag_names
         FROM
         t_require r
-        LEFT JOIN ( SELECT any_value(tag_id) tag_id, require_id FROM t_require_tag  GROUP BY require_id ) a ON a.require_id = r.require_id
+        LEFT JOIN
+        (SELECT
+            GROUP_CONCAT(t.tag_name) tag_names,
+            ANY_value(t.tag_id) tag_id,
+            rt.require_id require_id
+        FROM t_require_tag rt
+        INNER JOIN t_tag t ON rt.tag_id=t.tag_id
+            GROUP BY rt.require_id) tag
+        ON tag.require_id = r.require_id
         AND r.is_del = 0
-        LEFT JOIN t_tag tag ON a.tag_id = tag.tag_id
-        AND tag.is_del =0
         INNER JOIN t_user u ON u.user_id = r.create_user_id
-        where 1 = 1
         <if test="requireListCo.priority !=null">
             and r.priority = #{requireListCo.priority}
         </if>

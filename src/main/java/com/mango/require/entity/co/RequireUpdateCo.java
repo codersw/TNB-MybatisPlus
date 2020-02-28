@@ -25,4 +25,16 @@ public class RequireUpdateCo {
 
     @ApiModelProperty(value = "文件ids", example = "1,2,3")
     private String fileIds;
+
+    @ApiModelProperty(value = "重要程度", example = "1")
+    private Integer priority;
+
+    @ApiModelProperty(value = "紧急程度", example = "1")
+    private Integer urgent;
+
+    @ApiModelProperty(value = "状态", example = "1")
+    private Integer status;
+
+    @ApiModelProperty(value = "标签ids", example = "1,2,3")
+    private String tagIds;
 }

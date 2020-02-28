@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mango.require.entity.co.RequireAdminListCo;
 import com.mango.require.entity.co.RequireListCo;
 import com.mango.require.entity.pojo.Require;
-import com.mango.require.entity.vo.RequireVo;
+import com.mango.require.entity.vo.RequireListVo;
 import org.apache.ibatis.annotations.Param;
 
 /**
@@ -19,7 +19,7 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface RequireMapper extends BaseMapper<Require> {
 
-    IPage<RequireVo> selectAdminList(Page<RequireVo> page, @Param("requireAdminListCo") RequireAdminListCo requireAdminListCo);
+    IPage<RequireListVo> selectAdminList(Page<RequireListVo> page, @Param("requireAdminListCo") RequireAdminListCo requireAdminListCo);
 
-    IPage<RequireVo> selectList(Page<RequireVo> page, @Param("requireListCo") RequireListCo requireListCo);
+    IPage<RequireListVo> selectList(Page<RequireListVo> page, @Param("requireListCo") RequireListCo requireListCo);
 }

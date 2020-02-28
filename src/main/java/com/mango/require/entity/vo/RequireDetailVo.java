@@ -29,6 +29,10 @@ public class RequireDetailVo extends Require {
 
     private List<UploadFile> files;
 
+    private String userName;
+
+    private String deptName;
+
     public String getPriorityName() {
         return PriorityEnum.getNameByValue(this.getPriority());
     }
