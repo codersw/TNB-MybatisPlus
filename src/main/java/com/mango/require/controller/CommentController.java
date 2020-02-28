@@ -1,18 +1,12 @@
 package com.mango.require.controller;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.mango.require.entity.co.RequireCommentAddCo;
 import com.mango.require.entity.co.RequireCommentListCo;
 import com.mango.require.entity.co.RequireCommentUpdateCo;
 import com.mango.require.entity.common.CurrentUser;
-import com.mango.require.entity.common.PageResponse;
 import com.mango.require.entity.common.Result;
 import com.mango.require.entity.common.ResultGenerator;
-import com.mango.require.entity.pojo.RequireComment;
-import com.mango.require.enums.IsDelEnum;
 import com.mango.require.service.IRequireCommentService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -49,12 +43,7 @@ public class CommentController {
      @PreAuthorize("hasAuthority('comment:view')")
      @GetMapping
      public Result list(RequireCommentListCo requireCommentListCo) {
-          QueryWrapper<RequireComment> queryWrapper = new QueryWrapper<>();
-          queryWrapper.lambda().eq(RequireComment::getRequireId, requireCommentListCo.getRequireId())
-                  .eq(RequireComment::getIsDel, IsDelEnum.FALSE.getValue());
-          Page<RequireComment> page = new Page<>(requireCommentListCo.getPageIndex(), requireCommentListCo.getPageSize());
-          IPage<RequireComment> requireCommentPage = requireCommentService.page(page, queryWrapper);
-          return ResultGenerator.genSuccessResult(PageResponse.<RequireComment>builder().list(requireCommentPage.getRecords()).total(requireCommentPage.getTotal()).build());
+          return ResultGenerator.genSuccessResult(requireCommentService.list(requireCommentListCo));
      }
 
      /**

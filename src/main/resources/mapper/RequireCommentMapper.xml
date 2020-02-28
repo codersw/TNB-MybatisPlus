@@ -25,22 +25,27 @@
 
     <select id="selectList" resultMap="BaseResultMapVo">
         SELECT
-          @rownum := @rownum +1 AS floor,
-          c.*
-        FROM (SELECT
-            comment.comment_id as comment_id,
-            comment.content as content,
-            comment.create_time as create_time,
-            comment.create_user_id as create_user_id,
-            comment.is_del as is_del,
-            comment.modify_time as modify_time,
-            comment.modify_user_id as modify_user_id,
-            comment.require_id as require_id
+            @rownum := @rownum + 1 AS floor,
+            c.*
         FROM
-            t_require_comment comment
-        INNER JOIN t_user u  ON u.user_id = content.create_user_id
-            WHERE comment.require_id =#{requireCommentListCo.requireId}
-            ORDER BY create_time) c
+            (SELECT @rownum := 0 ) r,
+            (SELECT
+                content.comment_id AS comment_id,
+                content.content AS content,
+                content.create_time AS create_time,
+                content.create_user_id AS create_user_id,
+                content.is_del AS is_del,
+                content.modify_time AS modify_time,
+                content.modify_user_id AS modify_user_id,
+                content.require_id AS require_id,
+                u.username AS create_user_name
+            FROM
+                t_require_comment content
+                INNER JOIN t_user u ON u.user_id = content.create_user_id
+                AND content.require_id =#{requireCommentListCo.requireId}
+            ORDER BY
+            create_time
+            ) c
     </select>
 
 </mapper>
