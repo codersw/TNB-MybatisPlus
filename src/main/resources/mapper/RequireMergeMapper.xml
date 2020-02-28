@@ -37,6 +37,7 @@
         where
             m.require_master_id = #{requireId}
     </select>
+
     <select id="selectMaster" resultMap="BaseResultMapVo">
          select
             m.require_master_id as require_master_id,
