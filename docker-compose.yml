@@ -21,4 +21,3 @@ services:
       "--default-time-zone=+8:00",
       "--lower-case-table-names=1"
     ]
-

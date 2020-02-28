@@ -15,15 +15,19 @@
     </resultMap>
 
     <resultMap id="BaseResultMapVo" type="com.mango.require.entity.vo.RequireCommentVo">
-        <result column="create_user_name" property="createUserName"/>
+        <result property="floor" column="floor"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         comment_id, content, create_user_id, create_time, modify_user_id, modify_time, require_id, is_del
     </sql>
-    <select id="selectList" resultType="com.mango.require.entity.vo.RequireCommentVo">
+
+    <select id="selectList" resultMap="BaseResultMapVo">
         SELECT
+          @rownum := @rownum +1 AS floor,
+          c.*
+        FROM (SELECT
             comment.comment_id as comment_id,
             comment.content as content,
             comment.create_time as create_time,
@@ -31,13 +35,12 @@
             comment.is_del as is_del,
             comment.modify_time as modify_time,
             comment.modify_user_id as modify_user_id,
-            comment.require_id as require_id,
-            u.username as create_user_name
+            comment.require_id as require_id
         FROM
             t_require_comment comment
         INNER JOIN t_user u  ON u.user_id = content.create_user_id
             WHERE comment.require_id =#{requireCommentListCo.requireId}
-            ORDER BY comment_id
+            ORDER BY create_time) c
     </select>
 
 </mapper>
