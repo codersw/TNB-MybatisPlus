@@ -101,11 +101,17 @@
         ON tag.require_id = r.require_id
         AND r.is_del = 0
         INNER JOIN t_user u ON u.user_id = r.create_user_id
-        <if test="requireListCo.priority !=null">
-            and r.priority = #{requireListCo.priority}
+        <if test="requireListCo.priority !=null and requireListCo.priority.length > 0">
+            and r.priority in
+            <foreach collection="requireListCo.priority" open="(" item="priority" separator="," close=")">
+                 #{priority}
+            </foreach>
         </if>
-        <if test="requireListCo.urgent !=null">
-            and r.urgent = #{requireListCo.urgent}
+        <if test="requireListCo.urgent !=null and requireListCo.urgent.length > 0">
+            and r.urgent in
+            <foreach collection="requireListCo.urgent" open="(" item="urgent" separator="," close=")">
+                #{urgent}
+            </foreach>
         </if>
         AND r.require_id NOT IN ( SELECT require_branch_id FROM t_require_merge)
         order by create_time desc

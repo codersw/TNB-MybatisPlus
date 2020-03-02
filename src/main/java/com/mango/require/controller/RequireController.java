@@ -66,6 +66,7 @@ public class RequireController {
       * @return Result
       */
      @ApiOperation(value = "需求信息列表", notes = "需求信息列表")
+     @PreAuthorize("hasAuthority('require:view')")
      @GetMapping("/list")
      public Result list(RequireListCo requireListCo) {
          return ResultGenerator.genSuccessResult(requireService.list(requireListCo));
@@ -76,6 +77,7 @@ public class RequireController {
       * @return Result
       */
      @ApiOperation(value = "需求信息字典", notes = "需求信息字典")
+     @PreAuthorize("hasAuthority('require:view')")
      @GetMapping("/base")
      public Result base() {
           Map<String, Object> result = new HashMap<>();

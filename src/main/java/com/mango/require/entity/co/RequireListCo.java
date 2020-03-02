@@ -12,8 +12,8 @@ import lombok.EqualsAndHashCode;
 public class RequireListCo extends PageRequest {
 
     @ApiModelProperty(value = "重要程度")
-    private Integer priority;
+    private Integer[] priority;
 
     @ApiModelProperty(value = "紧急程度")
-    private Integer urgent;
+    private Integer[] urgent;
 }
