@@ -69,6 +69,9 @@
         <if test="requireAdminListCo.tagId !=null">
             and tag.tag_id = #{requireAdminListCo.tagId}
         </if>
+        <if test="requireAdminListCo.userName !=null  and requireAdminListCo.userName != '' ">
+            and u.real_name LIKE CONCAT('%',#{requireAdminListCo.userName},'%')
+        </if>
         AND r.require_id NOT IN ( SELECT require_branch_id FROM t_require_merge )
         order by create_time desc
     </select>
