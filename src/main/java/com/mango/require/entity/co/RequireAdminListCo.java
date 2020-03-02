@@ -13,7 +13,7 @@ public class RequireAdminListCo extends PageRequest {
     @ApiModelProperty(value = "需求标题", example = "需求标题")
     private String requireTitle;
 
-    @ApiModelProperty(value = "提出人", example = "")
+    @ApiModelProperty(value = "提出人", example = "提出人")
     private String userName;
 
     @ApiModelProperty(value = "需求状态")
