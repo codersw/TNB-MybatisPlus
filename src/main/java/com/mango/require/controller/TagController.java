@@ -52,7 +52,7 @@ public class TagController {
      public Result list(TagListCo tagListCo) {
           QueryWrapper<Tag> queryWrapper = new QueryWrapper<>();
           if(StringUtils.isNotEmpty(tagListCo.getKeyword())) {
-              queryWrapper.lambda().like(Tag::getTagName, tagListCo.getKeyword()).like(Tag::getTagDesc, tagListCo.getKeyword());
+              queryWrapper.lambda().like(Tag::getTagName, tagListCo.getKeyword()).or().like(Tag::getTagDesc, tagListCo.getKeyword());
           }
           Page<Tag> page = new Page<>(tagListCo.getPageIndex(), tagListCo.getPageSize());
           IPage<Tag> tagPage = tagService.page(page, queryWrapper);
