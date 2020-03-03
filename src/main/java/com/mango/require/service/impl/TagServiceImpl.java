@@ -1,7 +1,6 @@
 package com.mango.require.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mango.require.entity.co.TagAddCo;
@@ -9,6 +8,7 @@ import com.mango.require.entity.co.TagUpdateCo;
 import com.mango.require.entity.common.CurrentUser;
 import com.mango.require.entity.pojo.Tag;
 import com.mango.require.enums.IsDelEnum;
+import com.mango.require.exception.RequireException;
 import com.mango.require.mapper.TagMapper;
 import com.mango.require.service.ITagService;
 import com.mango.require.utils.MapperUtils;
@@ -16,9 +16,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 /**
  * <p>
@@ -33,8 +31,7 @@ import java.util.List;
 public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagService {
 
     @Override
-    public String save(TagAddCo tagAddCo, CurrentUser currentUser) {
-        List<String> list = new ArrayList<>();
+    public void save(TagAddCo tagAddCo, CurrentUser currentUser) {
         if(StringUtils.isNotEmpty(tagAddCo.getTagNames())) {
             String[] tagNames = tagAddCo.getTagNames().split(StringPool.COMMA);
             for(String tagName : tagNames) {
@@ -51,11 +48,10 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
                             .tagDesc(tagAddCo.getTagDesc())
                             .build());
                 } else {
-                    list.add(tagName);
+                   throw new RequireException("标签名称" + tagName + "已被使用不可以重复添加");
                 }
             }
         }
-        return CollectionUtils.isNotEmpty(list) ? StringUtils.join(list, StringPool.COMMA) + "等标签名称已被使用不可以重复添加" : "";
     }
 
     @Override

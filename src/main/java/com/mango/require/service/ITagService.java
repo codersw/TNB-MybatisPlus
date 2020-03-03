@@ -16,7 +16,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface ITagService extends IService<Tag> {
 
-    String save(TagAddCo tagAddCo, CurrentUser currentUser);
+    void save(TagAddCo tagAddCo, CurrentUser currentUser);
 
     void update(TagUpdateCo tagUpdateCo, CurrentUser currentUser);
 }

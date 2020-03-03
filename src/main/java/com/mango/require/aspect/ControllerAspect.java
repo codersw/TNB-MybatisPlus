@@ -25,7 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 public class ControllerAspect {
 
     /** 以 controller 包下定义的所有请求为切入点 */
-    @Pointcut("execution(public * com.mango.require.controller.*.*(..))")
+    @Pointcut("execution(public * com.mango.require.controller.*.*(..)) || target(com.mango.require.handler.GlobalExceptionHandler)))")
     public void webLog() {}
 
     /**
