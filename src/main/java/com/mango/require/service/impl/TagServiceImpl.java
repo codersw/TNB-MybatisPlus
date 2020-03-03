@@ -1,6 +1,7 @@
 package com.mango.require.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.mango.require.entity.co.TagAddCo;
@@ -54,7 +55,7 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
                 }
             }
         }
-        return StringUtils.join(list, StringPool.COMMA) + "等标签名称已被使用不可以重复添加";
+        return CollectionUtils.isNotEmpty(list) ? StringUtils.join(list, StringPool.COMMA) + "等标签名称已被使用不可以重复添加" : "";
     }
 
     @Override
