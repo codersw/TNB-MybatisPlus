@@ -69,8 +69,7 @@ public class TagController {
      @PreAuthorize("hasAuthority('tag:add')")
      @PostMapping
      public Result add(@RequestBody TagAddCo tagAddCo, @ApiIgnore CurrentUser currentUser) {
-          tagService.save(tagAddCo, currentUser);
-          return ResultGenerator.genSuccessResult();
+           return ResultGenerator.genSuccessResult(tagService.save(tagAddCo, currentUser));
      }
 
      /**
