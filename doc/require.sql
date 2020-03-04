@@ -284,6 +284,7 @@ INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 18);
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 19);
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 20);
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 21);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 22);
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 25);
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 29);
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 30);
