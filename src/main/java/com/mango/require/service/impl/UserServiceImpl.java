@@ -1,12 +1,15 @@
 package com.mango.require.service.impl;
 
-import com.mango.require.mapper.UserRoleMapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.mango.require.entity.common.CurrentUser;
 import com.mango.require.entity.pojo.Role;
 import com.mango.require.entity.pojo.User;
 import com.mango.require.entity.pojo.UserRole;
+import com.mango.require.mapper.DeptMapper;
 import com.mango.require.mapper.UserMapper;
+import com.mango.require.mapper.UserRoleMapper;
 import com.mango.require.service.IUserService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.mango.require.utils.MapperUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,6 +31,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Resource
     private UserRoleMapper userRoleMapper;
+
+    @Resource
+    private DeptMapper deptMapper;
+
+    @Override
+    public CurrentUser findByUserId(Integer userId) {
+        User user = baseMapper.selectById(userId);
+        if(user != null) {
+            CurrentUser currentUser = MapperUtils.mapperBean(user, CurrentUser.class);
+            currentUser.setDeptName(deptMapper.selectById(currentUser.getDeptId()).getDeptName());
+            return currentUser;
+        }
+        return null;
+    }
 
     @Override
     public User findByUserName(String userName) {

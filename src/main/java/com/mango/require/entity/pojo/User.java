@@ -1,18 +1,18 @@
 package com.mango.require.entity.pojo;
 
-import com.baomidou.mybatisplus.annotation.TableName;
-import com.baomidou.mybatisplus.annotation.IdType;
-import java.util.Date;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableField;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableName;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import lombok.Data;
 import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+import java.io.Serializable;
+import java.util.Date;
 
 /**
  * <p>
@@ -33,7 +33,7 @@ public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @ApiModelProperty(value = "用户id")
-    @TableId(value = "user_id", type = IdType.AUTO)
+    @TableId(value = "user_id")
     private Integer userId;
 
     @ApiModelProperty(value = "登录名")
@@ -48,9 +48,9 @@ public class User implements Serializable {
     @TableField("mobile")
     private String mobile;
 
-    @ApiModelProperty(value = "真实姓名")
-    @TableField("real_name")
-    private String realName;
+    @ApiModelProperty(value = "用户头像")
+    @TableField("user_photo")
+    private String userPhoto;
 
     @ApiModelProperty(value = "性别 0 男 1 女")
     @TableField("sex")

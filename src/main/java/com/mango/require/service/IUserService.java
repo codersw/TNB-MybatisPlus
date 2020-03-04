@@ -1,8 +1,9 @@
 package com.mango.require.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
+import com.mango.require.entity.common.CurrentUser;
 import com.mango.require.entity.pojo.Role;
 import com.mango.require.entity.pojo.User;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
 
@@ -15,6 +16,8 @@ import java.util.List;
  * @since 2020-01-20
  */
 public interface IUserService extends IService<User> {
+
+    CurrentUser findByUserId(Integer userId);
 
     User findByUserName(String userName);
 
