@@ -37,8 +37,8 @@ public class User implements Serializable {
     private Integer userId;
 
     @ApiModelProperty(value = "登录名")
-    @TableField("username")
-    private String username;
+    @TableField("user_name")
+    private String userName;
 
     @ApiModelProperty(value = "用户密码")
     @TableField("password")

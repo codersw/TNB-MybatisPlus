@@ -213,7 +213,7 @@ public class RequireServiceImpl extends ServiceImpl<RequireMapper, Require> impl
         if(require == null) throw new RequireException("没有该需求信息");
         RequireDetailVo requireDetailVo = MapperUtils.mapperBean(require, RequireDetailVo.class);
         User createUser = userMapper.selectById(require.getCreateUserId());
-        requireDetailVo.setUserName(createUser.getUsername());
+        requireDetailVo.setUserName(createUser.getUserName());
         requireDetailVo.setDeptName(deptMapper.selectById(createUser.getDeptId()).getDeptName());
         requireDetailVo.setFiles(uploadFileMapper.selectByRequireId(requireId));
         requireDetailVo.setTags(tagMapper.selectByRequireId(requireId));

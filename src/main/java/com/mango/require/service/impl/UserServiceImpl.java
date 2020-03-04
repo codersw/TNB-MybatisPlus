@@ -62,7 +62,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             if(json.getInteger("flag").equals(100)) {
                 JSONObject userInfo = json.getJSONObject("result");
                 user = User.builder()
-                        .username(userInfo.getString("UserName"))
+                        .userName(userInfo.getString("UserName"))
                         .userPhoto(userInfo.getString("userphoto"))
                         .deptId(userInfo.getInteger("OrgId"))
                         .userId(userId)
