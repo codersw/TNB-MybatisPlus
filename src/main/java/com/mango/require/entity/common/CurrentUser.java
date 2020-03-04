@@ -15,7 +15,7 @@ public class CurrentUser {
 
     private Integer userId;
 
-    private String username;
+    private String userName;
 
     private String password;
 

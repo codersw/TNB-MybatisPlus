@@ -13,8 +13,8 @@ import java.util.Map;
 @Getter
 public enum SexEnum {
 
-    MALE(1,"男"),
-    FEMALE(0,"女");
+    MALE(0,"男"),
+    FEMALE(1,"女");
 
     private Integer value;
     private String name;
