@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : localhost
+ Source Server         : 192.168.4.162_3306
  Source Server Type    : MySQL
  Source Server Version : 50727
- Source Host           : localhost:3306
+ Source Host           : 192.168.4.162:3306
  Source Schema         : require
 
  Target Server Type    : MySQL
  Target Server Version : 50727
  File Encoding         : 65001
 
- Date: 26/02/2020 11:04:28
+ Date: 04/03/2020 10:41:16
 */
 
 SET NAMES utf8mb4;
@@ -22,7 +22,7 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `t_dept`;
 CREATE TABLE `t_dept`  (
-  `dept_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '部门id',
+  `dept_id` int(11) NOT NULL COMMENT '部门id',
   `dept_name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '部门名字',
   `parent_id` int(11) NOT NULL DEFAULT 0 COMMENT '父级id',
   `order_num` int(11) NOT NULL DEFAULT 0 COMMENT '排序',
@@ -30,7 +30,7 @@ CREATE TABLE `t_dept`  (
   `modify_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除 0未删除 1已删除',
   PRIMARY KEY (`dept_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '部门信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_menu
@@ -50,43 +50,7 @@ CREATE TABLE `t_menu`  (
   `modify_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除 0未删除 1已删除',
   PRIMARY KEY (`menu_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 34 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of t_menu
--- ----------------------------
-INSERT INTO `t_menu` VALUES (1, 0, '用户管理', '/system/user', '', 'user:view', '', 0, 1, '2020-01-20 10:31:05', '2020-01-20 10:31:05', 0);
-INSERT INTO `t_menu` VALUES (2, 0, '角色管理', '/system/role', '', 'role:view', '', 0, 2, '2020-01-20 10:31:06', '2020-01-20 10:31:06', 0);
-INSERT INTO `t_menu` VALUES (3, 0, '菜单管理', '/system/menu', '', 'menu:view', '', 0, 3, '2020-01-20 10:31:08', '2020-01-20 10:31:08', 0);
-INSERT INTO `t_menu` VALUES (4, 0, '部门管理', '/system/dept', '', 'dept:view', '', 0, 4, '2020-01-20 10:45:38', '2020-01-20 10:45:38', 0);
-INSERT INTO `t_menu` VALUES (5, 1, '新增用户', '', '', 'user:add', '', 1, 1, '2020-01-20 10:45:29', '2020-01-20 10:45:29', 0);
-INSERT INTO `t_menu` VALUES (6, 1, '修改用户', '', '', 'user:update', '', 1, 1, '2020-01-20 10:45:30', '2020-01-20 10:45:30', 0);
-INSERT INTO `t_menu` VALUES (7, 1, '删除用户', '', '', 'user:delete', '', 1, 1, '2020-01-20 10:45:33', '2020-01-20 10:45:33', 0);
-INSERT INTO `t_menu` VALUES (8, 2, '新增角色', '', '', 'role:add', '', 1, 1, '2020-01-20 10:45:33', '2020-01-20 10:45:33', 0);
-INSERT INTO `t_menu` VALUES (9, 2, '修改角色', '', '', 'role:update', '', 1, 1, '2020-01-20 10:45:33', '2020-01-20 10:45:33', 0);
-INSERT INTO `t_menu` VALUES (10, 2, '删除角色', '', '', 'role:delete', '', 1, 1, '2020-01-20 10:45:33', '2020-01-20 10:45:33', 0);
-INSERT INTO `t_menu` VALUES (11, 3, '新增菜单', '', '', 'menu:add', '', 1, 1, '2020-01-20 10:45:33', '2020-01-20 10:45:33', 0);
-INSERT INTO `t_menu` VALUES (12, 3, '修改菜单', '', '', 'menu:update', '', 1, 1, '2020-01-20 10:45:33', '2020-01-20 10:45:33', 0);
-INSERT INTO `t_menu` VALUES (13, 3, '删除菜单', '', '', 'menu:delete', '', 1, 1, '2020-01-20 10:45:33', '2020-01-20 10:45:33', 0);
-INSERT INTO `t_menu` VALUES (14, 4, '新增部门', '', '', 'dept:add', '', 1, 0, '2020-01-20 10:45:33', '2020-01-20 10:45:33', 0);
-INSERT INTO `t_menu` VALUES (15, 4, '修改部门', '', '', 'dept:update', '', 1, 0, '2020-01-20 10:45:33', '2020-01-20 10:45:33', 0);
-INSERT INTO `t_menu` VALUES (16, 4, '删除部门', '', '', 'dept:delete', '', 1, 0, '2020-01-20 10:45:33', '2020-01-20 10:45:33', 0);
-INSERT INTO `t_menu` VALUES (17, 0, '文件管理', '', '', 'upload:view', '', 0, 5, '2020-01-20 16:41:40', '2020-01-20 16:41:40', 0);
-INSERT INTO `t_menu` VALUES (18, 17, '新增文件', '', '', 'upload:add', '', 1, 1, '2020-01-22 17:05:19', '2020-01-22 17:05:19', 0);
-INSERT INTO `t_menu` VALUES (19, 17, '修改文件', '', '', 'upload:update', '', 1, 1, '2020-01-22 17:05:21', '2020-01-22 17:05:21', 0);
-INSERT INTO `t_menu` VALUES (20, 17, '删除文件', '', '', 'upload:delete', '', 1, 1, '2020-01-22 17:05:24', '2020-01-22 17:05:24', 0);
-INSERT INTO `t_menu` VALUES (21, 0, '需求管理', '', '', 'require:view', '', 0, 6, '2020-02-25 15:56:38', '2020-02-25 15:56:38', 0);
-INSERT INTO `t_menu` VALUES (22, 21, '新增需求', '', '', 'require:add', '', 1, 1, '2020-01-22 17:05:29', '2020-01-22 17:05:29', 0);
-INSERT INTO `t_menu` VALUES (23, 21, '修改需求', '', '', 'require:update', '', 1, 1, '2020-01-22 17:05:30', '2020-01-22 17:05:30', 0);
-INSERT INTO `t_menu` VALUES (24, 21, '删除需求', '', '', 'require:delete', '', 1, 1, '2020-01-22 17:05:32', '2020-01-22 17:05:32', 0);
-INSERT INTO `t_menu` VALUES (25, 0, '标签管理', '', '', 'tag:view', '', 0, 7, '2020-01-22 17:05:03', '2020-01-22 17:05:03', 0);
-INSERT INTO `t_menu` VALUES (26, 25, '新增标签', '', '', 'tag:add', '', 1, 1, '2020-01-22 17:05:57', '2020-01-22 17:05:57', 0);
-INSERT INTO `t_menu` VALUES (27, 25, '修改标签', '', '', 'tag:update', '', 1, 1, '2020-01-22 17:06:13', '2020-01-22 17:06:13', 0);
-INSERT INTO `t_menu` VALUES (28, 25, '删除标签', '', '', 'tag:delete', '', 1, 1, '2020-01-22 17:06:30', '2020-01-22 17:06:30', 0);
-INSERT INTO `t_menu` VALUES (29, 0, '评论管理', '', '', 'comment:view', '', 0, 8, '2020-01-22 17:07:11', '2020-01-22 17:07:11', 0);
-INSERT INTO `t_menu` VALUES (30, 29, '新增评论', '', '', 'comment:add', '', 1, 1, '2020-01-22 17:07:36', '2020-01-22 17:07:36', 0);
-INSERT INTO `t_menu` VALUES (31, 29, '修改评论', '', '', 'comment:update', '', 1, 1, '2020-01-22 17:07:57', '2020-01-22 17:07:57', 0);
-INSERT INTO `t_menu` VALUES (32, 29, '删除评论', '', '', 'comment:delete', '', 1, 1, '2020-01-22 17:08:12', '2020-01-22 17:08:12', 0);
+) ENGINE = InnoDB AUTO_INCREMENT = 33 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '菜单' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_require
@@ -106,14 +70,7 @@ CREATE TABLE `t_require`  (
   `parent_id` int(11) NOT NULL DEFAULT 0 COMMENT '父级id',
   `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除 0未删除 1以删除',
   PRIMARY KEY (`require_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '需求信息' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of t_require
--- ----------------------------
-INSERT INTO `t_require` VALUES (1, '测试测试测试测试测试', '测试测试测试测试测试测试测试测试测试', 0, 0, 0, 1, '2020-02-26 10:53:11', 1, '2020-02-26 10:53:11', 0, 0);
-INSERT INTO `t_require` VALUES (2, '需求标题', '需求内容', 0, 0, 0, 1, '2020-01-23 16:20:32', 1, '2020-01-23 16:20:32', 0, 0);
-INSERT INTO `t_require` VALUES (3, '需求标题', '需求内容', 0, 0, 0, 1, '2020-01-23 16:20:53', 1, '2020-01-23 16:20:53', 0, 0);
+) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '需求信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_require_comment
@@ -129,12 +86,7 @@ CREATE TABLE `t_require_comment`  (
   `require_id` int(11) NOT NULL COMMENT '需求id',
   `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除 0未删除 1以删除',
   PRIMARY KEY (`comment_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '需求评论' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of t_require_comment
--- ----------------------------
-INSERT INTO `t_require_comment` VALUES (1, '<html><body>hjahahaha</body></html>', 1, '2020-02-26 11:00:08', 1, '2020-02-26 11:00:08', 1, 0);
+) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '需求评论' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_require_file
@@ -145,14 +97,6 @@ CREATE TABLE `t_require_file`  (
   `file_id` int(11) NOT NULL COMMENT '文件id',
   PRIMARY KEY (`file_id`, `require_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '需求附件信息' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of t_require_file
--- ----------------------------
-INSERT INTO `t_require_file` VALUES (1, 1);
-INSERT INTO `t_require_file` VALUES (3, 1);
-INSERT INTO `t_require_file` VALUES (1, 2);
-INSERT INTO `t_require_file` VALUES (1, 3);
 
 -- ----------------------------
 -- Table structure for t_require_merge
@@ -169,12 +113,6 @@ CREATE TABLE `t_require_merge`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '需求合并' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of t_require_merge
--- ----------------------------
-INSERT INTO `t_require_merge` VALUES (1, 2, 1, '2020-02-26 10:43:56', 1, '2020-02-26 10:43:56');
-INSERT INTO `t_require_merge` VALUES (1, 3, 1, '2020-02-26 10:43:56', 1, '2020-02-26 10:43:56');
-
--- ----------------------------
 -- Table structure for t_require_tag
 -- ----------------------------
 DROP TABLE IF EXISTS `t_require_tag`;
@@ -183,12 +121,6 @@ CREATE TABLE `t_require_tag`  (
   `tag_id` int(11) NOT NULL COMMENT '标签id',
   PRIMARY KEY (`tag_id`, `require_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '需求标签信息' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of t_require_tag
--- ----------------------------
-INSERT INTO `t_require_tag` VALUES (1, 1);
-INSERT INTO `t_require_tag` VALUES (1, 2);
 
 -- ----------------------------
 -- Table structure for t_role
@@ -205,12 +137,6 @@ CREATE TABLE `t_role`  (
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
--- Records of t_role
--- ----------------------------
-INSERT INTO `t_role` VALUES (1, '管理员', '管理员', '2020-01-20 10:36:03', '2020-01-20 10:36:03', 0);
-INSERT INTO `t_role` VALUES (2, '普通用户', '普通用户', '2020-01-20 10:36:04', '2020-01-20 10:36:04', 0);
-
--- ----------------------------
 -- Table structure for t_role_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `t_role_menu`;
@@ -219,42 +145,6 @@ CREATE TABLE `t_role_menu`  (
   `menu_id` int(11) NOT NULL COMMENT '菜单id',
   PRIMARY KEY (`role_id`, `menu_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色菜单' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of t_role_menu
--- ----------------------------
-INSERT INTO `t_role_menu` VALUES (1, 1);
-INSERT INTO `t_role_menu` VALUES (1, 2);
-INSERT INTO `t_role_menu` VALUES (1, 3);
-INSERT INTO `t_role_menu` VALUES (1, 4);
-INSERT INTO `t_role_menu` VALUES (1, 5);
-INSERT INTO `t_role_menu` VALUES (1, 6);
-INSERT INTO `t_role_menu` VALUES (1, 7);
-INSERT INTO `t_role_menu` VALUES (1, 8);
-INSERT INTO `t_role_menu` VALUES (1, 9);
-INSERT INTO `t_role_menu` VALUES (1, 10);
-INSERT INTO `t_role_menu` VALUES (1, 11);
-INSERT INTO `t_role_menu` VALUES (1, 12);
-INSERT INTO `t_role_menu` VALUES (1, 13);
-INSERT INTO `t_role_menu` VALUES (1, 14);
-INSERT INTO `t_role_menu` VALUES (1, 15);
-INSERT INTO `t_role_menu` VALUES (1, 16);
-INSERT INTO `t_role_menu` VALUES (1, 17);
-INSERT INTO `t_role_menu` VALUES (1, 18);
-INSERT INTO `t_role_menu` VALUES (1, 19);
-INSERT INTO `t_role_menu` VALUES (1, 20);
-INSERT INTO `t_role_menu` VALUES (1, 21);
-INSERT INTO `t_role_menu` VALUES (1, 22);
-INSERT INTO `t_role_menu` VALUES (1, 23);
-INSERT INTO `t_role_menu` VALUES (1, 24);
-INSERT INTO `t_role_menu` VALUES (1, 25);
-INSERT INTO `t_role_menu` VALUES (1, 26);
-INSERT INTO `t_role_menu` VALUES (1, 27);
-INSERT INTO `t_role_menu` VALUES (1, 28);
-INSERT INTO `t_role_menu` VALUES (1, 29);
-INSERT INTO `t_role_menu` VALUES (1, 30);
-INSERT INTO `t_role_menu` VALUES (1, 31);
-INSERT INTO `t_role_menu` VALUES (1, 32);
 
 -- ----------------------------
 -- Table structure for t_tag
@@ -270,13 +160,7 @@ CREATE TABLE `t_tag`  (
   `modify_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除 0未删除 1 以删除',
   PRIMARY KEY (`tag_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '标签信息' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of t_tag
--- ----------------------------
-INSERT INTO `t_tag` VALUES (1, '标签名字', '标签描述', 1, '2020-02-25 16:44:09', 1, '2020-02-25 16:44:09', 0);
-INSERT INTO `t_tag` VALUES (2, '我好', '标签描述', 1, '2020-02-25 16:44:09', 1, '2020-02-25 16:44:09', 0);
+) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '标签信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_upload_file
@@ -294,27 +178,18 @@ CREATE TABLE `t_upload_file`  (
   `modify_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除 0未删除 1已删除',
   PRIMARY KEY (`file_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文件信息' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of t_upload_file
--- ----------------------------
-INSERT INTO `t_upload_file` VALUES (1, '.gif', '64f86820956b4b5a931dc89701bd9780.gif', 875566, '6e3e5b9bgy1g9dlo7vkr9g205006m1g7.gif', 1, '2020-02-26 10:15:32', 1, '2020-02-26 10:15:32', 0);
-INSERT INTO `t_upload_file` VALUES (2, '.jpg', '63c6998e5a9640ccbdb5b8a7c9ab6db4.jpg', 9487575, '10M之内图片.jpg', 1, '2020-02-26 10:15:30', 1, '2020-02-26 10:15:30', 0);
-INSERT INTO `t_upload_file` VALUES (3, '.gif', 'be75d909b59747288ecb9dc94ab2499f.gif', 1036241, '3801213fb80e7beca7da490d222eb9389a506bde.gif', 1, '2020-02-25 16:44:41', 1, '2020-02-25 16:44:41', 0);
-INSERT INTO `t_upload_file` VALUES (4, '.jpg', 'a1cee8a8427e47b68c09d27e1be69466.jpg', 9487575, '10M之内图片.jpg', 1, '2020-02-26 09:13:55', 1, '2020-02-26 09:13:55', 0);
-INSERT INTO `t_upload_file` VALUES (5, '.jpg', '75267b0bfefb4a3c810f6624eaed9bba.jpg', 9487575, '10M之内图片.jpg', 1, '2020-02-26 09:33:23', 1, '2020-02-26 09:33:23', 0);
+) ENGINE = InnoDB AUTO_INCREMENT = 47 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文件信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_user
 -- ----------------------------
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user`  (
-  `user_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '用户id',
-  `username` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '登录名',
+  `user_id` int(11) NOT NULL COMMENT '用户id',
+  `user_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '登录名',
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '用户密码',
   `mobile` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '手机号',
-  `real_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '真实姓名',
+  `user_photo` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '头像图片',
   `sex` tinyint(4) NOT NULL DEFAULT 0 COMMENT '性别 0 男 1 女',
   `dept_id` int(11) NOT NULL DEFAULT 0 COMMENT '部门id',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
@@ -322,13 +197,7 @@ CREATE TABLE `t_user`  (
   `status` tinyint(4) NOT NULL DEFAULT 0 COMMENT '状态 0有效 1锁定',
   `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除 0 未删除 1 已删除',
   PRIMARY KEY (`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户信息' ROW_FORMAT = Dynamic;
-
--- ----------------------------
--- Records of t_user
--- ----------------------------
-INSERT INTO `t_user` VALUES (1, 'shaowen', '', '', '邵文', 0, 0, '2020-01-23 15:48:13', '2020-01-23 15:48:13', 0, 0);
-INSERT INTO `t_user` VALUES (2, 'test', '', '', '测试用户', 0, 0, '2020-01-23 15:48:16', '2020-01-23 15:48:16', 0, 0);
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_user_role
@@ -340,10 +209,83 @@ CREATE TABLE `t_user_role`  (
   PRIMARY KEY (`user_id`, `role_id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户角色' ROW_FORMAT = Dynamic;
 
--- ----------------------------
--- Records of t_user_role
--- ----------------------------
-INSERT INTO `t_user_role` VALUES (1, 1);
-INSERT INTO `t_user_role` VALUES (2, 2);
-
 SET FOREIGN_KEY_CHECKS = 1;
+
+INSERT INTO `t_role`(`role_id`, `role_name`, `remark`, `create_time`, `modify_time`, `is_del`) VALUES (1, '管理员', '管理员', '2020-01-20 10:36:03', '2020-01-20 10:36:03', 0);
+INSERT INTO `t_role`(`role_id`, `role_name`, `remark`, `create_time`, `modify_time`, `is_del`) VALUES (2, '普通用户', '普通用户', '2020-01-20 10:36:04', '2020-01-20 10:36:04', 0);
+
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (1, 0, '用户管理', '/system/user', '', 'user:view', '', 0, 1, '2020-01-20 10:31:05', '2020-01-20 10:31:05', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (2, 0, '角色管理', '/system/role', '', 'role:view', '', 0, 2, '2020-01-20 10:31:06', '2020-01-20 10:31:06', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (3, 0, '菜单管理', '/system/menu', '', 'menu:view', '', 0, 3, '2020-01-20 10:31:08', '2020-01-20 10:31:08', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (4, 0, '部门管理', '/system/dept', '', 'dept:view', '', 0, 4, '2020-01-20 10:45:38', '2020-01-20 10:45:38', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (5, 1, '新增用户', '', '', 'user:add', '', 1, 1, '2020-01-20 10:45:29', '2020-01-20 10:45:29', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (6, 1, '修改用户', '', '', 'user:update', '', 1, 1, '2020-01-20 10:45:30', '2020-01-20 10:45:30', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (7, 1, '删除用户', '', '', 'user:delete', '', 1, 1, '2020-01-20 10:45:33', '2020-01-20 10:45:33', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (8, 2, '新增角色', '', '', 'role:add', '', 1, 1, '2020-01-20 10:45:33', '2020-01-20 10:45:33', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (9, 2, '修改角色', '', '', 'role:update', '', 1, 1, '2020-01-20 10:45:33', '2020-01-20 10:45:33', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (10, 2, '删除角色', '', '', 'role:delete', '', 1, 1, '2020-01-20 10:45:33', '2020-01-20 10:45:33', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (11, 3, '新增菜单', '', '', 'menu:add', '', 1, 1, '2020-01-20 10:45:33', '2020-01-20 10:45:33', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (12, 3, '修改菜单', '', '', 'menu:update', '', 1, 1, '2020-01-20 10:45:33', '2020-01-20 10:45:33', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (13, 3, '删除菜单', '', '', 'menu:delete', '', 1, 1, '2020-01-20 10:45:33', '2020-01-20 10:45:33', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (14, 4, '新增部门', '', '', 'dept:add', '', 1, 0, '2020-01-20 10:45:33', '2020-01-20 10:45:33', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (15, 4, '修改部门', '', '', 'dept:update', '', 1, 0, '2020-01-20 10:45:33', '2020-01-20 10:45:33', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (16, 4, '删除部门', '', '', 'dept:delete', '', 1, 0, '2020-01-20 10:45:33', '2020-01-20 10:45:33', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (17, 0, '文件管理', '', '', 'upload:view', '', 0, 5, '2020-01-20 16:41:40', '2020-01-20 16:41:40', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (18, 17, '新增文件', '', '', 'upload:add', '', 1, 1, '2020-01-22 17:05:19', '2020-01-22 17:05:19', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (19, 17, '修改文件', '', '', 'upload:update', '', 1, 1, '2020-01-22 17:05:21', '2020-01-22 17:05:21', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (20, 17, '删除文件', '', '', 'upload:delete', '', 1, 1, '2020-01-22 17:05:24', '2020-01-22 17:05:24', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (21, 0, '需求管理', '', '', 'require:view', '', 0, 6, '2020-02-25 15:56:38', '2020-02-25 15:56:38', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (22, 21, '新增需求', '', '', 'require:add', '', 1, 1, '2020-01-22 17:05:29', '2020-01-22 17:05:29', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (23, 21, '修改需求', '', '', 'require:update', '', 1, 1, '2020-01-22 17:05:30', '2020-01-22 17:05:30', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (24, 21, '删除需求', '', '', 'require:delete', '', 1, 1, '2020-01-22 17:05:32', '2020-01-22 17:05:32', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (25, 0, '标签管理', '', '', 'tag:view', '', 0, 7, '2020-01-22 17:05:03', '2020-01-22 17:05:03', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (26, 25, '新增标签', '', '', 'tag:add', '', 1, 1, '2020-01-22 17:05:57', '2020-01-22 17:05:57', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (27, 25, '修改标签', '', '', 'tag:update', '', 1, 1, '2020-01-22 17:06:13', '2020-01-22 17:06:13', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (28, 25, '删除标签', '', '', 'tag:delete', '', 1, 1, '2020-01-22 17:06:30', '2020-01-22 17:06:30', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (29, 0, '评论管理', '', '', 'comment:view', '', 0, 8, '2020-01-22 17:07:11', '2020-01-22 17:07:11', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (30, 29, '新增评论', '', '', 'comment:add', '', 1, 1, '2020-01-22 17:07:36', '2020-01-22 17:07:36', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (31, 29, '修改评论', '', '', 'comment:update', '', 1, 1, '2020-01-22 17:07:57', '2020-01-22 17:07:57', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (32, 29, '删除评论', '', '', 'comment:delete', '', 1, 1, '2020-01-22 17:08:12', '2020-01-22 17:08:12', 0);
+
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 1);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 2);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 3);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 4);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 5);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 6);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 7);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 8);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 9);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 10);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 11);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 12);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 13);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 14);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 15);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 16);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 17);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 18);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 19);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 20);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 21);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 22);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 23);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 24);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 25);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 26);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 27);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 28);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 29);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 30);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 31);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 32);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 17);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 18);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 19);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 20);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 21);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 25);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 29);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 30);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 31);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 32);
