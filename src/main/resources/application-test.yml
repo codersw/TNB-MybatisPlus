@@ -26,7 +26,7 @@ spring:
       max-file-size: 10MB
       max-request-size: 10MB
   jackson:
-    date-format: yyyy-MM-dd HH:mm:ss
+    date-format: yyyy-MM-dd
     time-zone: GMT+8
     locale: zh_CN
   resources:
@@ -38,7 +38,7 @@ spring:
 #文件存放路径
 web:
   upload-path: D:/upload/
-  anon-url: /actuator/**,/swagger-ui.html,/webjars/**,/swagger-resources/**,/v2/api-docs/**,/,/csrf
+  anon-url: /actuator/**,/swagger-ui.html,/webjars/**,/swagger-resources/**,/v2/api-docs/**,/,/csrf,/*.*
 #此配置开启mybatis sql打印
 logging:
   level:
@@ -49,10 +49,11 @@ logging:
 mybatis-plus:
   mapper-locations: classpath:/mapper/**.xml
 keycloak:
+  enabled: true
   auth-server-url: https://keycloaksso.517api.cn/auth/
   realm: test
-  ssl-required: external
   resource: mvc-api
-  principal-attribute: preferred_username
-  use-resource-role-mappings: true
+  public-client: true
+  ssl-required: external
+  disable-trust-manager: true
   bearer-only: true
