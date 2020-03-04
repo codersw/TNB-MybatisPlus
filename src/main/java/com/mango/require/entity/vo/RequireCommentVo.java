@@ -13,6 +13,8 @@ public class RequireCommentVo extends RequireComment {
 
     private String deptName;
 
+    private String userPhoto;
+
     private Integer floor;
 
     private String commentTime;
