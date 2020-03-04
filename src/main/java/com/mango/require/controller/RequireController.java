@@ -54,7 +54,7 @@ public class RequireController {
       * @return Result
       */
      @ApiOperation(value = "需求信息列表", notes = "需求信息列表")
-     @PreAuthorize("hasAuthority('require:view')")
+     @PreAuthorize("hasAuthority('require:admin:view')")
      @GetMapping("/admin/list")
      public Result adminList(RequireAdminListCo requireAdminListCo) {
           return ResultGenerator.genSuccessResult(requireService.adminList(requireAdminListCo));
