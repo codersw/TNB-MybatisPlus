@@ -16,6 +16,8 @@
 
     <resultMap id="BaseResultMapVo" type="com.mango.require.entity.vo.RequireCommentVo">
         <result property="floor" column="floor"/>
+        <result column="user_name" property="userName"/>
+        <result column="dept_name" property="deptName"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -38,10 +40,12 @@
                 content.modify_time AS modify_time,
                 content.modify_user_id AS modify_user_id,
                 content.require_id AS require_id,
-                u.username AS create_user_name
+                u.user_name AS user_name,
+                d.dept_name as dept_name
             FROM
                 t_require_comment content
                 INNER JOIN t_user u ON u.user_id = content.create_user_id
+                INNER JOIN t_dept d ON d.dept_id = u.dept_id
                 AND content.require_id =#{requireCommentListCo.requireId}
             ORDER BY
             create_time DESC

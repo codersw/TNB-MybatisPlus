@@ -14,6 +14,8 @@
 
     <resultMap id="BaseResultMapVo" type="com.mango.require.entity.vo.RequireMergeVo" extends="BaseResultMap">
         <result column="require_title" property="requireTitle"/>
+        <result column="user_name" property="userName"/>
+        <result column="dept_name" property="deptName"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -30,10 +32,14 @@
             m.modify_user_id as modify_user_id,
             m.modify_time as modify_time,
             r.require_title as require_title,
-            r.require_id as require_id
+            r.require_id as require_id,
+            u.user_name as user_name,
+            d.dept_name as dept_name
         from
             t_require_merge m
         inner join t_require r on m.require_branch_id =r.require_id and r.is_del=0
+        INNER JOIN t_user u ON u.user_id = m.create_user_id
+        INNER JOIN t_dept d ON d.dept_id = u.dept_id
         where
             m.require_master_id = #{requireId}
     </select>
@@ -47,10 +53,14 @@
             m.modify_user_id as modify_user_id,
             m.modify_time as modify_time,
             r.require_title as require_title,
-            r.require_id as require_id
+            r.require_id as require_id,
+             u.user_name as user_name,
+            d.dept_name as dept_name
         from
             t_require_merge m
         inner join t_require r on m.require_master_id =r.require_id and r.is_del=0
+        INNER JOIN t_user u ON u.user_id = m.create_user_id
+        INNER JOIN t_dept d ON d.dept_id = u.dept_id
         where
             m.require_branch_id = #{requireId}
     </select>

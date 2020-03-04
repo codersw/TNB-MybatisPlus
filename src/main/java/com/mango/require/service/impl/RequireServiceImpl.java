@@ -11,10 +11,7 @@ import com.mango.require.entity.co.RequireListCo;
 import com.mango.require.entity.co.RequireUpdateCo;
 import com.mango.require.entity.common.CurrentUser;
 import com.mango.require.entity.common.PageResponse;
-import com.mango.require.entity.pojo.Require;
-import com.mango.require.entity.pojo.RequireFile;
-import com.mango.require.entity.pojo.RequireMerge;
-import com.mango.require.entity.pojo.RequireTag;
+import com.mango.require.entity.pojo.*;
 import com.mango.require.entity.vo.RequireDetailVo;
 import com.mango.require.entity.vo.RequireListVo;
 import com.mango.require.enums.IsDelEnum;
@@ -59,6 +56,12 @@ public class RequireServiceImpl extends ServiceImpl<RequireMapper, Require> impl
 
     @Resource
     private TagMapper tagMapper;
+
+    @Resource
+    private UserMapper userMapper;
+
+    @Resource
+    private DeptMapper deptMapper;
 
     @Override
     public void save(RequireAddCo requireAddCo, CurrentUser currentUser) {
@@ -209,6 +212,9 @@ public class RequireServiceImpl extends ServiceImpl<RequireMapper, Require> impl
         Require require = baseMapper.selectById(requireId);
         if(require == null) throw new RequireException("没有该需求信息");
         RequireDetailVo requireDetailVo = MapperUtils.mapperBean(require, RequireDetailVo.class);
+        User createUser = userMapper.selectById(require.getCreateUserId());
+        requireDetailVo.setUserName(createUser.getUsername());
+        requireDetailVo.setDeptName(deptMapper.selectById(createUser.getDeptId()).getDeptName());
         requireDetailVo.setFiles(uploadFileMapper.selectByRequireId(requireId));
         requireDetailVo.setTags(tagMapper.selectByRequireId(requireId));
         requireDetailVo.setBranchs(requireMergeMapper.selectBranchs(requireId));

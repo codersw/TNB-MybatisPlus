@@ -21,6 +21,8 @@
     <!--重组映射结果-->
     <resultMap id="BaseResultMapVo" type="com.mango.require.entity.vo.RequireListVo" extends="BaseResultMap">
         <result column="tag_names" property="tagNames"/>
+        <result column="user_name" property="userName"/>
+        <result column="dept_name" property="deptName"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
@@ -30,19 +32,21 @@
 
     <select id="selectAdminList" resultMap="BaseResultMapVo">
         SELECT
-        r.require_id as require_id,
-        r.require_title as require_title,
-        r.content as content,
-        r.priority as priority,
-        r.urgent as urgent,
-        r.status as status,
-        r.create_user_id as create_user_id,
-        r.create_time as create_time,
-        r.modify_user_id  as modify_user_id,
-        r.modify_time as modify_time,
-        r.parent_id as parent_id,
-        r.is_del as is_del,
-        IFNULL(tag.tag_names,"") as tag_names
+            r.require_id as require_id,
+            r.require_title as require_title,
+            r.content as content,
+            r.priority as priority,
+            r.urgent as urgent,
+            r.status as status,
+            r.create_user_id as create_user_id,
+            r.create_time as create_time,
+            r.modify_user_id  as modify_user_id,
+            r.modify_time as modify_time,
+            r.parent_id as parent_id,
+            r.is_del as is_del,
+            u.user_name as user_name,
+            d.dept_name as dept_name,
+            IFNULL(tag.tag_names,"") as tag_names
         FROM
         t_require r
         LEFT JOIN
@@ -59,6 +63,7 @@
         ON tag.require_id = r.require_id
         AND r.is_del = 0
         INNER JOIN t_user u ON u.user_id = r.create_user_id
+        INNER JOIN t_dept d ON d.dept_id = u.dept_id
         where 1 = 1
         <if test="requireAdminListCo.requireTitle !=null and requireAdminListCo.requireTitle != ''">
             and r.require_title LIKE CONCAT('%',#{requireAdminListCo.requireTitle},'%')
@@ -70,7 +75,7 @@
             and tag.tag_id = #{requireAdminListCo.tagId}
         </if>
         <if test="requireAdminListCo.userName !=null  and requireAdminListCo.userName != '' ">
-            and u.real_name LIKE CONCAT('%',#{requireAdminListCo.userName},'%')
+            and u.user_name LIKE CONCAT('%',#{requireAdminListCo.userName},'%')
         </if>
         AND r.require_id NOT IN ( SELECT require_branch_id FROM t_require_merge )
         order by create_time desc
@@ -78,19 +83,21 @@
 
     <select id="selectList" resultMap="BaseResultMapVo">
         SELECT
-        r.require_id as require_id,
-        r.require_title as require_title,
-        r.content as content,
-        r.priority as priority,
-        r.urgent as urgent,
-        r.status as status,
-        r.create_user_id as create_user_id,
-        r.create_time as create_time,
-        r.modify_user_id  as modify_user_id,
-        r.modify_time as modify_time,
-        r.parent_id as parent_id,
-        r.is_del as is_del,
-        IFNULL(tag.tag_names,"") as tag_names
+            r.require_id as require_id,
+            r.require_title as require_title,
+            r.content as content,
+            r.priority as priority,
+            r.urgent as urgent,
+            r.status as status,
+            r.create_user_id as create_user_id,
+            r.create_time as create_time,
+            r.modify_user_id  as modify_user_id,
+            r.modify_time as modify_time,
+            r.parent_id as parent_id,
+            r.is_del as is_del,
+            u.user_name as user_name,
+            d.dept_name as dept_name,
+            IFNULL(tag.tag_names,"") as tag_names
         FROM
         t_require r
         LEFT JOIN
@@ -104,6 +111,7 @@
         ON tag.require_id = r.require_id
         AND r.is_del = 0
         INNER JOIN t_user u ON u.user_id = r.create_user_id
+        INNER JOIN t_dept d ON d.dept_id = u.dept_id
         <if test="requireListCo.priority !=null and requireListCo.priority.length > 0">
             and r.priority in
             <foreach collection="requireListCo.priority" open="(" item="priority" separator="," close=")">

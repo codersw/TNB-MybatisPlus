@@ -5,7 +5,7 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.mango.require.entity.pojo.User">
         <id column="user_id" property="userId" />
-        <result column="username" property="username" />
+        <result column="user_name" property="username" />
         <result column="password" property="password" />
         <result column="mobile" property="mobile" />
         <result column="sex" property="sex" />
@@ -18,7 +18,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        user_id, username, password, mobile, sex, user_photo,create_time, modify_time, status, is_del
+        user_id, user_name, password, mobile, sex, user_photo,create_time, modify_time, status, is_del
     </sql>
 
     <select id="findByUserName" resultMap="BaseResultMap">
@@ -28,7 +28,7 @@
             t_user
         WHERE
             is_del = 0
-        AND username= #{username}
+        AND user_name= #{userName}
     </select>
 
 </mapper>
