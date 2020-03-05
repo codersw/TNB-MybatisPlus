@@ -56,9 +56,16 @@ public class TagServiceImpl extends ServiceImpl<TagMapper, Tag> implements ITagS
 
     @Override
     public void update(TagUpdateCo tagUpdateCo, CurrentUser currentUser) {
-        Tag tag = MapperUtils.mapperBean(tagUpdateCo, Tag.class);
-        tag.setModifyTime(new Date());
-        tag.setModifyUserId(currentUser.getUserId());
-        baseMapper.updateById(tag);
+        QueryWrapper<Tag> queryWrapper = new QueryWrapper<>();
+        queryWrapper.lambda().eq(Tag::getTagName, tagUpdateCo.getTagName())
+                .ne(Tag::getTagId, tagUpdateCo.getTagId());
+        if(baseMapper.selectCount(queryWrapper).equals(0)) {
+            Tag tag = MapperUtils.mapperBean(tagUpdateCo, Tag.class);
+            tag.setModifyTime(new Date());
+            tag.setModifyUserId(currentUser.getUserId());
+            baseMapper.updateById(tag);
+        } else {
+            throw new RequireException("标签名称" + tagUpdateCo.getTagName() + "已被使用不可以重复添加");
+        }
     }
 }
