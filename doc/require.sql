@@ -246,6 +246,9 @@ INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `
 INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (30, 29, '新增评论', '', '', 'comment:add', '', 1, 1, '2020-01-22 17:07:36', '2020-01-22 17:07:36', 0);
 INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (31, 29, '修改评论', '', '', 'comment:update', '', 1, 1, '2020-01-22 17:07:57', '2020-01-22 17:07:57', 0);
 INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (32, 29, '删除评论', '', '', 'comment:delete', '', 1, 1, '2020-01-22 17:08:12', '2020-01-22 17:08:12', 0);
+INSERT INTO `t_menu`(`menu_id`, `parent_id`, `menu_name`, `path`, `component`, `perms`, `icon`, `type`, `order_num`, `create_time`, `modify_time`, `is_del`) VALUES (33, 0, '需求看板', '', '', 'require:view', '', 0, 0, '2020-03-04 13:34:47', '2020-03-04 13:34:47', 0);
+
+
 
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 1);
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 2);
@@ -279,14 +282,15 @@ INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 29);
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 30);
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 31);
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 32);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (1, 33);
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 17);
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 18);
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 19);
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 20);
-INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 21);
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 22);
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 25);
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 29);
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 30);
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 31);
 INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 32);
+INSERT INTO `t_role_menu`(`role_id`, `menu_id`) VALUES (2, 33);
