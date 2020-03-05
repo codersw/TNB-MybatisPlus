@@ -61,7 +61,6 @@
         </if>
          GROUP BY rt.require_id) tag
         ON tag.require_id = r.require_id
-        AND r.is_del = 0
         INNER JOIN t_user u ON u.user_id = r.create_user_id
         INNER JOIN t_dept d ON d.dept_id = u.dept_id
         where 1 = 1
@@ -78,6 +77,7 @@
             and u.user_name LIKE CONCAT('%',#{requireAdminListCo.userName},'%')
         </if>
         AND r.require_id NOT IN ( SELECT require_branch_id FROM t_require_merge )
+        AND r.is_del = 0
         order by create_time desc
     </select>
 
@@ -109,7 +109,6 @@
         INNER JOIN t_tag t ON rt.tag_id=t.tag_id
             GROUP BY rt.require_id) tag
         ON tag.require_id = r.require_id
-        AND r.is_del = 0
         INNER JOIN t_user u ON u.user_id = r.create_user_id
         INNER JOIN t_dept d ON d.dept_id = u.dept_id
         <if test="requireListCo.priority !=null and requireListCo.priority.length > 0">
@@ -125,7 +124,8 @@
             </foreach>
         </if>
         AND r.require_id NOT IN ( SELECT require_branch_id FROM t_require_merge)
-        order by create_time desc
+        AND r.is_del = 0
+        order by urgent DESC,priority DESC,create_time desc
     </select>
 
 </mapper>
