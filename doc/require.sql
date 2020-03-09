@@ -70,7 +70,7 @@ CREATE TABLE `t_require`  (
   `parent_id` int(11) NOT NULL DEFAULT 0 COMMENT '父级id',
   `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除 0未删除 1以删除',
   PRIMARY KEY (`require_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 19 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '需求信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '需求信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_require_comment
@@ -86,7 +86,7 @@ CREATE TABLE `t_require_comment`  (
   `require_id` int(11) NOT NULL COMMENT '需求id',
   `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除 0未删除 1以删除',
   PRIMARY KEY (`comment_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 25 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '需求评论' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '需求评论' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_require_file
@@ -127,14 +127,14 @@ CREATE TABLE `t_require_tag`  (
 -- ----------------------------
 DROP TABLE IF EXISTS `t_role`;
 CREATE TABLE `t_role`  (
-  `role_id` int(11) NOT NULL COMMENT '角色ID',
+  `role_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '角色ID',
   `role_name` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '角色名称',
   `remark` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '角色描述',
   `create_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '创建时间',
   `modify_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `is_del` tinyint(4) NOT NULL COMMENT '是否删除 0 未删除 1 已删除',
   PRIMARY KEY (`role_id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_role_menu
@@ -160,7 +160,7 @@ CREATE TABLE `t_tag`  (
   `modify_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除 0未删除 1 以删除',
   PRIMARY KEY (`tag_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 27 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '标签信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '标签信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_upload_file
@@ -178,7 +178,7 @@ CREATE TABLE `t_upload_file`  (
   `modify_time` datetime(0) NOT NULL DEFAULT CURRENT_TIMESTAMP(0) ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '修改时间',
   `is_del` tinyint(4) NOT NULL DEFAULT 0 COMMENT '是否删除 0未删除 1已删除',
   PRIMARY KEY (`file_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 47 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文件信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '文件信息' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Table structure for t_user
