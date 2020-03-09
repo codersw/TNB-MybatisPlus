@@ -21,3 +21,12 @@ services:
       "--default-time-zone=+8:00",
       "--lower-case-table-names=1"
     ]
+  demand_pool:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+        args:
+          JAR_FILE: /target/demand_pool.jar
+    ports:
+      - "8080:8080"
+    restart: always

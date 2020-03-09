@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mango.require.mapper.RequireMergeMapper">
+<mapper namespace="com.mango.demand.pool.mapper.RequireMergeMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.mango.require.entity.pojo.RequireMerge">
+    <resultMap id="BaseResultMap" type="com.mango.demand.pool.entity.pojo.RequireMerge">
         <id column="require_master_id" property="requireMasterId" />
         <result column="require_branch_id" property="requireBranchId" />
         <result column="create_user_id" property="createUserId" />
@@ -12,7 +12,7 @@
         <result column="modify_time" property="modifyTime" />
     </resultMap>
 
-    <resultMap id="BaseResultMapVo" type="com.mango.require.entity.vo.RequireMergeVo" extends="BaseResultMap">
+    <resultMap id="BaseResultMapVo" type="com.mango.demand.pool.entity.vo.RequireMergeVo" extends="BaseResultMap">
         <result column="require_title" property="requireTitle"/>
         <result column="user_name" property="userName"/>
         <result column="dept_name" property="deptName"/>

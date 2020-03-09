@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.mango.require.mapper.RequireMapper">
+<mapper namespace="com.mango.demand.pool.mapper.RequireMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.mango.require.entity.pojo.Require">
+    <resultMap id="BaseResultMap" type="com.mango.demand.pool.entity.pojo.Require">
         <id column="require_id" property="requireId" />
         <result column="require_title" property="requireTitle" />
         <result column="content" property="content" />
@@ -19,7 +19,7 @@
     </resultMap>
 
     <!--重组映射结果-->
-    <resultMap id="BaseResultMapVo" type="com.mango.require.entity.vo.RequireListVo" extends="BaseResultMap">
+    <resultMap id="BaseResultMapVo" type="com.mango.demand.pool.entity.vo.RequireListVo" extends="BaseResultMap">
         <result column="tag_names" property="tagNames"/>
         <result column="user_name" property="userName"/>
         <result column="dept_name" property="deptName"/>

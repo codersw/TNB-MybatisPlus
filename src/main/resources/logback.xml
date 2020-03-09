@@ -23,10 +23,10 @@
     <!-- 按照每天生成日志文件 -->
     <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
         <!-- 当前的日志文件存放路径 -->
-        <file>${LOG_HOME}/logs/require.log</file>
+        <file>${LOG_HOME}/logs/demand_pool.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <!--日志文件输出的文件名-->
-            <fileNamePattern>${LOG_HOME}/logs/require.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
+            <fileNamePattern>${LOG_HOME}/logs/demand_pool.%d{yyyy-MM-dd}.%i.log.gz</fileNamePattern>
             <!-- 保留天数 -->
             <MaxHistory>${LOG_DAY}</MaxHistory>
             <!--日志文件最大的大小-->

@@ -12,7 +12,7 @@ spring:
     ansi:
       enabled: always
   application:
-    name: require
+    name: demand_pool
 #开启actuator
 management:
   endpoints:

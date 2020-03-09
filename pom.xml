@@ -9,7 +9,7 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.mango</groupId>
-    <artifactId>require</artifactId>
+    <artifactId>demand.pool</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>require</name>
     <description>Require project for Spring Boot</description>
@@ -159,6 +159,7 @@
     </dependencyManagement>
 
     <build>
+        <finalName>demand_pool</finalName>
         <plugins>
             <!--maven打包插件-->
             <plugin>
