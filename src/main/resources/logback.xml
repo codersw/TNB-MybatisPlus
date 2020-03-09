@@ -42,12 +42,14 @@
     <!-- 日志级别 trace<debug<info<warn<error若定义的日志级别为info，则不会打印出 trace和debug的相关日志。 -->
     <root level="${LOG_LEVEL}">
         <appender-ref ref="STDOUT" />
-        <!--<appender-ref ref="FILE" />-->
+        <appender-ref ref="FILE" />
     </root>
     <logger name="com.baomidou.mybatisplus.generator" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
     </logger>
     <logger name="org.keycloak.adapters.springsecurity" level="DEBUG" additivity="false">
         <appender-ref ref="STDOUT" />
+        <appender-ref ref="FILE" />
     </logger>
 </configuration>
