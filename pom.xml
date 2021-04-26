@@ -22,7 +22,7 @@
         <fastjson.version>1.2.30</fastjson.version>
         <commons-collections.version>4.4</commons-collections.version>
         <commons-lang.version>3.9</commons-lang.version>
-        <commons.io.version>2.5</commons.io.version>
+        <commons.io.version>2.7</commons.io.version>
         <orika.version>1.5.4</orika.version>
         <keycloak.version>8.0.1</keycloak.version>
     </properties>
