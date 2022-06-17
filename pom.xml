@@ -19,7 +19,7 @@
         <mybaits.version>2.1.1</mybaits.version>
         <mybaitsplus.version>3.3.0</mybaitsplus.version>
         <swagger.version>2.9.2</swagger.version>
-        <fastjson.version>1.2.30</fastjson.version>
+        <fastjson.version>1.2.83</fastjson.version>
         <commons-collections.version>4.4</commons-collections.version>
         <commons-lang.version>3.9</commons-lang.version>
         <commons.io.version>2.5</commons.io.version>
